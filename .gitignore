@@ -1,0 +1,12 @@
+# Model and embeddings
+backend/app/pytorch
+backend/app/pytorch/
+
+frontend/node_modules
+
+# Icons
+frontend/src/icons
+frontend/src/maps
+frontend/src/symbols
+
+frontend/App-Save.jsx
