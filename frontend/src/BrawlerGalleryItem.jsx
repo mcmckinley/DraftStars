@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import icons from './iconLoader';
 
-const GalleryItem = ({brawler, selectedBoxID, setSelectedBoxID, entries, setEntries}) => {
+const GalleryItem = ({brawler, selectedBoxID, setSelectedBoxID, entries, setEntries, getIDofNextEmptyEntryBox}) => {
 
   const updateEntryBox = (newIndex) => {
     const newEntries = [...entries]
@@ -14,7 +14,7 @@ const GalleryItem = ({brawler, selectedBoxID, setSelectedBoxID, entries, setEntr
   const handleSelection = () => {
     if (selectedBoxID != null) {
       updateEntryBox(brawler.id)  
-      setSelectedBoxID(null)
+      setSelectedBoxID(getIDofNextEmptyEntryBox())
     }
   }
 

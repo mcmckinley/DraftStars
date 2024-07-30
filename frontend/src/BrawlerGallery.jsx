@@ -32,21 +32,53 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
     setEntries(newEntries)
   }
 
+  // returns the ID of the next empty entry box. If none found, return false.
+  const getIDofNextEmptyEntryBox = () => {
+    var index = selectedBoxID
+    var end = selectedBoxID == 0 ? 5 : selectedBoxID - 1 
+    while (index != end) {
+      index++
+      if (index > 5) 
+        index = 0
+      if (entries[index] == '') {
+        console.log('next empty box:', index)
+        return index
+      } 
+    }
+    console.log('No empty boxes found. Index:', index)
+    return false
+  }
+
   // automatically select one brawler when the list is reduced to one elemnt
   const autoSelectBrawler = () => {
     if (selectedBoxID != null) {
       updateEntryBox(filteredBrawlers[0].id)
-      setSelectedBoxID(null)        // unselect the entry box
-      setIsFocused(false)           // unselect the text input
+      // setSelectedBoxID(null)        // unselect the entry box
+
+      // Automatically select the next empty box, so the user doesn't have to manually click each one.
+      const nextEmptyBox = getIDofNextEmptyEntryBox()
+      if (nextEmptyBox !== false){
+        setSelectedBoxID(nextEmptyBox)
+      } else {
+        setSelectedBoxID(null)
+      }
+
+      // setIsFocused(false)           // unselect the text input
       setQuery('')                  // clear the text input
       setFilteredBrawlers(brawlers) // reset the brawlers array
-      if (inputRef.current) {
-        inputRef.current.blur(); // Deselect the text box
+      // if (inputRef.current) {
+      //   inputRef.current.blur(); // Deselect the text box
+      // }
+
+      if (isFocused) {
+        console.log('in focus.')
+      } else {
+        console.log('out of focus.')
       }
     }
   }
 
-  // Automatically select when the search results yield a single map
+  // Automatically select when the search results yield a single brawler
   useEffect(() => {
     if (filteredBrawlers.length === 1) {
       autoSelectBrawler();
@@ -59,7 +91,7 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
       <input
         type="text"
         className="search-bar"
-        placeholder="Search brawlers"
+        placeholder="Enter brawler name..."
         value={query}
         onChange={handleSearch}
         onFocus={() => setIsFocused(true)}
@@ -75,6 +107,7 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
             setSelectedBoxID={setSelectedBoxID}
             entries={entries}
             setEntries={setEntries}
+            getIDofNextEmptyEntryBox={getIDofNextEmptyEntryBox}
           />
         ))}
       </div>

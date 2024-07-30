@@ -16,18 +16,17 @@ import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 const App = () => {
   // The values for each entry box
-  const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
-  // const [entries, setEntries] = useState(['', '', '', '', '', ''])
+  // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
+  const [entries, setEntries] = useState(['', '', '', '', '', ''])
 
-  const [selectedBoxID, setSelectedBoxID] = useState(null)
+  const [selectedBoxID, setSelectedBoxID] = useState(0)
 
   const [map, setMap] = useState(0)
 
   const [result, setResult] = useState(0.5)
 
   const [isShowingMapSection, setMapSectionVisibility] = useState(true)
-  const [isShowingBrawlerSection, setBrawlerSectionVisibility] = useState(true)
-
+  const [isShowingBrawlerSection, setBrawlerSectionVisibility] = useState(false)
 
   const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone']
   const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
@@ -68,7 +67,11 @@ const App = () => {
       <div className="section">
         <div className="section-upper-part">
           <div className="section-upper-part-left"> {/* this just works? */}
-            <button className="toggle-section-visibility-button" onClick={() => setMapSectionVisibility(!isShowingMapSection)}>
+            <button className="toggle-section-visibility-button" 
+              onClick={() => {
+                setMapSectionVisibility(!isShowingMapSection); 
+                setBrawlerSectionVisibility(false)
+              }}>
               {isShowingMapSection ? (
                 <FaChevronDown color="white"/>
               ) : (
@@ -94,7 +97,11 @@ const App = () => {
       <div className="section">
         <div className="section-upper-part">
           <div className="section-upper-part-left">
-            <button className="toggle-section-visibility-button" onClick={() => setBrawlerSectionVisibility(!isShowingBrawlerSection)}>
+            <button className="toggle-section-visibility-button" 
+              onClick={() => {
+                setBrawlerSectionVisibility(!isShowingBrawlerSection);
+                setMapSectionVisibility(false);
+              }}>
               {isShowingBrawlerSection ? (
                 <FaChevronDown color="white"/>
               ) : (
