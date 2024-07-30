@@ -1,3 +1,30 @@
+body {
+    font-family: Lexend;
+    color: white;
+    height: 100vh;
+    background-color: #222;
+}
+
+.lexend {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Make inputs / buttons inherit the font */
+input, button {
+    font-family: inherit;
+}
+
+/* Makes text elements unselectable */
+.unselectable {
+    user-select: none; /* Standard */
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+}
+
 .main {
     display: flex;
     flex-direction: column;
@@ -5,77 +32,102 @@
     justify-content: center;
 }
 
+input:focus {
+    border-color: white; /* Change to your desired color */
+    outline: none; /* Optional: Remove the default outline */
+}
+  
+
+
+
 /* make the sections within the map select div show side by side */
-.map-section {
-    background-color: #eee;
+.section {
+    background-color: #333;
     border-radius: 5px;
+    margin: 3px;
     width: 350px;
 }
 
-.map-select-div-upper {
+.section-upper-part {
     display: flex;
     flex-direction: row;
     padding: 3px;
     justify-content: space-between;
 }
 
+.section-upper-part-left {
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+    justify-content: space-between;
+}
+
+.section-upper-part-right {
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+    justify-content: space-between;
+}
+
+
+
 /* scale the map icon */
-.map-select-div-upper img {
+.section-upper-part img {
     height: 100px;
 }
 
-.map-select-div-upper p {
+.section-upper-part p {
     margin: 5px;
 }
 
 /* The button, hidden and not hidden */
-.toggle-map-section-visibility-button-showing {
-    height: 100px;
-    width: 30px;
-    border: none;
-    background-color: #dedede;
-    border-radius: 5px;
-}
-.toggle-map-section-visibility-button-hidden {
+.toggle-section-visibility-button {
     height: 30px;
     width: 30px;
     border: none;
-    background-color: #dedede;
+    background-color: #444;
     border-radius: 5px;
 }
 
-
-
 /* Map search functionality */
-.map-select-div-lower {
+.section-lower-part {
     padding: 3px;
-    display: flex;             
+    display: flex;
+    flex-direction: column;       
     justify-content: center;  
 }
 
 /* Necessary, because the search bar which conditionally displays must have its own parent div */
-.map-select-div-lower div {
+/* .section-lower-part div {
    width: 100%;
-}
+} */
 
-.map-search-bar {
+.search-bar {
+    background-color: #333;
+    color: white;
     width: 98%;
     border: 1px solid;
     border-color: rgba(200, 200, 200, 0.5);
     border-radius: 2px;
+    padding: 4px 3px;
 }
 
 .map-search-result-box {
-    width: 300px;
+    width: 100%;
     height: 200px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     overflow-y: scroll;
 }
 
 .map-search-result {
-    background-color: #ddd;
+    background-color: #444;
+    transition: background-color 0.2s ease; /* Smooth transition */
     margin: 2px 0px;
     border-radius: 4px;
+}
+
+.map-search-result:hover {
+    background-color: #555;
 }
 
 .map-search-result p {
@@ -106,8 +158,9 @@
 
 
 
-/* Animation for player boxes when selected */
+/* Brawler section */
 
+/* Animation for player boxes when selected */
 @keyframes tint-pulse {
     0%, 100% {
         filter: sepia(0%) saturate(100%) brightness(80%) hue-rotate(0deg);
@@ -139,12 +192,12 @@
 }
 
 .blue-team {
-    background-color: lightblue;
+    background-color: #2574E2;
     border-radius: 5px 0px 0px 5px;
     justify-content: flex-end;
 }
 .red-team {
-    background-color: lightcoral;
+    background-color: red;
     border-radius: 0px 5px 5px 0px;
 }
 
@@ -152,17 +205,19 @@
 .entry-box {
     width: 50px;
     height: 50px;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    z-index: 0;
+}
+.entry-box:hover {
+    transform: scale(1.1); /* Adjust the scale factor as needed */
+    z-index: 1;
 }
 
 /* Make the brawler icon fit to the box*/
 .entry-box img {
     height: 100%;
-    width: 100%
-}
-
-.selected input{
-    background-color: blue;
-}
+} 
 
 .team-div {
     display: flex;
@@ -173,24 +228,59 @@
     width: 100%;
 }
 
+.brawler-gallery {
+    width: 100%;
+}
+
 .brawler-gallery-search-results {
-    width: 300px;
-    height: 200px;
     border: 1px solid #ccc;
     overflow-y: scroll;
     padding: 10px;
 
     display: flex;
     flex-wrap: wrap;
-    row-gap: 0px;
 }
 
 .gallery-item {
-    height: 30px;
-    width: 30px
+    /* height: 10%;
+    width: 10%; */
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
 }
 
 .gallery-item img {
     height: 100%;
-    width: 100%
 }
+
+
+
+.get-prediction-button {
+    width: 100%;
+}
+
+.prediction-bar {
+    position: relative;
+    height: 30px;
+}
+.blue-prediction-bar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #2574E2;
+    height: 100%;
+    /* width: 50%; */
+    border-radius: 8px 0px 0px 8px;
+}
+.red-prediction-bar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+  

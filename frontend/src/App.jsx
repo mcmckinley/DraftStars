@@ -11,7 +11,7 @@ import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
 
 // Up chevron
-import { FaChevronUp, FaChevronRight } from 'react-icons/fa';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 const App = () => {
   // The values for each entry box
@@ -22,11 +22,14 @@ const App = () => {
 
   const [map, setMap] = useState(0)
 
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState(0.5)
 
   const [isShowingMapSection, setMapSectionVisibility] = useState(true)
+  const [isShowingBrawlerSection, setBrawlerSectionVisibility] = useState(true)
 
-  const gameModes = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist']
+
+  const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone']
+  const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
 
   const getPrediction = async () => {
     try {
@@ -61,63 +64,82 @@ const App = () => {
 
   return (
     <div className="main">
-      <div className="map-section">
-        <div className="map-select-div-upper">
-            
-          <div className="map-select-div-upper">
-            <button className={"toggle-map-section-visibility-button-" + (isShowingMapSection ? 'showing' : 'hidden')} onClick={() => setMapSectionVisibility(!isShowingMapSection)}>
+      <div className="section">
+        <div className="section-upper-part">
+          <div className="section-upper-part-left"> {/* this just works? */}
+            <button className="toggle-section-visibility-button" onClick={() => setMapSectionVisibility(!isShowingMapSection)}>
               {isShowingMapSection ? (
-                <FaChevronUp />
+                <FaChevronDown color="white"/>
               ) : (
-                <FaChevronRight />
+                <FaChevronRight color="white"/>
               )}
             </button>
             <p>Map</p>
           </div>
-
-          {isShowingMapSection ? (
-            <h2>{maps[map].name}</h2>
-          ) : (
+          <div className="section-upper-part-right">
             <p>{gameModes[maps[map].game_mode] + ' - ' + maps[map].name}</p>
-          )}
-
-          {isShowingMapSection && (
-            <img src={mapImages[maps[map].imgUrl]}></img>
-          )}
-
+          </div>
         </div>
 
-        {/* Search bar */}
-        <div className="map-select-div-lower">
-          {isShowingMapSection && (<MapSearchBar setMap={setMap}/>)} 
-        </div>
+        { isShowingMapSection && (
+          <div className="section-lower-part">
+            <MapSearchBar selectedMap={map} setMap={setMap}/>
+          </div>
+        )}
 
       </div>
 
 
 
-      <div className="teams">
-
-        <div className="team-div blue-team">
-          <BrawlerEntryBox index={0} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={1} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={2} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+      <div className="section">
+        <div className="section-upper-part">
+          <div className="section-upper-part"> {/* this just works? */}
+            <button className="toggle-section-visibility-button" onClick={() => setBrawlerSectionVisibility(!isShowingBrawlerSection)}>
+              {isShowingBrawlerSection ? (
+                <FaChevronDown color="white"/>
+              ) : (
+                <FaChevronRight color="white"/>
+              )}
+            </button>
+            <p>Brawlers</p>
+          </div>
         </div>
+        <div className="section-lower-part">
+          {isShowingBrawlerSection && (
+            <>
+              <div className='teams'>
+                <div className="team-div blue-team">
+                  <BrawlerEntryBox index={0} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                  <BrawlerEntryBox index={1} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                  <BrawlerEntryBox index={2} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                </div>
 
-        <div className="team-div red-team">
-          <BrawlerEntryBox index={3} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={4} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                <div className="team-div red-team">
+                  <BrawlerEntryBox index={3} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                  <BrawlerEntryBox index={4} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                  <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+                </div>
+              </div> 
+
+              <>
+
+                {( selectedBoxID != null && <BrawlerGallery selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>)}
+              </>
+            </>
+          )}
         </div>
       </div>
 
-      <div className="middle">
-        {/* Pass selectedBoxId so that the user can select brawlers using the gallery */}
-        <BrawlerGallery selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-
-        <button onClick={getPrediction}></button>
+      <div className="section">
+      
+        <button className="get-prediction-button" onClick={getPrediction}>Get Prediction</button>
 
         <h1>{'Prediction: ' + result}</h1>
+
+        <div className="prediction-bar">
+          <div className="red-prediction-bar"></div>
+          <div className="blue-prediction-bar" style={{width: result*100+'%', transition: 'width 0.3s',}}></div>
+        </div>
 
       </div>
 

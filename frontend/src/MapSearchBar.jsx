@@ -6,7 +6,7 @@ import { maps } from './mapData'
 import MapSearchResult from './MapSearchResult';
 
 
-const MapSearchBar = ({ setMap }) => {
+const MapSearchBar = ({ selectedMap, setMap }) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredMaps, setFilteredMaps] = useState(maps);
@@ -41,9 +41,9 @@ const MapSearchBar = ({ setMap }) => {
   return (
     <div>
       <input
-        className="map-search-bar"
+        className="search-bar"
         type="text"
-        placeholder="Search by name"
+        placeholder="Enter map name..."
         value={query}
         onChange={handleSearch}
         // onFocus={() => setIsFocused(true)}
@@ -53,7 +53,7 @@ const MapSearchBar = ({ setMap }) => {
       {/* Search results that display only while the search bar has been selected */}
       <div className="map-search-result-box">
         {filteredMaps.map((map, index) => (
-          <MapSearchResult key={index} map={map} setMap={setMap} />
+          <MapSearchResult key={index} map={map} setMap={setMap} isSelected={selectedMap == map.id} />
         ))}
       </div>
     </div>

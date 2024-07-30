@@ -58,6 +58,7 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
     <div className="brawler-gallery">
       <input
         type="text"
+        className="search-bar"
         placeholder="Search brawlers"
         value={query}
         onChange={handleSearch}

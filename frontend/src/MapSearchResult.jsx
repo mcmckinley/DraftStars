@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import mapImages from './mapLoader';
 
-const MapSearchResult = ({ index, map, setMap}) => {
+const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
+
+
+const MapSearchResult = ({ index, map, setMap, isSelected}) => {
     return (
-        <div className="map-search-result">
-            <p key={index} onClick={() => setMap(map.id)}>{map.name}</p>
+        <div 
+            onClick={() => setMap(map.id)} 
+            className={'map-search-result' + (isSelected ? '' : '')}
+            // style = {{backgroundColor: gameModeColors[map.game_mode]}}
+        >
+            <p key={index} className="unselectable">{map.name}</p>
             <img src={mapImages[map.imgUrl]}></img>
         </div>
     )

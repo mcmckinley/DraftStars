@@ -3,494 +3,493 @@
 export const brawlers = [{
   "name_caps": "SHELLY",
   "name": "Shelly",
-  "imgUrl": "Shelly.webp",
-  // "imgUrl": "Shelly2.png",
+  "imgUrl": "shelly.png",
   "id": "0"
 },
 {
   "name_caps": "COLT",
   "name": "Colt",
-  "imgUrl": "Colt.webp",
+  "imgUrl": "colt.png",
   "id": "1"
 },
 {
   "name_caps": "BULL",
   "name": "Bull",
-  "imgUrl": "Bull.webp",
+  "imgUrl": "bull.png",
   "id": "2"
 },
 {
   "name_caps": "BROCK",
   "name": "Brock",
-  "imgUrl": "Brock.webp",
+  "imgUrl": "brock.png",
   "id": "3"
 },
 {
   "name_caps": "RICO",
   "name": "Rico",
-  "imgUrl": "Rico.webp",
+  "imgUrl": "rico.png",
   "id": "4"
 },
 {
   "name_caps": "SPIKE",
   "name": "Spike",
-  "imgUrl": "Spike.webp",
+  "imgUrl": "spike.png",
   "id": "5"
 },
 {
   "name_caps": "BARLEY",
   "name": "Barley",
-  "imgUrl": "Barley.webp",
+  "imgUrl": "barley.png",
   "id": "6"
 },
 {
   "name_caps": "JESSIE",
   "name": "Jessie",
-  "imgUrl": "Jessie.webp",
+  "imgUrl": "jessie.png",
   "id": "7"
 },
 {
   "name_caps": "NITA",
   "name": "Nita",
-  "imgUrl": "Nita.webp",
+  "imgUrl": "nita.png",
   "id": "8"
 },
 {
   "name_caps": "DYNAMIKE",
   "name": "Dynamike",
-  "imgUrl": "Dynamike.webp",
+  "imgUrl": "dynamike.png",
   "id": "9"
 },
 {
   "name_caps": "EL PRIMO",
   "name": "El-Primo",
-  "imgUrl": "El-Primo.webp",
+  "imgUrl": "elprimo.png",
   "id": "10"
 },
 {
   "name_caps": "MORTIS",
   "name": "Mortis",
-  "imgUrl": "Mortis.png",
+  "imgUrl": "mortis.png",
   "id": "11"
 },
 {
   "name_caps": "CROW",
   "name": "Crow",
-  "imgUrl": "Crow.png",
+  "imgUrl": "crow.png",
   "id": "12"
 },
 {
   "name_caps": "POCO",
   "name": "Poco",
-  "imgUrl": "Poco.webp",
+  "imgUrl": "poco.png",
   "id": "13"
 },
 {
   "name_caps": "BO",
   "name": "Bo",
-  "imgUrl": "Bo.webp",
+  "imgUrl": "bo.png",
   "id": "14"
 },
 {
   "name_caps": "PIPER",
   "name": "Piper",
-  "imgUrl": "Piper.png",
+  "imgUrl": "piper.png",
   "id": "15"
 },
 {
   "name_caps": "PAM",
   "name": "Pam",
-  "imgUrl": "Pam.png",
+  "imgUrl": "pam.png",
   "id": "16"
 },
 {
   "name_caps": "TARA",
   "name": "Tara",
-  "imgUrl": "Tara.png",
+  "imgUrl": "tara.png",
   "id": "17"
 },
 {
   "name_caps": "DARRYL",
   "name": "Darryl",
-  "imgUrl": "Darryl.webp",
+  "imgUrl": "darryl.png",
   "id": "18"
 },
 {
   "name_caps": "PENNY",
   "name": "Penny",
-  "imgUrl": "Penny.webp",
+  "imgUrl": "penny.png",
   "id": "19"
 },
 {
   "name_caps": "FRANK",
   "name": "Frank",
-  "imgUrl": "Frank.webp",
+  "imgUrl": "frank.png",
   "id": "20"
 },
 {
   "name_caps": "GENE",
   "name": "Gene",
-  "imgUrl": "Gene.png",
+  "imgUrl": "gene.png",
   "id": "21"
 },
 {
   "name_caps": "TICK",
   "name": "Tick",
-  "imgUrl": "Tick.webp",
+  "imgUrl": "tick.png",
   "id": "22"
 },
 {
   "name_caps": "LEON",
   "name": "Leon",
-  "imgUrl": "Leon.webp",
+  "imgUrl": "leon.png",
   "id": "23"
 },
 {
   "name_caps": "ROSA",
   "name": "Rosa",
-  "imgUrl": "Rosa.webp",
+  "imgUrl": "rosa.png",
   "id": "24"
 },
 {
   "name_caps": "CARL",
   "name": "Carl",
-  "imgUrl": "Carl.webp",
+  "imgUrl": "carl.png",
   "id": "25"
 },
 {
   "name_caps": "BIBI",
   "name": "Bibi",
-  "imgUrl": "Bibi.webp",
+  "imgUrl": "bibi.png",
   "id": "26"
 },
 {
   "name_caps": "8-BIT",
   "name": "8-Bit",
-  "imgUrl": "8-Bit.webp",
+  "imgUrl": "8bit.png",
   "id": "27"
 },
 {
   "name_caps": "SANDY",
   "name": "Sandy",
-  "imgUrl": "Sandy.webp",
+  "imgUrl": "sandy.png",
   "id": "28"
 },
 {
   "name_caps": "BEA",
   "name": "Bea",
-  "imgUrl": "Bea.webp",
+  "imgUrl": "bea.png",
   "id": "29"
 },
 {
   "name_caps": "EMZ",
   "name": "Emz",
-  "imgUrl": "Emz.webp",
+  "imgUrl": "emz.png",
   "id": "30"
 },
 {
   "name_caps": "MR. P",
   "name": "Mr-P",
-  "imgUrl": "Mr-P.webp",
+  "imgUrl": "mrp.png",
   "id": "31"
 },
 {
   "name_caps": "MAX",
   "name": "Max",
-  "imgUrl": "Max.webp",
+  "imgUrl": "max.png",
   "id": "32"
 },
 {
   "name_caps": "JACKY",
   "name": "Jacky",
-  "imgUrl": "Jacky.webp",
+  "imgUrl": "jacky.png",
   "id": "33"
 },
 {
   "name_caps": "GALE",
   "name": "Gale",
-  "imgUrl": "Gale.webp",
+  "imgUrl": "gale.png",
   "id": "34"
 },
 {
   "name_caps": "NANI",
   "name": "Nani",
-  "imgUrl": "Nani.webp",
+  "imgUrl": "nani.png",
   "id": "35"
 },
 {
   "name_caps": "SPROUT",
   "name": "Sprout",
-  "imgUrl": "Sprout.webp",
+  "imgUrl": "sprout.png",
   "id": "36"
 },
 {
   "name_caps": "SURGE",
   "name": "Surge",
-  "imgUrl": "Surge.webp",
+  "imgUrl": "surge.png",
   "id": "37"
 },
 {
   "name_caps": "COLETTE",
   "name": "Colette",
-  "imgUrl": "Colette.webp",
+  "imgUrl": "colette.png",
   "id": "38"
 },
 {
   "name_caps": "AMBER",
   "name": "Amber",
-  "imgUrl": "Amber.webp",
+  "imgUrl": "amber.png",
   "id": "39"
 },
 {
   "name_caps": "LOU",
   "name": "Lou",
-  "imgUrl": "Lou.webp",
+  "imgUrl": "lou.png",
   "id": "40"
 },
 {
   "name_caps": "BYRON",
   "name": "Byron",
-  "imgUrl": "Byron.webp",
+  "imgUrl": "byron.png",
   "id": "41"
 },
 {
   "name_caps": "EDGAR",
   "name": "Edgar",
-  "imgUrl": "Edgar.webp",
+  "imgUrl": "edgar.png",
   "id": "42"
 },
 {
   "name_caps": "RUFFS",
   "name": "Ruffs",
-  "imgUrl": "Ruffs.webp",
+  "imgUrl": "ruffs.png",
   "id": "43"
 },
 {
   "name_caps": "STU",
   "name": "Stu",
-  "imgUrl": "Stu.webp",
+  "imgUrl": "stu.png",
   "id": "44"
 },
 {
   "name_caps": "BELLE",
   "name": "Belle",
-  "imgUrl": "Belle.webp",
+  "imgUrl": "belle.png",
   "id": "45"
 },
 {
   "name_caps": "SQUEAK",
   "name": "Squeak",
-  "imgUrl": "Squeak.webp",
+  "imgUrl": "squeak.png",
   "id": "46"
 },
 {
   "name_caps": "GROM",
   "name": "Grom",
-  "imgUrl": "Grom.webp",
+  "imgUrl": "grom.png",
   "id": "47"
 },
 {
   "name_caps": "BUZZ",
   "name": "Buzz",
-  "imgUrl": "Buzz.webp",
+  "imgUrl": "buzz.png",
   "id": "48"
 },
 {
   "name_caps": "GRIFF",
   "name": "Griff",
-  "imgUrl": "Griff.webp",
+  "imgUrl": "griff.png",
   "id": "49"
 },
 {
   "name_caps": "ASH",
   "name": "Ash",
-  "imgUrl": "Ash.webp",
+  "imgUrl": "ash.png",
   "id": "50"
 },
 {
   "name_caps": "MEG",
   "name": "Meg",
-  "imgUrl": "Meg.webp",
+  "imgUrl": "meg.png",
   "id": "51"
 },
 {
   "name_caps": "LOLA",
   "name": "Lola",
-  "imgUrl": "Lola.webp",
+  "imgUrl": "lola.png",
   "id": "52"
 },
 {
   "name_caps": "FANG",
   "name": "Fang",
-  "imgUrl": "Fang.webp",
+  "imgUrl": "fang.png",
   "id": "53"
 },
 {
   "name_caps": "EVE",
   "name": "Eve",
-  "imgUrl": "Eve.webp",
+  "imgUrl": "eve.png",
   "id": "54"
 },
 {
   "name_caps": "JANET",
   "name": "Janet",
-  "imgUrl": "Janet.webp",
+  "imgUrl": "janet.png",
   "id": "55"
 },
 {
   "name_caps": "BONNIE",
   "name": "Bonnie",
-  "imgUrl": "Bonnie.webp",
+  "imgUrl": "bonnie.png",
   "id": "56"
 },
 {
   "name_caps": "OTIS",
   "name": "Otis",
-  "imgUrl": "Otis.webp",
+  "imgUrl": "otis.png",
   "id": "57"
 },
 {
   "name_caps": "SAM",
   "name": "Sam",
-  "imgUrl": "Sam.webp",
+  "imgUrl": "sam.png",
   "id": "58"
 },
 {
   "name_caps": "GUS",
   "name": "Gus",
-  "imgUrl": "Gus.webp",
+  "imgUrl": "gus.png",
   "id": "59"
 },
 {
   "name_caps": "BUSTER",
   "name": "Buster",
-  "imgUrl": "Buster.webp",
+  "imgUrl": "buster.png",
   "id": "60"
 },
 {
   "name_caps": "CHESTER",
   "name": "Chester",
-  "imgUrl": "Chester.webp",
+  "imgUrl": "chester.png",
   "id": "61"
 },
 {
   "name_caps": "GRAY",
   "name": "Gray",
-  "imgUrl": "Gray.webp",
+  "imgUrl": "gray.png",
   "id": "62"
 },
 {
   "name_caps": "MANDY",
   "name": "Mandy",
-  "imgUrl": "Mandy.webp",
+  "imgUrl": "mandy.png",
   "id": "63"
 },
 {
   "name_caps": "R-T",
   "name": "R-T",
-  "imgUrl": "R-T.webp",
+  "imgUrl": "rt.png",
   "id": "64"
 },
 {
   "name_caps": "WILLOW",
   "name": "Willow",
-  "imgUrl": "Willow.webp",
+  "imgUrl": "willow.png",
   "id": "65"
 },
 {
   "name_caps": "MAISIE",
   "name": "Maisie",
-  "imgUrl": "Maisie.webp",
+  "imgUrl": "maisie.png",
   "id": "66"
 },
 {
   "name_caps": "HANK",
   "name": "Hank",
-  "imgUrl": "Hank.webp",
+  "imgUrl": "hank.png",
   "id": "67"
 },
 {
   "name_caps": "CORDELIUS",
   "name": "Cordelius",
-  "imgUrl": "Cordelius.webp",
+  "imgUrl": "cordelius.png",
   "id": "68"
 },
 {
   "name_caps": "DOUG",
   "name": "Doug",
-  "imgUrl": "Doug.webp",
+  "imgUrl": "doug.png",
   "id": "69"
 },
 {
   "name_caps": "PEARL",
   "name": "Pearl",
-  "imgUrl": "Pearl.webp",
+  "imgUrl": "pearl.png",
   "id": "70"
 },
 {
   "name_caps": "CHUCK",
   "name": "Chuck",
-  "imgUrl": "Chuck.webp",
+  "imgUrl": "chuck.png",
   "id": "71"
 },
 {
   "name_caps": "CHARLIE",
   "name": "Charlie",
-  "imgUrl": "Charlie.webp",
+  "imgUrl": "charlie.png",
   "id": "72"
 },
 {
   "name_caps": "MICO",
   "name": "Mico",
-  "imgUrl": "Mico.webp",
+  "imgUrl": "mico.png",
   "id": "73"
 },
 {
   "name_caps": "KIT",
   "name": "Kit",
-  "imgUrl": "Kit.webp",
+  "imgUrl": "kit.png",
   "id": "74"
 },
 {
   "name_caps": "LARRY & LAWRIE",
   "name": "Larry-&-Lawrie",
-  "imgUrl": "Larry-&-Lawrie.webp",
+  "imgUrl": "larry&lawrie.png",
   "id": "75"
 },
 {
   "name_caps": "MELODIE",
   "name": "Melodie",
-  "imgUrl": "Melodie.webp",
+  "imgUrl": "melodie.png",
   "id": "76"
 },
 {
   "name_caps": "ANGELO",
   "name": "Angelo",
-  "imgUrl": "Angelo.webp",
+  "imgUrl": "angelo.png",
   "id": "77"
 },
 {
   "name_caps": "DRACO",
   "name": "Draco",
-  "imgUrl": "Draco.webp",
+  "imgUrl": "draco.png",
   "id": "78"
 },
 {
   "name_caps": "LILY",
   "name": "Lily",
-  "imgUrl": "Lily.webp",
+  "imgUrl": "lily.png",
   "id": "79"
 },
 {
   "name_caps": "BERRY",
   "name": "Berry",
-  "imgUrl": "Berry.webp",
+  "imgUrl": "berry.png",
   "id": "80"
 },
 {
   "name_caps": "CLANCY",
   "name": "Clancy",
-  "imgUrl": "Clancy.webp",
+  "imgUrl": "clancy.png",
   "id": "81"
 },]
 
@@ -501,6 +500,6 @@ export const brawlers = [{
 
 // for (var i =0; i < brawlers.length; i++) {
 //   var brawler = brawlers[i]
-//   console.log('{\n  "name_caps": "' + brawler.name_caps + '",\n  "name": "' + brawler.name + '",\n  "imgUrl": "' + brawler.name + '.webp",\n  "id": "' + i + '"\n},')
+//   console.log('{\n  "name_caps": "' + brawler.name_caps + '",\n  "name": "' + brawler.name + '",\n  "imgUrl": "' + brawler.name + '.png",\n  "id": "' + i + '"\n},')
 // }
 
