@@ -71,7 +71,8 @@ const App = () => {
               onClick={() => {
                 setMapSectionVisibility(!isShowingMapSection); 
                 setBrawlerSectionVisibility(false)
-              }}>
+              }}
+              >
               {isShowingMapSection ? (
                 <FaChevronDown color="white"/>
               ) : (
@@ -87,7 +88,14 @@ const App = () => {
 
         { isShowingMapSection && (
           <div className="section-lower-part">
-            <MapSearchBar selectedMap={map} setMap={setMap}/>
+            <MapSearchBar 
+              selectedMap={map} 
+              setMap={setMap}
+              closeMapSearchBar={()=>{
+                setMapSectionVisibility(false); 
+                setBrawlerSectionVisibility(true)
+              }}
+            />
           </div>
         )}
 
@@ -111,7 +119,7 @@ const App = () => {
             <p>Brawlers</p>
           </div>
           <div className="section-upper-part-right">
-            {!isShowingBrawlerSection && (<MiniEntryBoxes entries={entries}/>)}
+            {/* {!isShowingBrawlerSection && (<MiniEntryBoxes entries={entries}/>)} */}
           </div>
         </div>
         
@@ -132,7 +140,16 @@ const App = () => {
                 </div>
               </div> 
               <>
-                {( selectedBoxID != null && <BrawlerGallery selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>)}
+                {( selectedBoxID != null && 
+                  <BrawlerGallery 
+                    selectedBoxID={selectedBoxID} 
+                    setSelectedBoxID={setSelectedBoxID} 
+                    entries={entries} 
+                    setEntries={setEntries}
+                    closeBrawlerSection={()=>{
+                      setBrawlerSectionVisibility(false)
+                    }}
+                />)}
               </>
             </>
           </div>

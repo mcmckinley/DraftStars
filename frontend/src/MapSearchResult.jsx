@@ -4,10 +4,10 @@ import mapImages from './mapLoader';
 const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
 
 
-const MapSearchResult = ({ index, map, setMap, isSelected}) => {
+const MapSearchResult = ({ index, map, setMap, isSelected, closeMapSearchBar}) => {
     return (
         <div 
-            onClick={() => setMap(map.id)} 
+            onClick={() => {setMap(map.id); closeMapSearchBar()}} 
             className={'map-search-result' + (isSelected ? '' : '')}
             // style = {{backgroundColor: gameModeColors[map.game_mode]}}
         >

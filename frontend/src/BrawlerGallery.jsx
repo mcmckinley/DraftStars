@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { brawlers } from './data';  // Import the variable
 import BrawlerGalleryItem from './BrawlerGalleryItem'
 
-const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) => {
+const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, closeBrawlerSection}) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredBrawlers, setFilteredBrawlers] = useState(brawlers);
@@ -41,12 +41,10 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
       if (index > 5) 
         index = 0
       if (entries[index] == '') {
-        console.log('next empty box:', index)
         return index
       } 
     }
-    console.log('No empty boxes found. Index:', index)
-    return false
+    return 'none'
   }
 
   // automatically select one brawler when the list is reduced to one elemnt
@@ -57,10 +55,11 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
 
       // Automatically select the next empty box, so the user doesn't have to manually click each one.
       const nextEmptyBox = getIDofNextEmptyEntryBox()
-      if (nextEmptyBox !== false){
-        setSelectedBoxID(nextEmptyBox)
-      } else {
+      if (nextEmptyBox == 'none'){
         setSelectedBoxID(null)
+        closeBrawlerSection()
+      } else {
+        setSelectedBoxID(nextEmptyBox)
       }
 
       // setIsFocused(false)           // unselect the text input
@@ -108,6 +107,7 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries}) 
             entries={entries}
             setEntries={setEntries}
             getIDofNextEmptyEntryBox={getIDofNextEmptyEntryBox}
+            closeBrawlerSection={closeBrawlerSection}
           />
         ))}
       </div>
