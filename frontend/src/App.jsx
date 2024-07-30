@@ -9,14 +9,15 @@ import BrawlerGalleryItem from './BrawlerGalleryItem';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
+import MiniEntryBoxes from './MiniEntryBoxes'
 
 // Up chevron
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 const App = () => {
   // The values for each entry box
-  //const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
-  const [entries, setEntries] = useState(['', '', '', '', '', ''])
+  const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
+  // const [entries, setEntries] = useState(['', '', '', '', '', ''])
 
   const [selectedBoxID, setSelectedBoxID] = useState(null)
 
@@ -90,10 +91,9 @@ const App = () => {
       </div>
 
 
-
       <div className="section">
         <div className="section-upper-part">
-          <div className="section-upper-part"> {/* this just works? */}
+          <div className="section-upper-part-left">
             <button className="toggle-section-visibility-button" onClick={() => setBrawlerSectionVisibility(!isShowingBrawlerSection)}>
               {isShowingBrawlerSection ? (
                 <FaChevronDown color="white"/>
@@ -103,9 +103,13 @@ const App = () => {
             </button>
             <p>Brawlers</p>
           </div>
+          <div className="section-upper-part-right">
+            {!isShowingBrawlerSection && (<MiniEntryBoxes entries={entries}/>)}
+          </div>
         </div>
-        <div className="section-lower-part">
-          {isShowingBrawlerSection && (
+        
+        {isShowingBrawlerSection && (
+          <div className="section-lower-part">  
             <>
               <div className='teams'>
                 <div className="team-div blue-team">
@@ -120,14 +124,13 @@ const App = () => {
                   <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
                 </div>
               </div> 
-
               <>
-
                 {( selectedBoxID != null && <BrawlerGallery selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>)}
               </>
             </>
-          )}
-        </div>
+          </div>
+        )}
+
       </div>
 
       <div className="section">

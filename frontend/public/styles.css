@@ -71,10 +71,6 @@ input:focus {
 
 
 
-/* scale the map icon */
-.section-upper-part img {
-    height: 100px;
-}
 
 .section-upper-part p {
     margin: 5px;
@@ -217,7 +213,35 @@ input:focus {
 /* Make the brawler icon fit to the box*/
 .entry-box img {
     height: 100%;
-} 
+}
+
+/* MiniEntryBox: what is shown when the brawlers section is hidden */
+.mini-entry-boxes {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+}
+.mini-entry-box {
+    height: 28px;
+    width: 28px;
+    overflow: hidden;
+}
+.mini-entry-box img {
+    height: 100%;
+}
+.left {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #2574E2;
+}
+.right {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
+}
+
+
 
 .team-div {
     display: flex;
