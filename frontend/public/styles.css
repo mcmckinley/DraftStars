@@ -251,8 +251,8 @@ input:focus {
 
 /* The box that the user clicks on to select a brawler */
 .entry-box {
-    width: 53px;
-    height: 53px;
+    width: 65px;
+    height: 65px;
     transition: transform 0.15s ease-in-out;
     overflow: hidden;
     z-index: 0;
@@ -321,8 +321,8 @@ input:focus {
 .gallery-item {
     /* height: 10%;
     width: 10%; */
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     overflow: hidden;
 }
 

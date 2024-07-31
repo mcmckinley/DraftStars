@@ -10,6 +10,7 @@ import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
 import MiniEntryBoxes from './MiniEntryBoxes'
+import PredictionDescription from './PredictionDescription';
 
 // Up chevron
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
@@ -29,13 +30,6 @@ const App = () => {
     }
   };
 
-  // Runs when the element loads
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize); // cleanup function
-  }, []);
-
   // Toggles sidebar visibility
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -44,6 +38,7 @@ const App = () => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
+  const [previousEntries, setPreviousEntries] = useState(['', '', '', '', '', ''])
   const anyEntriesEmpty = () => {
     return entries.some(entry => entry === '');
   };
@@ -51,6 +46,7 @@ const App = () => {
   const [selectedBoxID, setSelectedBoxID] = useState(0)
 
   const [map, setMap] = useState(0)
+  const [previousMap, setPreviousMap] = useState(0)
 
   const [result, setResult] = useState(0.5)
 
@@ -59,8 +55,11 @@ const App = () => {
   const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone']
   const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
 
+  const [isAwaitingPrediction, setIsAwaitingPrediction] = useState(false)
+
   const getPrediction = async () => {
     try {
+      setIsAwaitingPrediction(true)
       const blue1 = parseInt(entries[0], 10);
       const blue2 = parseInt(entries[1], 10);
       const blue3 = parseInt(entries[2], 10);
@@ -81,15 +80,40 @@ const App = () => {
       }
 
       const data = await response.json();
-      setResult(data.result);
-      console.log('Got result:', data.result)
+      setResult(data.result[0]);
+      setIsAwaitingPrediction(false)
+      setPreviousEntries(entries)
+      setPreviousMap(map)
+      console.log('Got result:', result)
 
       // display an error if we can't connect to server
     } catch (error) {
       console.error(error)
-      setResult(null);
+      setResult('error');
     }
   };
+
+  // Runs when the element loads
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    const shouldGetPredition = !anyEntriesEmpty() && (previousEntries != entries || previousMap != map)
+    if (shouldGetPredition) {
+      console.log('Will get prediciton')
+      console.log('previous entries:', previousEntries)
+      console.log('entries:', entries)
+      getPrediction()
+    } else {
+      console.log('should not get prediction')
+    }
+
+    return () => window.removeEventListener('resize', handleResize); // cleanup function
+  }, [entries, map]); // Runs whenever these change
+
+  
+
+
 
   return (
     
@@ -100,6 +124,7 @@ const App = () => {
       </div>
 
       <div className="input-page">
+        {/* Map section */}
         <div className="section">
           <div className="section-upper-part">
             <div className="section-upper-part-left"> {/* this just works? */}
@@ -129,7 +154,7 @@ const App = () => {
 
         </div>
 
-
+        {/* Select Brawler section */}
         <div className="section">
           <div className="section-upper-part">
             <div className="section-upper-part-left">
@@ -173,6 +198,7 @@ const App = () => {
 
         </div>
 
+        {/* Prediction bar */}
         <div className="section">
           <div className="section-lower-part">  
             <div className="prediction-bar">
@@ -192,6 +218,22 @@ const App = () => {
             </div>
           </div>
         </div> 
+
+        {/*  */}
+        <div className="section">
+          <div className="section-upper-part">
+            <div className="section-upper-part-left">
+              <p>Prediction</p>
+            </div>
+            <div className="section-upper-part-right">
+            </div>
+          </div>
+
+          <div className="section-lower-part">
+            <PredictionDescription isAwaitingPrediction={isAwaitingPrediction} result={result}/>
+          </div>
+
+        </div>
       </div> {/* input page */}
     </div> // main
   );

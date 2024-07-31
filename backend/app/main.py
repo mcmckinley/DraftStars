@@ -5,6 +5,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from .model import Model
+import time
 
 app = FastAPI()
 
@@ -51,4 +52,5 @@ def predict(numbers: Numbers):
     output = model(inputs)
     # Convert tensor to list and return
     result = output.detach().numpy().tolist()[0]
+    # time.sleep(3) # simulates slow server response times
     return {"result": result}
