@@ -60,6 +60,16 @@ input:focus {
     transform: translateX(0);
 }
 
+.sidebar-page-selector {
+    background-color: #222;
+    border-radius: 8px;
+    font-weight: 300;
+    padding: 3px;
+}
+.sidebar-page-selector.active {
+    background-color: #333;
+}
+
 @media (max-width: 768px) {
     .sidebar {
       transform: translateX(-100%); /* Move out of view by default on mobile */
@@ -99,6 +109,31 @@ input:focus {
     width: 100%;
     max-width: 700px
 }
+
+/* Sections for Ranked Prediction screen behave differently */
+
+.section-active {
+    background-color: #333;
+    border-radius: 7px;
+    margin: 6px;
+    width: 100%;
+    max-width: 700px;
+    border: 1px solid #555;
+}
+
+.section-inactive {
+    background-color: #333;
+    border-radius: 7px;
+    margin: 6px;
+    width: 100%;
+    max-width: 700px;
+}
+.section-inactive p {
+    color: #666
+}
+
+
+
 /* @media (min-width: 1000px) {
     .section {
         width: 700px
@@ -202,7 +237,33 @@ input:focus {
     height: 100%;
 }
 
+/* RANKED - First pick section */
 
+
+.first-pick-section {
+    display: flex;
+    justify-content: space-evenly;
+}
+.thumb-div {
+    width: 80px;
+    padding: 4px;
+    margin: 4px;
+}
+.selected-thumb {
+    width: 80px;
+    background-color: #444;
+    border-radius: 6px;
+}
+.unselected-thumb {
+    width: 80px;
+}
+.thumb-div img {
+    width: 100%;
+}
+.thumb-div p {
+    margin: 3px;
+    text-align: center;
+}
 
 /* Brawler section */
 

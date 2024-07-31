@@ -1,11 +1,17 @@
 // frontend/src/App.jsx
 import React, { useState, useEffect } from 'react';
 import PredictOutcomePage from './PredictOutcomePage';
+import RankedPredictionPage from './RankedPredictionPage';
 
 const App = () => {
   // UI states
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const [page, setPage] = useState(true)
+  const togglePage = () => {
+    setPage(!page)
+  }
 
   // Called when size of page changes
   const handleResize = () => {
@@ -34,9 +40,14 @@ const App = () => {
     <div className="main">
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <h1>BrawlMind</h1>
+        <p className= {`sidebar-page-selector ${page ? '' : 'active'}`} onClick={() => setPage(false)}>Match Predictor</p>
+        <p className= {`sidebar-page-selector ${page ? 'active' : ''}`} onClick={() => setPage(true)}>Ranked Predictor</p>
       </div>
-
-      <PredictOutcomePage />
+      {page ? (
+        <RankedPredictionPage />
+      ) : (
+        <PredictOutcomePage />
+      )}
     </div> // main
   );
 };

@@ -6,7 +6,7 @@ import { maps } from './mapData'
 import MapSearchResult from './MapSearchResult';
 
 
-const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar}) => {
+const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar, moveUserForward}) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredMaps, setFilteredMaps] = useState(maps);
@@ -59,6 +59,7 @@ const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar}) => {
             setMap={setMap} 
             isSelected={selectedMap == map.id} 
             closeMapSearchBar={closeMapSearchBar}  
+            moveUserForward={moveUserForward}
           />
         ))}
       </div>
