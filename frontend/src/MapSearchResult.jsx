@@ -11,7 +11,7 @@ const MapSearchResult = ({ index, map, setMap, isSelected, closeMapSearchBar}) =
             className={'map-search-result' + (isSelected ? '' : '')}
             // style = {{backgroundColor: gameModeColors[map.game_mode]}}
         >
-            <p key={index} className="unselectable">{map.name}</p>
+            <p key={index} className="unselectable" >{map.name}</p>
             <img src={mapImages[map.imgUrl]}></img>
         </div>
     )
