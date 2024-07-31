@@ -51,7 +51,7 @@ input:focus {
 .section-upper-part {
     display: flex;
     flex-direction: row;
-    padding: 3px;
+    padding: 1px;
     justify-content: space-between;
 }
 
@@ -65,8 +65,16 @@ input:focus {
 .section-upper-part-right {
     display: flex;
     flex-direction: row;
-    padding: 3px;
     justify-content: space-between;
+    align-items: center;
+
+    padding: 3px;
+    border-radius: 8px;
+
+    color: #bbb;
+}
+.section-upper-part-right:hover {
+    background-color: #444;
 }
 
 
@@ -90,7 +98,7 @@ input:focus {
     padding: 3px;
     display: flex;
     flex-direction: column;       
-    justify-content: center;  
+    justify-content: center; 
 }
 
 /* Necessary, because the search bar which conditionally displays must have its own parent div */
@@ -175,32 +183,34 @@ input:focus {
 
 
 .teams {
-    background-color: #ddd;
     border-radius: 5px;
-    width: 350px;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    overflow: hidden; /* 6th box is pushed back otherwise */
 }
 
+
 .team-div {
-    width: 183px;
-    padding: 5px;
+    /* width: 183px; */
+    padding: 3px;
 }
 
 .blue-team {
     background-color: #2574E2;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 4px 0px 0px 4px;
     justify-content: flex-end;
 }
 .red-team {
     background-color: red;
-    border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 4px 4px 0px;
 }
 
 /* The box that the user clicks on to select a brawler */
 .entry-box {
-    width: 50px;
-    height: 50px;
+    width: 53px;
+    height: 53px;
     transition: transform 0.15s ease-in-out;
     overflow: hidden;
     z-index: 0;
@@ -280,20 +290,37 @@ input:focus {
 
 
 .get-prediction-button {
+    background-color: #444;
+    color: white;
     width: 100%;
+    border: 1px solid #222;
+    border-radius: 4px;
 }
+.get-prediction-button:hover {
+    background-color: #555;
+}
+.get-prediction-button-disabled {
+    background-color: #444;
+    color: grey;
+    width: 100%;
+    border: 1px solid #222;
+    border-radius: 4px;
+
+}
+
 
 .prediction-bar {
     position: relative;
     height: 30px;
+    justify-content: space-between;
 }
+
 .blue-prediction-bar {
     position: absolute;
     top: 0px;
     left: 0px;
     background-color: #2574E2;
     height: 100%;
-    /* width: 50%; */
     border-radius: 8px 0px 0px 8px;
 }
 .red-prediction-bar {
@@ -306,5 +333,11 @@ input:focus {
     border-radius: 8px;
 }
 
-
-  
+.prediction-values {
+    display: flex;
+    justify-content: space-between;
+}
+.prediction-values p {
+    display: inline;
+    margin: 1px;
+}

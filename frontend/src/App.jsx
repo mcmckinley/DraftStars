@@ -12,12 +12,15 @@ import MapSearchBar from './MapSearchBar'
 import MiniEntryBoxes from './MiniEntryBoxes'
 
 // Up chevron
-import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const App = () => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
+  const anyEntriesEmpty = () => {
+    return entries.some(entry => entry === '');
+  };
 
   const [selectedBoxID, setSelectedBoxID] = useState(0)
 
@@ -26,7 +29,6 @@ const App = () => {
   const [result, setResult] = useState(0.5)
 
   const [isShowingMapSection, setMapSectionVisibility] = useState(true)
-  const [isShowingBrawlerSection, setBrawlerSectionVisibility] = useState(false)
 
   const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone']
   const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
@@ -58,7 +60,8 @@ const App = () => {
 
       // display an error if we can't connect to server
     } catch (error) {
-      setResult('Error');
+      console.error(error)
+      setResult(null);
     }
   };
 
@@ -67,21 +70,16 @@ const App = () => {
       <div className="section">
         <div className="section-upper-part">
           <div className="section-upper-part-left"> {/* this just works? */}
-            <button className="toggle-section-visibility-button" 
-              onClick={() => {
-                setMapSectionVisibility(!isShowingMapSection); 
-                setBrawlerSectionVisibility(false)
-              }}
-              >
-              {isShowingMapSection ? (
-                <FaChevronDown color="white"/>
-              ) : (
-                <FaChevronRight color="white"/>
-              )}
-            </button>
             <p>Map</p>
           </div>
-          <div className="section-upper-part-right">
+          <div
+            className="section-upper-part-right" 
+            onClick={() => setMapSectionVisibility(!isShowingMapSection)}>
+              {isShowingMapSection ? (
+                <FaChevronUp color="#bbb"/>
+              ) : (
+                <FaChevronDown color="#bbb"/>
+              )}
             <p>{gameModes[maps[map].game_mode] + ' - ' + maps[map].name}</p>
           </div>
         </div>
@@ -91,10 +89,7 @@ const App = () => {
             <MapSearchBar 
               selectedMap={map} 
               setMap={setMap}
-              closeMapSearchBar={()=>{
-                setMapSectionVisibility(false); 
-                setBrawlerSectionVisibility(true)
-              }}
+              closeMapSearchBar={()=>setMapSectionVisibility(false)}
             />
           </div>
         )}
@@ -105,25 +100,13 @@ const App = () => {
       <div className="section">
         <div className="section-upper-part">
           <div className="section-upper-part-left">
-            <button className="toggle-section-visibility-button" 
-              onClick={() => {
-                setBrawlerSectionVisibility(!isShowingBrawlerSection);
-                setMapSectionVisibility(false);
-              }}>
-              {isShowingBrawlerSection ? (
-                <FaChevronDown color="white"/>
-              ) : (
-                <FaChevronRight color="white"/>
-              )}
-            </button>
             <p>Brawlers</p>
           </div>
           <div className="section-upper-part-right">
-            {/* {!isShowingBrawlerSection && (<MiniEntryBoxes entries={entries}/>)} */}
           </div>
         </div>
         
-        {isShowingBrawlerSection && (
+        
           <div className="section-lower-part">  
             <>
               <div className='teams'>
@@ -147,29 +130,36 @@ const App = () => {
                     entries={entries} 
                     setEntries={setEntries}
                     closeBrawlerSection={()=>{
-                      setBrawlerSectionVisibility(false)
+                      // setBrawlerSectionVisibility(false)
                     }}
                 />)}
               </>
             </>
           </div>
-        )}
+        
 
       </div>
 
       <div className="section">
-      
-        <button className="get-prediction-button" onClick={getPrediction}>Get Prediction</button>
+        <div className="section-lower-part">  
+          <div className="prediction-bar">
+            <div className="red-prediction-bar"></div>
+            <div className="blue-prediction-bar" style={{width: result*100+'%', transition: 'width 0.3s',}}></div>
+          </div>
 
-        <h1>{'Prediction: ' + result}</h1>
-
-        <div className="prediction-bar">
-          <div className="red-prediction-bar"></div>
-          <div className="blue-prediction-bar" style={{width: result*100+'%', transition: 'width 0.3s',}}></div>
+          <div className="prediction-values">
+            {result != null ? (
+              <>
+                <p>{Math.round(result * 100) / 100}</p>
+                <p>{Math.round((1-result) * 100) / 100}</p>
+              </>
+            ) : (
+              <p>Error: Could not connect to server.</p>
+            )}
+          </div>
+          
         </div>
-
       </div>
-
     </div>
   );
 };
