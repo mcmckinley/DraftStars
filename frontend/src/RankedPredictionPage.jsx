@@ -25,6 +25,9 @@ const RankedPredictionPage = () => {
   };
 
   const [teamWithFirstPick, setTeamWithFirstPick] = useState(null)
+  const [userDraftNumber, setUserDraftNumber] = useState(null)
+
+  const draftNumberStrings = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Last']
 
   const [selectedBoxID, setSelectedBoxID] = useState(0)
 
@@ -41,8 +44,9 @@ const RankedPredictionPage = () => {
   const [isAwaitingPrediction, setIsAwaitingPrediction] = useState(false)
 
   const [IDofActiveSection, setIDofActiveSection] = useState(0)
-
-
+  const moveToNextSection = () => {
+    setIDofActiveSection(IDofActiveSection + 1)
+  }
 
   const getPrediction = async () => {
     try {
@@ -93,6 +97,21 @@ const RankedPredictionPage = () => {
     }
   }, [entries, map]); // Runs whenever these change
 
+  const DraftOrderSelector = ({ boxID }) => {
+    return (
+        <div className={`thumb-div ${userDraftNumber == boxID ? 'selected-thumb':'unselected-thumb'}`} 
+            onClick={ () => {
+                setUserDraftNumber(boxID)
+                moveToNextSection()
+            }}>
+            <img src={icons["ranked-icon.png"]}   />
+            <p>{draftNumberStrings[boxID]}</p>
+        </div>
+    )
+  }
+
+
+
   return (
     <div className="input-page">
       <div className={`section-${IDofActiveSection == 0 ? 'active' : 'inactive'}`}> {/* Who's picking first? section */}
@@ -107,8 +126,8 @@ const RankedPredictionPage = () => {
                 setTeamWithFirstPick('blue'); 
                 // only push the user forward if its their first time clicking the thumbs up/down
                 if (IDofActiveSection == 0) {
+                  moveToNextSection()
                   setMapSectionVisibility(true)
-                  setIDofActiveSection(1)
                 }
               }}>
               <img src={icons["thumbs-up.png"]}   />
@@ -118,8 +137,8 @@ const RankedPredictionPage = () => {
               onClick={ () => {
                 setTeamWithFirstPick('red'); 
                 if (IDofActiveSection == 0) {
+                  moveToNextSection()
                   setMapSectionVisibility(true)
-                  setIDofActiveSection(1)
                 }
               }}>
               <img src={icons["thumbs-down.png"]}   />
@@ -134,16 +153,16 @@ const RankedPredictionPage = () => {
           <div className="section-upper-part-left"> {/* this just works? */}
               <p>Select Map</p>
           </div>
-          <div
-              className="section-upper-part-right" 
-              onClick={() => setMapSectionVisibility(!isShowingMapSection)}>
-              {isShowingMapSection ? (
-                  <FaChevronUp color="#bbb"/>
-              ) : (
-                  <FaChevronDown color="#bbb"/>
-              )}
-              <p className="unselectable">{gameModes[maps[map].game_mode] + ' - ' + maps[map].name}</p>
-          </div>
+            <div
+                className="section-upper-part-right" 
+                onClick={() => setMapSectionVisibility(!isShowingMapSection)}>
+                {isShowingMapSection ? (
+                    <FaChevronUp color="#bbb"/>
+                ) : (
+                    <FaChevronDown color="#bbb"/>
+                )}
+                <p className="unselectable">{gameModes[maps[map].game_mode] + ' - ' + maps[map].name}</p>
+            </div>
           </div>
 
           { isShowingMapSection && (
@@ -163,6 +182,50 @@ const RankedPredictionPage = () => {
           )}
 
       </div>
+
+      <div className={`section-${IDofActiveSection == 2 ? 'active' : 'inactive'}`}>
+        <div className="section-upper-part">
+          <div className="section-upper-part-left">
+            <p>When Do You Pick?</p>
+          </div>
+          <div className="section-upper-part-right" 
+            onClick={() => {
+              if (IDofActiveSection == 2) { // Deselect section
+                setIDofActiveSection(3)
+              } else if (IDofActiveSection > 2){
+                setIDofActiveSection(2) // Lets user go back to a previous section.
+              }
+            }}>
+            {IDofActiveSection == 2 ? (
+              <FaChevronUp color="#bbb"/>
+            ) : (
+              <FaChevronDown color="#bbb"/>
+            )}
+            <p>{draftNumberStrings[userDraftNumber]}</p>
+          </div>
+        </div>
+
+        {(IDofActiveSection == 2 &&
+          <div className="first-pick-section">
+          {(teamWithFirstPick == 'blue' && 
+            <>
+              <DraftOrderSelector boxID={0} />
+              <DraftOrderSelector boxID={3} />
+              <DraftOrderSelector boxID={4} />
+            </>
+          )}
+          {(teamWithFirstPick == 'red' &&
+            <>
+              <DraftOrderSelector boxID={1} />
+              <DraftOrderSelector boxID={2} />
+              <DraftOrderSelector boxID={5} />
+            </>
+          )}
+        </div>
+        )}
+      </div> 
+
+
 
       {/* Select Brawler section */}
       <div className="section">
