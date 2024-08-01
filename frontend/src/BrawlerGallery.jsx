@@ -6,7 +6,16 @@ import icons from './iconLoader';
 
 // import BrawlerGalleryItem from './BrawlerGalleryItem'
 
-const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, closeBrawlerSection, banMode=false, rankedMode=false, teamWithFirstPick=null}) => {
+const BrawlerGallery = ({
+    setSelectedBoxID, selectedBoxID, 
+    entries, setEntries, 
+    closeBrawlerSection, 
+    banMode=false, 
+    rankedMode=false, 
+    teamWithFirstPick, 
+    rankedModeSelectionIndex,
+    setRankedModeSelectionIndex
+  }) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredBrawlers, setFilteredBrawlers] = useState(brawlers);
@@ -14,6 +23,12 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
   const [isFocused, setIsFocused] = useState(false);
   // used to deselect the text box once one search result is valid
   const inputRef = useRef(null);
+
+  // The index used for the below arrays.
+  
+
+  // The orders of in which players select their brawlers, based off of box IDs 
+  const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
   // Function to handle the search logic
   const handleSearch = (event) => {
@@ -59,18 +74,15 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
     return 'none'
   }
 
-  // Update when a brawler is selected
-  const selectBrawler = (brawler) => {
-    console.log('Selecting brawler:', brawler.name)
+  const selectNextEntryBox = () => {
+    // Ban mode does not use entry boxes.
     if (banMode) {
-      updateEntries(brawler.id)
-      setQuery('')
-      setFilteredBrawlers(brawlers)
-    } else if (selectedBoxID != null) {
-      updateEntries(brawler.id)
-
-      // Automatically select the next empty box, so the user doesn't have to manually click each one.
-      
+      return;
+    } else if (rankedMode) {
+      setRankedModeSelectionIndex(rankedModeSelectionIndex + 1);
+    } 
+     // In normal mode, just select the next empty entry box.
+    else {
       const nextEmptyBox = getIDofNextEmptyEntryBox()
       if (nextEmptyBox == 'none'){
         setSelectedBoxID(null)
@@ -78,11 +90,16 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
       } else {
         setSelectedBoxID(nextEmptyBox)
       }
-
-      // setIsFocused(false)           // unselect the text input
-      setQuery('')                  // clear the text input
-      setFilteredBrawlers(brawlers) // reset the brawlers array
     }
+  }
+
+  // Update when a brawler is selected
+  const selectBrawler = (brawler) => {
+    console.log('Selecting brawler:', brawler.name)
+    updateEntries(brawler.id)
+    selectNextEntryBox()
+    setQuery('')                  
+    setFilteredBrawlers(brawlers) 
   }
 
   // Automatically select when the search results yield a single brawler
@@ -90,7 +107,12 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
     if (filteredBrawlers.length === 1) {
       selectBrawler(filteredBrawlers[0]);
     }
-  }, [filteredBrawlers, /* selectBrawler */]);
+
+    if (rankedMode) {
+      setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
+    }
+
+  }, [filteredBrawlers, rankedModeSelectionIndex]);
 
 
   const BrawlerGalleryItem = ({ brawler }) => {
