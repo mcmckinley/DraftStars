@@ -9,11 +9,10 @@ import BrawlerGalleryItem from './BrawlerGalleryItem';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
-import MiniEntryBoxes from './MiniEntryBoxes'
 import PredictionDescription from './PredictionDescription';
 
 // chevrons
-import { FaChevronDown, FaChevronUp, FaDownload } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 
 const RankedPredictionPage = () => {
   // The values for each entry box
@@ -49,6 +48,10 @@ const RankedPredictionPage = () => {
   }
 
   const [bans, setBans] = useState([])
+  const removeBan = (indexToRemove) => {
+    const newBans = bans.filter((ban, index) => index !== indexToRemove);
+    setBans(newBans);
+  };
 
   const getPrediction = async () => {
     try {
@@ -111,6 +114,18 @@ const RankedPredictionPage = () => {
             <img src={icons["ranked-icon.png"]}   />
             <p>{draftNumberStrings[boxID]}</p>
         </div>
+    )
+  }
+
+  const MiniBanBoxes = ({ bans }) => {
+    return ( 
+      <div className="mini-ban-boxes">
+        {bans.map((ban, index) => (
+          <div key={index} className="mini-ban-box red-tint">
+            <img src={icons[brawlers[ban].imgUrl]}></img>
+          </div>
+        ))}
+      </div> 
     )
   }
 
@@ -235,25 +250,52 @@ const RankedPredictionPage = () => {
           <div className="section-upper-part-left">
             <p>Enter Bans</p>
           </div>
-          <div className="section-upper-part-right">
-            <p>{draftNumberStrings[userDraftNumber]}</p>
+          {IDofActiveSection != 3 && (
+            <MiniBanBoxes bans={bans} />
+          )}
+          <div className="section-upper-part-right" onClick={() => {
+              if (IDofActiveSection == 3) { // Deselect section
+                setIDofActiveSection(4)
+              } else if (IDofActiveSection > 3){
+                setIDofActiveSection(3) // Lets user go back to a previous section.
+              }
+            }}>
+            <p>Done</p>
           </div>
         </div>
+        
+        {IDofActiveSection == 3 && (
+          <>
+            {(bans.length > 0 && 
+              <div className="teams">
+                {
+                  bans.map((ban, index) => (
+                    <div className="ban-box" onClick={()=>removeBan(index)}>
+                      <img key={index} src={icons[brawlers[ban].imgUrl]} />
+                      <FaTimes className='x-button'/>
+                    </div>
+                  ))
+                }
+              </div>
+          )}
 
-        <div className="section-lower-part">  
-            <>
-              {( selectedBoxID != null && 
-                <BrawlerGallery 
-                    selectedBoxID={null} 
-                    setSelectedBoxID={null} 
-                    entries={bans} 
-                    setEntries={setBans}
-                    closeBrawlerSection={()=>{}}
-                    banMode={true}
-                />
-              )}
-            </>
-          </div>
+            <div className="section-lower-part">  
+                <>
+                  {( selectedBoxID != null && 
+                    <BrawlerGallery 
+                        banMode={true}
+                        selectedBoxID={null} 
+                        setSelectedBoxID={null} 
+                        entries={bans} 
+                        setEntries={setBans}
+                        closeBrawlerSection={()=>{}}
+                    />
+                  )}
+                </>
+            </div>
+          </>
+        )}
+        
         
 
 

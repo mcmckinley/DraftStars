@@ -145,6 +145,7 @@ input:focus {
     flex-direction: row;
     padding: 2px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .section-upper-part-left {
@@ -265,6 +266,19 @@ input:focus {
     text-align: center;
 }
 
+/* bans section */
+.ban-box {
+    width: 65px;
+    height: 85px;
+    transition: transform 0.15s ease-in-out;
+    overflow: hidden;
+    z-index: 0;
+}
+.ban-box img {
+    height: 65px;
+}
+
+
 /* Brawler section */
 
 /* Animation for player boxes when selected */
@@ -317,6 +331,7 @@ input:focus {
     transition: transform 0.15s ease-in-out;
     overflow: hidden;
     z-index: 0;
+    position: relative;
 }
 .entry-box:hover {
     transform: scale(1.05); /* Adjust the scale factor as needed */
@@ -328,30 +343,32 @@ input:focus {
     height: 100%;
 }
 
-/* MiniEntryBox: what is shown when the brawlers section is hidden */
-.mini-entry-boxes {
-    width: 50%;
+/* MiniBanBox: what is shown when the bans section is hidden */
+.mini-ban-boxes {
+    /* width: 50%; */
     display: flex;
     flex-direction: row;
-    height: 30px;
-}
-.mini-entry-box {
-    height: 28px;
-    width: 28px;
-    overflow: hidden;
-}
-.mini-entry-box img {
     height: 100%;
 }
-.left {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid #2574E2;
-}
-.right {
-    display: flex;
-    flex-direction: row;
+.mini-ban-box {
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
     border: 1px solid red;
+    position: relative;
+}
+.mini-ban-box img {
+    height: 100%;
+}
+.red-tint::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 0, 0, 0.5); 
+    pointer-events: none;
 }
 
 

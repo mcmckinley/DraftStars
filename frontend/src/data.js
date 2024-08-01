@@ -62,7 +62,7 @@ export const brawlers = [{
 },
 {
   "name_caps": "EL PRIMO",
-  "name": "El-Primo",
+  "name": "El Primo",
   "imgUrl": "elprimo.png",
   "id": "10"
 },
@@ -452,7 +452,7 @@ export const brawlers = [{
 },
 {
   "name_caps": "LARRY & LAWRIE",
-  "name": "Larry-&-Lawrie",
+  "name": "Larry & Lawrie",
   "imgUrl": "larry&lawrie.png",
   "id": "75"
 },
