@@ -3,24 +3,37 @@
 import React, { useState } from 'react';
 import icons from './iconLoader';
 
-const GalleryItem = ({brawler, selectedBoxID, setSelectedBoxID, entries, setEntries, getIDofNextEmptyEntryBox, closeBrawlerSection}) => {
+const GalleryItem = ({brawler, selectedBoxID, setSelectedBoxID, entries, setEntries, getIDofNextEmptyEntryBox, closeBrawlerSection, banMode=false}) => {
 
-  const updateEntryBox = (newIndex) => {
-    const newEntries = [...entries]
-    newEntries[selectedBoxID] = newIndex
-    setEntries(newEntries)
+  const selectBrawler = (newIndex) => {
+    // Ban mode
+    if (banMode) {
+      const newBans = [...entries]
+      newBans.push(newIndex)
+      setEntries(newBans)
+    }
+    // Normal mode
+    else {
+      const newEntries = [...entries]
+      newEntries[selectedBoxID] = newIndex
+      setEntries(newEntries)
+    }
   }
 
   const handleSelection = () => {
-    if (selectedBoxID != null) {
-      updateEntryBox(brawler.id)  
+    if (banMode) {
+      selectBrawler(brawler.id)  
+    } else {
+      if (selectedBoxID != null) {
+        selectBrawler(brawler.id)  
 
-      const nextEmptyBox = getIDofNextEmptyEntryBox()
-      if (nextEmptyBox == 'none'){
-        setSelectedBoxID(null)
-        closeBrawlerSection()
-      } else {
-        setSelectedBoxID(nextEmptyBox)
+        const nextEmptyBox = getIDofNextEmptyEntryBox()
+        if (nextEmptyBox == 'none'){
+          setSelectedBoxID(null)
+          closeBrawlerSection()
+        } else {
+          setSelectedBoxID(nextEmptyBox)
+        }
       }
     }
   }

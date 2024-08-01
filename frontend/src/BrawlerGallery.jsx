@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { brawlers } from './data';  // Import the variable
 import BrawlerGalleryItem from './BrawlerGalleryItem'
 
-const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, closeBrawlerSection}) => {
+const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, closeBrawlerSection, banMode=false}) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredBrawlers, setFilteredBrawlers] = useState(brawlers);
@@ -26,10 +26,20 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
   };
 
   // Update the brawler ID, which updates the entry box
-  const updateEntryBox = (newIndex) => {
-    const newEntries = [...entries]
-    newEntries[selectedBoxID] = newIndex
-    setEntries(newEntries)
+  // index: the ID of the brawler to be selected
+  const selectBrawler = (newIndex) => {
+    // Ban mode
+    if (banMode) {
+      const newBans = [...entries]
+      newBans.push(newIndex)
+      setEntries(newBans)
+    }
+    // Normal mode
+    else {
+      const newEntries = [...entries]
+      newEntries[selectedBoxID] = newIndex
+      setEntries(newEntries)
+    }
   }
 
   // returns the ID of the next empty entry box. If none found, return false.
@@ -49,11 +59,16 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
 
   // automatically select one brawler when the list is reduced to one elemnt
   const autoSelectBrawler = () => {
+    if (banMode) {
+      selectBrawler(filteredBrawlers[0].id)
+      setQuery('')                 
+      setFilteredBrawlers(brawlers)
+    }
     if (selectedBoxID != null) {
-      updateEntryBox(filteredBrawlers[0].id)
-      // setSelectedBoxID(null)        // unselect the entry box
+      selectBrawler(filteredBrawlers[0].id)
 
       // Automatically select the next empty box, so the user doesn't have to manually click each one.
+      
       const nextEmptyBox = getIDofNextEmptyEntryBox()
       if (nextEmptyBox == 'none'){
         setSelectedBoxID(null)
@@ -108,6 +123,7 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
             setEntries={setEntries}
             getIDofNextEmptyEntryBox={getIDofNextEmptyEntryBox}
             closeBrawlerSection={closeBrawlerSection}
+            banMode={banMode}
           />
         ))}
       </div>

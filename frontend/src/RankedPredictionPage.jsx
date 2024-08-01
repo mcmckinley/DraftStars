@@ -48,6 +48,8 @@ const RankedPredictionPage = () => {
     setIDofActiveSection(IDofActiveSection + 1)
   }
 
+  const [bans, setBans] = useState([])
+
   const getPrediction = async () => {
     try {
       setIsAwaitingPrediction(true)
@@ -97,6 +99,8 @@ const RankedPredictionPage = () => {
     }
   }, [entries, map]); // Runs whenever these change
 
+  console.log('BANS:', bans)
+
   const DraftOrderSelector = ({ boxID }) => {
     return (
         <div className={`thumb-div ${userDraftNumber == boxID ? 'selected-thumb':'unselected-thumb'}`} 
@@ -109,8 +113,6 @@ const RankedPredictionPage = () => {
         </div>
     )
   }
-
-
 
   return (
     <div className="input-page">
@@ -183,6 +185,7 @@ const RankedPredictionPage = () => {
 
       </div>
 
+      {/* When Do You Pick? section */}
       <div className={`section-${IDofActiveSection == 2 ? 'active' : 'inactive'}`}>
         <div className="section-upper-part">
           <div className="section-upper-part-left">
@@ -225,7 +228,36 @@ const RankedPredictionPage = () => {
         )}
       </div> 
 
+      {/* Enter Bans section */}
 
+      <div className={`section-${IDofActiveSection == 3 ? 'active' : 'inactive'}`}>
+        <div className="section-upper-part">
+          <div className="section-upper-part-left">
+            <p>Enter Bans</p>
+          </div>
+          <div className="section-upper-part-right">
+            <p>{draftNumberStrings[userDraftNumber]}</p>
+          </div>
+        </div>
+
+        <div className="section-lower-part">  
+            <>
+              {( selectedBoxID != null && 
+                <BrawlerGallery 
+                    selectedBoxID={null} 
+                    setSelectedBoxID={null} 
+                    entries={bans} 
+                    setEntries={setBans}
+                    closeBrawlerSection={()=>{}}
+                    banMode={true}
+                />
+              )}
+            </>
+          </div>
+        
+
+
+      </div> 
 
       {/* Select Brawler section */}
       <div className="section">
@@ -290,7 +322,7 @@ const RankedPredictionPage = () => {
           </div>
       </div> 
 
-      {/*  */}
+      {/* Prediciton Description */}
       <div className="section">
           <div className="section-upper-part">
           <div className="section-upper-part-left">
