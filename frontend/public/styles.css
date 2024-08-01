@@ -101,6 +101,10 @@ input:focus {
     width:max-content
 }
 
+.empty-space {
+    height: 500px;
+}
+
 /* make the sections within the map select div show side by side */
 .section {
     background-color: #333;

@@ -8,7 +8,7 @@ import icons from './iconLoader';
 // (set)selectedBoxId: the index of the box currently selected
 // (set)brawler: the brawler ID assigned to the box
 
-const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, setEntries}) => {
+const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, setEntries }) => {
 
   // Select / unselect when box is clicked
   const handleClick = () => {
@@ -38,14 +38,6 @@ const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, setE
   return (
     <div className={`entry-box ${(selectedBoxID === index ? 'selected' : 'unselected')}`} onClick={handleClick}>
       <img src={icon}></img>
-      {/* <input 
-        className = "temp-input-box" 
-        type="number" 
-        value={entries[index]} 
-        onChange={(e) => updateEntryBox(parseFloat(e.target.value))} 
-        min="0"
-        max={brawlers.length}
-      /> */}
     </div>
   )
 }

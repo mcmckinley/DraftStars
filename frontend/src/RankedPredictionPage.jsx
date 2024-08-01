@@ -1,6 +1,6 @@
 // frontend/src/RankedPredictionPage.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { brawlers } from './data';
 import { maps } from './mapData'
 import BrawlerEntryBox from './BrawlerEntryBox';
@@ -129,39 +129,73 @@ const RankedPredictionPage = () => {
     )
   }
 
+  // Window scrolling functionality
+  const firstPickSectionRef = useRef(null);
+  const scrollToSection = () => {
+    firstPickSectionRef.current.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
   return (
     <div className="input-page">
-      <div className={`section-${IDofActiveSection == 0 ? 'active' : 'inactive'}`}> {/* Who's picking first? section */}
+      <div className='empty-space'></div>
+      <div ref={firstPickSectionRef} className={`section-${IDofActiveSection == 0 ? 'active' : 'inactive'}`}> {/* Who's picking first? section */}
           <div className="section-upper-part"> {/* this just works? */}
             <div className="section-upper-part-left">
               <p>Which Team Has First Pick?</p>
             </div>
+            <div className="section-upper-part-right" 
+            onClick={() => {
+              scrollToSection()
+              if (IDofActiveSection == 0) { // Deselect section
+                setIDofActiveSection(1)
+              } else if (IDofActiveSection > 0){
+                setIDofActiveSection(0) // Lets user go back to a previous section.
+              }
+            }}>
+            {IDofActiveSection == 0 ? (
+              <>
+                <FaChevronDown />
+                <p>Done</p>
+              </>
+            ) : (
+              <>
+                <FaChevronUp />
+                <p className={teamWithFirstPick}>{teamWithFirstPick}</p>
+              </>
+            )}
+            
           </div>
-          <div className="first-pick-section">
-            <div className={`thumb-div ${teamWithFirstPick == 'blue' ? 'selected-thumb':'unselected-thumb'}`} 
-              onClick={ () => {
-                setTeamWithFirstPick('blue'); 
-                // only push the user forward if its their first time clicking the thumbs up/down
-                if (IDofActiveSection == 0) {
-                  moveToNextSection()
-                  setMapSectionVisibility(true)
-                }
-              }}>
-              <img src={icons["thumbs-up.png"]}   />
-              <p>Your team</p>
-            </div>
-            <div className={`thumb-div ${teamWithFirstPick == 'red' ? 'selected-thumb':'unselected-thumb'}`} 
-              onClick={ () => {
-                setTeamWithFirstPick('red'); 
-                if (IDofActiveSection == 0) {
-                  moveToNextSection()
-                  setMapSectionVisibility(true)
-                }
-              }}>
-              <img src={icons["thumbs-down.png"]}   />
-              <p>Enemy team</p>
-            </div>
           </div>
+          {(IDofActiveSection == 0 &&
+            <div className="first-pick-section">
+              <div className={`thumb-div ${teamWithFirstPick == 'Blue' ? 'selected-thumb':'unselected-thumb'}`} 
+                onClick={ () => {
+                  setTeamWithFirstPick('Blue'); 
+                  // only push the user forward if its their first time clicking the thumbs up/down
+                  if (IDofActiveSection == 0) {
+                    moveToNextSection()
+                    setMapSectionVisibility(true)
+                  }
+                }}>
+                <img src={icons["thumbs-up.png"]}   />
+                <p>Your team</p>
+              </div>
+              <div className={`thumb-div ${teamWithFirstPick == 'Red' ? 'selected-thumb':'unselected-thumb'}`} 
+                onClick={ () => {
+                  setTeamWithFirstPick('Red'); 
+                  if (IDofActiveSection == 0) {
+                    moveToNextSection()
+                    setMapSectionVisibility(true)
+                  }
+                }}>
+                <img src={icons["thumbs-down.png"]}   />
+                <p>Enemy team</p>
+              </div>
+            </div>
+          )}
       </div> 
 
       {/* Map section */}
@@ -225,14 +259,14 @@ const RankedPredictionPage = () => {
 
         {(IDofActiveSection == 2 &&
           <div className="first-pick-section">
-          {(teamWithFirstPick == 'blue' && 
+          {(teamWithFirstPick == 'Blue' && 
             <>
               <DraftOrderSelector boxID={0} />
               <DraftOrderSelector boxID={3} />
               <DraftOrderSelector boxID={4} />
             </>
           )}
-          {(teamWithFirstPick == 'red' &&
+          {(teamWithFirstPick == 'Red' &&
             <>
               <DraftOrderSelector boxID={1} />
               <DraftOrderSelector boxID={2} />
