@@ -5,7 +5,6 @@ import { brawlers } from './data';
 import { maps } from './mapData'
 import BrawlerEntryBox from './BrawlerEntryBox';
 import BrawlerGallery from './BrawlerGallery';
-import BrawlerGalleryItem from './BrawlerGalleryItem';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'

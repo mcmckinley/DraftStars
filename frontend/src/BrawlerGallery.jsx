@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { brawlers } from './data';  // Import the variable
-import BrawlerGalleryItem from './BrawlerGalleryItem'
+import icons from './iconLoader';
 
-const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, closeBrawlerSection, banMode=false}) => {
+// import BrawlerGalleryItem from './BrawlerGalleryItem'
+
+const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, closeBrawlerSection, banMode=false, rankedMode=false, teamWithFirstPick=null}) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredBrawlers, setFilteredBrawlers] = useState(brawlers);
@@ -27,7 +29,7 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
 
   // Update the brawler ID, which updates the entry box
   // index: the ID of the brawler to be selected
-  const selectBrawler = (newIndex) => {
+  const updateEntries = (newIndex) => {
     // Ban mode
     if (banMode) {
       const newBans = [...entries]
@@ -57,15 +59,15 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
     return 'none'
   }
 
-  // automatically select one brawler when the list is reduced to one elemnt
-  const autoSelectBrawler = () => {
+  // Update when a brawler is selected
+  const selectBrawler = (brawler) => {
+    console.log('Selecting brawler:', brawler.name)
     if (banMode) {
-      selectBrawler(filteredBrawlers[0].id)
-      setQuery('')                 
+      updateEntries(brawler.id)
+      setQuery('')
       setFilteredBrawlers(brawlers)
-    }
-    if (selectedBoxID != null) {
-      selectBrawler(filteredBrawlers[0].id)
+    } else if (selectedBoxID != null) {
+      updateEntries(brawler.id)
 
       // Automatically select the next empty box, so the user doesn't have to manually click each one.
       
@@ -80,25 +82,24 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
       // setIsFocused(false)           // unselect the text input
       setQuery('')                  // clear the text input
       setFilteredBrawlers(brawlers) // reset the brawlers array
-      // if (inputRef.current) {
-      //   inputRef.current.blur(); // Deselect the text box
-      // }
-
-      if (isFocused) {
-        console.log('in focus.')
-      } else {
-        console.log('out of focus.')
-      }
     }
   }
 
   // Automatically select when the search results yield a single brawler
   useEffect(() => {
     if (filteredBrawlers.length === 1) {
-      autoSelectBrawler();
+      selectBrawler(filteredBrawlers[0]);
     }
-  }, [filteredBrawlers, autoSelectBrawler]);
+  }, [filteredBrawlers, /* selectBrawler */]);
 
+
+  const BrawlerGalleryItem = ({ brawler }) => {
+    return ( 
+      <div className="gallery-item" onClick={() => {console.log('brawler:', brawler.name); selectBrawler(brawler)}}>
+        <img src={icons[brawler.imgUrl]} className={brawler.name}></img>
+      </div> 
+    )
+  }
 
   return (
     <div className="brawler-gallery">
@@ -113,17 +114,10 @@ const BrawlerGallery = ({setSelectedBoxID, selectedBoxID, entries, setEntries, c
         ref={inputRef}
       />
       <div className="brawler-gallery-search-results">
-        {filteredBrawlers.map((brawler, index) => (
+        {filteredBrawlers.map((brawler) => (
           <BrawlerGalleryItem 
-            key={brawler.name_caps} 
+            key={brawler.id}
             brawler={brawler} 
-            selectedBoxID={selectedBoxID} 
-            setSelectedBoxID={setSelectedBoxID}
-            entries={entries}
-            setEntries={setEntries}
-            getIDofNextEmptyEntryBox={getIDofNextEmptyEntryBox}
-            closeBrawlerSection={closeBrawlerSection}
-            banMode={banMode}
           />
         ))}
       </div>

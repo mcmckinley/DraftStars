@@ -5,7 +5,6 @@ import { brawlers } from './data';
 import { maps } from './mapData'
 import BrawlerEntryBox from './BrawlerEntryBox';
 import BrawlerGallery from './BrawlerGallery';
-import BrawlerGalleryItem from './BrawlerGalleryItem';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
@@ -138,10 +137,16 @@ const RankedPredictionPage = () => {
     });
   };
 
+  // The orders of in which players select their brawlers, based off
+  // of box IDs 
+  const blueFirstOrderOfBoxSelection = [0, 5, 4, 1, 2, 3]
+  const redFirstOrderOfBoxSelection = [5, 0, 1, 4, 3, 2]
+
   return (
     <div className="input-page">
       <div className='empty-space'></div>
-      <div ref={firstPickSectionRef} className={`section-${IDofActiveSection == 0 ? 'active' : 'inactive'}`}> {/* Who's picking first? section */}
+      {/* Who's picking first? section */}
+      <div ref={firstPickSectionRef} className={`section-${IDofActiveSection == 0 ? 'active' : 'inactive'}`}> 
           <div className="section-upper-part"> {/* this just works? */}
             <div className="section-upper-part-left">
               <p>Which Team Has First Pick?</p>
@@ -278,7 +283,6 @@ const RankedPredictionPage = () => {
       </div> 
 
       {/* Enter Bans section */}
-
       <div className={`section-${IDofActiveSection == 3 ? 'active' : 'inactive'}`}>
         <div className="section-upper-part">
           <div className="section-upper-part-left">
@@ -345,25 +349,26 @@ const RankedPredictionPage = () => {
           </div>
           </div>
           
-          
           <div className="section-lower-part">  
               <>
               <div className='teams'>
-                  <div className="team-div blue-team">
+                <div className="team-div blue-team">
                   <BrawlerEntryBox index={0} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
                   <BrawlerEntryBox index={1} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
                   <BrawlerEntryBox index={2} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                  </div>
+                </div>
 
-                  <div className="team-div red-team">
+                <div className="team-div red-team">
                   <BrawlerEntryBox index={3} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
                   <BrawlerEntryBox index={4} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
                   <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                  </div>
+                </div>
               </div> 
               <>
-                  {( selectedBoxID != null && 
+                {( selectedBoxID != null && 
                   <BrawlerGallery 
+                      rankedMode={true}
+                      firstPick={teamWithFirstPick}
                       selectedBoxID={selectedBoxID} 
                       setSelectedBoxID={setSelectedBoxID} 
                       entries={entries} 
@@ -371,9 +376,10 @@ const RankedPredictionPage = () => {
                       closeBrawlerSection={()=>{
                       // setBrawlerSectionVisibility(false)
                       }}
-                  />)}
+                  />
+                )}
               </>
-              </>
+            </>
           </div>
       </div>
 
