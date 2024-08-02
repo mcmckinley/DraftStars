@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { brawlers } from './data';
 import { maps } from './mapData'
 import BrawlerEntryBox from './BrawlerEntryBox';
-import BrawlerGallery from './BrawlerGallery';
+import BrawlerSelector from './BrawlerSelector';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
@@ -146,7 +146,7 @@ const PredictOutcomePage = () => {
                 </div> 
                 <>
                     {( selectedBoxID != null && 
-                    <BrawlerGallery 
+                    <BrawlerSelector 
                         selectedBoxID={selectedBoxID} 
                         setSelectedBoxID={setSelectedBoxID} 
                         entries={entries} 

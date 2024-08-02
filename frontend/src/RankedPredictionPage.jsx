@@ -3,8 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { brawlers } from './data';
 import { maps } from './mapData'
-import BrawlerEntryBox from './BrawlerEntryBox';
-import BrawlerGallery from './BrawlerGallery';
+import BrawlerSelector from './BrawlerSelector';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSearchBar from './MapSearchBar'
@@ -58,13 +57,20 @@ const RankedPredictionPage = () => {
     setBans(newBans);
   };
 
-  var entryGuides = [
+  var entryGuides = teamWithFirstPick == 'Blue' ? [
     "Enter Blue's first pick",
     "Enter Red's first pick",
     "Enter Red's second pick",
     "Enter Blue's second pick",
-    "Enter Blue's third pick",
+    "Enter Blue's last pick",
     "Enter Red's last pick"
+  ] : [
+    "Enter Red's first pick",
+    "Enter Blue's first pick",
+    "Enter Blue's second pick",
+    "Enter Red's second pick",
+    "Enter Red's last pick",
+    "Enter Blue's last pick"
   ]
 
   const getPrediction = async () => {
@@ -231,30 +237,37 @@ const RankedPredictionPage = () => {
   }
 
   // Shown in the top right of a section.
-  console.log(IDofActiveSection)
-  const SectionDescription = ({ sectionID, text, children }) => {
+  const SectionDescription = ({ sectionID, text, children, hasDoneButton=false }) => {
     return (
-      <div className="section-upper-part-right">
-        { IDofActiveSection > sectionID && (
-          <p>{text}</p>
+      <div className="section-upper-part-right"
+        onClick={()=> {
+          if (IDofActiveSection == 3){
+            moveToNextSection()
+          }
+        }}>
+        {/* Done button */}
+        {hasDoneButton && sectionID == IDofActiveSection && (
+          <p>Done</p>
         )}
+
+        {/* Text to display */}
+        <p>{text}</p>
+
+        {/* Children: e.g. mini ban boxes */}
         {children}
       </div>
     )
   }
 
   const Section = ({ id, title, description, hasDoneButton=false, children}) => {
-    console.log(bans)
     return (
       <div className={sectionClassName(id)}>
         <div className='section-upper-part'>
           <SectionTitle text={title} />
 
-          <SectionDescription sectionID={id} text={description}>
-            {IDofActiveSection == 3 && id == 3 && (
-              <p onClick={moveToNextSection}>Done</p>
-            )}
-            {IDofActiveSection > 3 && id == 3 && (
+          <SectionDescription sectionID={id} text={description} hasDoneButton={hasDoneButton}>
+            {/* Done button and mini ban boxes on section 3  */}
+            {id == 3 && IDofActiveSection > 3 && (
               <MiniBanBoxes />
             )}
           </SectionDescription>
@@ -296,7 +309,7 @@ const RankedPredictionPage = () => {
 
 
       {/* When Do You Pick? section */}
-      <Section id='2' title='When do you pick?' description={draftNumberStrings[userDraftNumber]}>
+      <Section id='2' title='When do you pick?' description={userDraftNumber ? draftNumberStrings[userDraftNumber] : ''}>
         <div className="first-pick-section">
           {(teamWithFirstPick == 'Blue' && 
             <>
@@ -317,7 +330,7 @@ const RankedPredictionPage = () => {
 
       {/* Enter Bans section */}
 
-      <Section id='3' title='Enter bans' description=''>
+      <Section id='3' title='Enter bans' hasDoneButton={true}>
         <div className="teams">
           {bans.map((ban, index) => (
             <div key={index} className="ban-box" onClick={()=>removeBan(index)}>
@@ -328,65 +341,40 @@ const RankedPredictionPage = () => {
         </div>
 
         <div className="section-lower-part">  
-          <BrawlerGallery 
-              banMode={true}
-              selectedBoxID={null} 
-              setSelectedBoxID={null} 
-              entries={bans} 
-              setEntries={setBans}
-              closeBrawlerSection={()=>{}}
+          <BrawlerSelector 
+            banMode={true}
+            selectedBoxID={null} 
+            setSelectedBoxID={null} 
+            entries={bans} 
+            setEntries={setBans}
+            closeBrawlerSection={()=>{}}
           />
         </div>
       </Section>
 
-      
-
       {/* Select Brawler section */}
-      <div className={sectionClassName(4)}>
-          <div className="section-upper-part">
-            <SectionTitle text='Select Brawlers' />
-            <div className="section-upper-part-right">
-              <p className="selected">{entryGuides[rankedModeSelectionIndex]}</p>
-            </div>
-          </div>
 
-          {IDofActiveSection == 4 && (
-            <div className="section-lower-part">  
-              <>
-                <div className='teams'>
-                  <div className="team-div blue-team">
-                    <BrawlerEntryBox index={0} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                    <BrawlerEntryBox index={1} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                    <BrawlerEntryBox index={2} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                  </div>
+      <Section id='4' title='Select Brawlers' description={entryGuides[rankedModeSelectionIndex]}>
+        <div className="section-lower-part">  
+          <BrawlerSelector 
+            rankedMode={true}
+            firstPick={teamWithFirstPick}
+            userDraftNumber={userDraftNumber}
+            teamWithFirstPick={teamWithFirstPick}
+            rankedModeSelectionIndex={rankedModeSelectionIndex} 
+            setRankedModeSelectionIndex={setRankedModeSelectionIndex}
 
-                  <div className="team-div red-team">
-                    <BrawlerEntryBox index={3} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                    <BrawlerEntryBox index={4} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                    <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-                  </div>
-                </div>
-                <BrawlerGallery 
-                    rankedMode={true}
-                    firstPick={teamWithFirstPick}
-                    userDraftNumber={userDraftNumber}
-                    teamWithFirstPick={teamWithFirstPick}
-                    rankedModeSelectionIndex={rankedModeSelectionIndex} 
-                    setRankedModeSelectionIndex={setRankedModeSelectionIndex}
-
-                    selectedBoxID={selectedBoxID} 
-                    setSelectedBoxID={setSelectedBoxID} 
-                    entries={entries} 
-                    setEntries={setEntries}
-                    closeBrawlerSection={()=>{
-                    // setBrawlerSectionVisibility(false)
-                    }}
-                />
-              </>
-            </div>
-          )}
-      </div>
-
+            selectedBoxID={selectedBoxID} 
+            setSelectedBoxID={setSelectedBoxID} 
+            entries={entries} 
+            setEntries={setEntries}
+            closeBrawlerSection={()=>{
+            // setBrawlerSectionVisibility(false)
+            }}
+          />
+        </div>
+      </Section>
+      
       {/* Prediction bar */}
       <div className="section">
           <div className="section-lower-part">  

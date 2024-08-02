@@ -18,26 +18,10 @@ const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, setE
       setSelectedBoxID(index);
     }
   }
-
-  // Update the entry box when the input is changed
-  const updateEntryBox = (newIndex) => {
-    const newEntries = [...entries]
-    newEntries[selectedBoxID] = newIndex
-    setEntries(newEntries)
-  }
-
-  var brawlerID = entries[index]
-  // If the input is invalid or doesn't yet exist, put a question mark
-  var iconUrl = 'ranked-icon.png';
-  if (brawlerID){
-    iconUrl = brawlers[brawlerID].imgUrl
-  }
-  var icon = icons[iconUrl]
-
   
   return (
     <div className={`entry-box ${(selectedBoxID === index ? 'selected' : 'unselected')}`} onClick={handleClick}>
-      <img src={icon}></img>
+      <img src={entries[index] ? icons[brawlers[entries[index]].imgUrl] : icons['ranked-icon.png']}></img>
     </div>
   )
 }

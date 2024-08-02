@@ -31,6 +31,11 @@ const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar, moveUserForward}
   useEffect(() => {
     if (filteredMaps.length === 1) {
       setMap(filteredMaps[0].id);
+      console.log('Map:', filteredMaps[0].id)
+      closeMapSearchBar();
+      if (moveUserForward) {
+          moveUserForward()
+      }
       // setIsFocused(false)
       if (inputRef.current) {
         inputRef.current.blur(); // Deselect the text box
