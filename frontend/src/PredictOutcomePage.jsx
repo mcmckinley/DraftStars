@@ -7,7 +7,7 @@ import BrawlerEntryBox from './BrawlerEntryBox';
 import BrawlerSelector from './BrawlerSelector';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
-import MapSearchBar from './MapSearchBar'
+import MapSelector from './MapSelector'
 import MiniEntryBoxes from './MiniEntryBoxes'
 import PredictionDescription from './PredictionDescription';
 
@@ -108,10 +108,10 @@ const PredictOutcomePage = () => {
 
             { isShowingMapSection && (
             <div className="section-lower-part">
-                <MapSearchBar 
+                <MapSelector 
                 selectedMap={map} 
                 setMap={setMap}
-                closeMapSearchBar={()=>setMapSectionVisibility(false)}
+                closeMapSelector={()=>setMapSectionVisibility(false)}
                 />
             </div>
             )}

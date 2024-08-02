@@ -4,12 +4,12 @@ import mapImages from './mapLoader';
 const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
 
 
-const MapSearchResult = ({ index, map, setMap, isSelected, closeMapSearchBar, moveUserForward}) => {
+const MapSearchResult = ({ index, map, setMap, isSelected, closeMapSelector, moveUserForward}) => {
     return (
         <div 
             onClick={() => {
                 setMap(map.id); 
-                closeMapSearchBar();
+                closeMapSelector();
                 if (moveUserForward) {
                     moveUserForward()
                 }

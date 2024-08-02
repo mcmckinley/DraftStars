@@ -6,7 +6,7 @@ import { maps } from './mapData'
 import BrawlerSelector from './BrawlerSelector';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
-import MapSearchBar from './MapSearchBar'
+import MapSelector from './MapSelector'
 import PredictionDescription from './PredictionDescription';
 
 // chevrons
@@ -293,10 +293,10 @@ const RankedPredictionPage = () => {
       {/* Select Map section */}      
       <Section id='1' title='Select Map' description={map ? gameModes[maps[map].game_mode] + ' - ' + maps[map].name : ''}>
         <div className="section-lower-part">
-          <MapSearchBar 
+          <MapSelector 
             selectedMap={map} 
             setMap={setMap}
-            closeMapSearchBar={()=>setMapSectionVisibility(false)}
+            closeMapSelector={()=>setMapSectionVisibility(false)}
             moveUserForward={() => {
               if (IDofActiveSection == 1) {
                 setMapSectionVisibility(false)

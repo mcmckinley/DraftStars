@@ -1,4 +1,4 @@
-// MapSearchBar.js
+// MapSelector.js
 // Credit: https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 
 import React, { useState, useEffect, useRef } from 'react'
@@ -6,7 +6,7 @@ import { maps } from './mapData'
 import MapSearchResult from './MapSearchResult';
 
 
-const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar, moveUserForward}) => {
+const MapSelector = ({ selectedMap, setMap, closeMapSelector, moveUserForward}) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredMaps, setFilteredMaps] = useState(maps);
@@ -32,7 +32,7 @@ const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar, moveUserForward}
     if (filteredMaps.length === 1) {
       setMap(filteredMaps[0].id);
       console.log('Map:', filteredMaps[0].id)
-      closeMapSearchBar();
+      closeMapSelector();
       if (moveUserForward) {
           moveUserForward()
       }
@@ -63,7 +63,7 @@ const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar, moveUserForward}
             map={map} 
             setMap={setMap} 
             isSelected={selectedMap == map.id} 
-            closeMapSearchBar={closeMapSearchBar}  
+            closeMapSelector={closeMapSelector}  
             moveUserForward={moveUserForward}
           />
         ))}
@@ -72,4 +72,4 @@ const MapSearchBar = ({ selectedMap, setMap, closeMapSearchBar, moveUserForward}
   );
 };
 
-export default MapSearchBar;
+export default MapSelector;
