@@ -1,11 +1,11 @@
 from fastapi import FastAPI
+from typing import Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-import torch
-import torch.nn as nn
-from .model import Model
 import time
+
+from .recommend_brawler import recommend_brawler 
 
 app = FastAPI()
 
@@ -18,18 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-traits_per_brawler = 30
-initial_brawler_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_1/brawler_embeddings_V7_3.pt"))
-traits_per_map = 12
-initial_map_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_1/map_embeddings_V7_3.pt"))
-num_heads = 2
-num_layers = 2
-dim_feedforward = 64
-
-model = Model(traits_per_brawler, initial_brawler_embedding, traits_per_map, initial_map_embedding, num_heads, num_layers, dim_feedforward)
-model.load_state_dict(torch.load("app/pytorch/8_1/BMV7_3.pt"))
-model.eval()
-
 class Numbers(BaseModel):
     blue1: int
     blue2: int
@@ -39,6 +27,7 @@ class Numbers(BaseModel):
     red3: int
     map: int
 
+
 @app.get("/")
 def read_root():
     return {"message": "Hello from FastAPI"}
@@ -47,29 +36,54 @@ mapsAccordingToFrontend = ["Undermine", "G.G. Mortuary", "Gem Fort", "Ahead of t
 # Whenever the model is updated, this array must be updated as well 
 mapsAccordingToModel = ["Safe Zone", "Gem Fort", "Local Businesses", "Kaboom Canyon", "Slayer's Paradise", "Hard Rock Mine", "Open Business", "Four Levels", "Minecart Madness", "Acute Angle", "Deathcap Trap", "Ring of Fire", "Ahead of the Curve", "Double Swoosh", "Dragon Jaws", "Hard Lane", "Offside Trap", "Spider Crawler", "Penalty Kick", "Sunny Soccer", "Super Beach", "Beach Ball", "Double Locking", "Diamond Dome", "Island Hopping", "Undermine", "Backyard Bowl", "Spice Production", "G.G. Mortuary", "Dueling Beetles", "Goalkeeper's Dream", "Deep End", "Twilight Passage", "Sneaky Fields", "Coconut Cove", "Reflections", "Last Stop", "Sneaky Sneak", "Infinite Doom", "New Horizons", "Retina", "Center Stage", "Parallel Plays", "Out in the Open", "Rustic Arcade", "Flaring Phoenix", "Pinball Dreams", "Goldarm Gulch", "Between the Rivers", "Open Space", "Belle's Rock", "Hot Potato"]
 
-@app.post("/predict")
-def predict(numbers: Numbers):
-    print('Hi! Recived:', Numbers)
-    brawlers = ['SHELLY', 'COLT', 'BULL', 'BROCK', 'RICO', 'SPIKE', 'BARLEY', 'JESSIE', 'NITA', 'DYNAMIKE', 'EL PRIMO', 'MORTIS', 'CROW', 'POCO', 'BO', 'PIPER', 'PAM', 'TARA', 'DARRYL', 'PENNY', 'FRANK', 'GENE', 'TICK', 'LEON', 'ROSA', 'CARL', 'BIBI', '8-BIT', 'SANDY', 'BEA', 'EMZ', 'MR. P', 'MAX', 'empty1', 'JACKY', 'GALE', 'NANI', 'SPROUT', 'SURGE', 'COLETTE', 'AMBER', 'LOU', 'BYRON', 'EDGAR', 'RUFFS', 'STU', 'BELLE', 'SQUEAK', 'GROM', 'BUZZ', 'GRIFF', 'ASH', 'MEG', 'LOLA', 'FANG', 'empty2', 'EVE', 'JANET', 'BONNIE', 'OTIS', 'SAM', 'GUS', 'BUSTER', 'CHESTER', 'GRAY', 'MANDY', 'R-T', 'WILLOW', 'MAISIE', 'HANK', 'CORDELIUS', 'DOUG', 'PEARL', 'CHUCK', 'CHARLIE', 'MICO', 'KIT', 'LARRY & LAWRIE', 'MELODIE', 'ANGELO', 'DRACO', 'LILY', 'BERRY', 'CLANCY']
+class RankedMatch(BaseModel):
+    blue1: int
+    blue2: int
+    blue3: int
+    red1: int
+    red2: int
+    red3: int
+    map: int
+    blue_picks_first: bool
+    ban1: Optional[int]
+    ban2: Optional[int]
+    ban3: Optional[int]
+    ban4: Optional[int]
+    ban5: Optional[int]
+    ban6: Optional[int]
 
-    print(brawlers[numbers.blue1], end=' ')
-    print(brawlers[numbers.blue2], end=' ')
-    print(brawlers[numbers.blue3], end=' ')
-    print(brawlers[numbers.red1], end=' ')
-    print(brawlers[numbers.red2], end=' ')
-    print(brawlers[numbers.red3], end=' ')
-    print(mapsAccordingToModel[numbers.map])
+@app.post("/get_ranked_recommendations")
+def get_ranked_recommendations(rm: RankedMatch):
+    print('Getting ranked recommendations')
+    return {
+        "result": recommend_brawler(rm.blue1, rm.blue2, rm.blue3, rm.red1, rm.red2, rm.red3, rm.map, rm.blue_picks_first, [rm.ban1, rm.ban2, rm.ban3, rm.ban4, rm.ban5, rm.ban6])
+    }
 
-    # Properly tokenize the map
-    correctedMap = mapsAccordingToModel.index(mapsAccordingToFrontend[numbers.map])
 
-    print('ACTUAL map:', mapsAccordingToModel[correctedMap])
 
-     # Convert numbers to tensor
-    inputs = torch.tensor([[numbers.blue1, numbers.blue2, numbers.blue3, numbers.red1, numbers.red2, numbers.red3, correctedMap]], dtype=torch.int)
-    # Run inference
-    output = model(inputs)
-    # Convert tensor to list and return
-    result = output.detach().numpy().tolist()[0]
-    # time.sleep(3) # simulates slow server response times
-    return {"result": result}
+# @app.post("/predict_normal")
+# def predict(numbers: Numbers):
+#     print('Received:', Numbers)
+#     brawlers = ['SHELLY', 'COLT', 'BULL', 'BROCK', 'RICO', 'SPIKE', 'BARLEY', 'JESSIE', 'NITA', 'DYNAMIKE', 'EL PRIMO', 'MORTIS', 'CROW', 'POCO', 'BO', 'PIPER', 'PAM', 'TARA', 'DARRYL', 'PENNY', 'FRANK', 'GENE', 'TICK', 'LEON', 'ROSA', 'CARL', 'BIBI', '8-BIT', 'SANDY', 'BEA', 'EMZ', 'MR. P', 'MAX', 'empty1', 'JACKY', 'GALE', 'NANI', 'SPROUT', 'SURGE', 'COLETTE', 'AMBER', 'LOU', 'BYRON', 'EDGAR', 'RUFFS', 'STU', 'BELLE', 'SQUEAK', 'GROM', 'BUZZ', 'GRIFF', 'ASH', 'MEG', 'LOLA', 'FANG', 'empty2', 'EVE', 'JANET', 'BONNIE', 'OTIS', 'SAM', 'GUS', 'BUSTER', 'CHESTER', 'GRAY', 'MANDY', 'R-T', 'WILLOW', 'MAISIE', 'HANK', 'CORDELIUS', 'DOUG', 'PEARL', 'CHUCK', 'CHARLIE', 'MICO', 'KIT', 'LARRY & LAWRIE', 'MELODIE', 'ANGELO', 'DRACO', 'LILY', 'BERRY', 'CLANCY']
+
+#     print(brawlers[numbers.blue1], end=' ')
+#     print(brawlers[numbers.blue2], end=' ')
+#     print(brawlers[numbers.blue3], end=' ')
+#     print(brawlers[numbers.red1], end=' ')
+#     print(brawlers[numbers.red2], end=' ')
+#     print(brawlers[numbers.red3], end=' ')
+#     print(mapsAccordingToModel[numbers.map])
+
+#     # Properly tokenize the map
+#     correctedMap = mapsAccordingToModel.index(mapsAccordingToFrontend[numbers.map])
+
+#     print('ACTUAL map:', mapsAccordingToModel[correctedMap])
+
+#      # Convert numbers to tensor
+#     inputs = torch.tensor([[numbers.blue1, numbers.blue2, numbers.blue3, numbers.red1, numbers.red2, numbers.red3, correctedMap]], dtype=torch.int)
+#     # Run inference
+#     output = model(inputs)
+#     # Convert tensor to list and return
+#     result = output.detach().numpy().tolist()[0]
+#     # time.sleep(3) # simulates slow server response times
+#     return {"result": result}

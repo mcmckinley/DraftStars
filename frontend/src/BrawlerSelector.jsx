@@ -5,14 +5,13 @@ import { brawlers } from './data';  // Import the variable
 import icons from './iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
 
-// import BrawlerSelectorItem from './BrawlerSelectorItem'
-
 const BrawlerSelector = ({
     setSelectedBoxID, selectedBoxID, 
     entries, setEntries, 
     closeBrawlerSection, 
+    standardMode=false,
     banMode=false, 
-    rankedMode=false, 
+    rankedMode=false,
     teamWithFirstPick, 
     rankedModeSelectionIndex,
     setRankedModeSelectionIndex
@@ -28,7 +27,7 @@ const BrawlerSelector = ({
   // The orders of in which players select their brawlers, based off of box IDs 
   const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
-  // Function to handle the search logic
+  // Takes text from the search bar and updates filteredBrawlers 
   const handleSearch = (event) => {
     const value = event.target.value;
     setQuery(value);
@@ -49,7 +48,7 @@ const BrawlerSelector = ({
       newBans.push(newIndex)
       setEntries(newBans)
     }
-    // Normal mode: update the specific index of the array
+    // Normal/Ranked: update the specific index of the array
     else {
       const newEntries = [...entries]
       newEntries[selectedBoxID] = newIndex
@@ -76,7 +75,9 @@ const BrawlerSelector = ({
     // Ban mode does not use entry boxes.
     if (banMode) {
       return;
-    } 
+    } else if (rankedMode) {
+      setRankedModeSelectionIndex(rankedModeSelectionIndex + 1)
+    }
     // In normal mode, just select the next empty entry box.
     else {
       const nextEmptyBox = getIDofNextEmptyEntryBox()
@@ -91,12 +92,10 @@ const BrawlerSelector = ({
 
   // Update when a brawler is selected
   const selectBrawler = (brawler) => {
-    updateEntries(brawler.id)
-    selectNextEntryBox()
-    setQuery('')         
-    if (rankedMode)
-      setRankedModeSelectionIndex(rankedModeSelectionIndex + 1)         
-    setFilteredBrawlers(brawlers) 
+    updateEntries(brawler.id)     // update the entries array
+    selectNextEntryBox()          // select the next entry box
+    setQuery('')                  // clear the textInput
+    setFilteredBrawlers(brawlers) // reset the brawlers search
   }
 
   // Automatically select when the search results yield a single brawler
@@ -104,14 +103,9 @@ const BrawlerSelector = ({
     if (filteredBrawlers.length === 1) {
       selectBrawler(filteredBrawlers[0]);
     }
-
-    // It doesn't make sense to me why, but the code has only worked for me when I call this here.
-    // At the end of the selectBrawler function, filteredBrawlers is updated, triggering the useEffect.
-    // Bad code. I agree. But it feels like a bad use of valuable time to refactor this already working code.
     if (rankedMode) {
       setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
     }
-
   }, [filteredBrawlers]);
 
 

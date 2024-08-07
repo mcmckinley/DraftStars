@@ -1,14 +1,10 @@
 // frontend/src/PredictOutcomePage.jsx
 
 import React, { useState, useEffect } from 'react';
-import { brawlers } from './data';
 import { maps } from './mapData'
 import BrawlerEntryBox from './BrawlerEntryBox';
 import BrawlerSelector from './BrawlerSelector';
-import icons from './iconLoader';
-import mapImages from './mapLoader';
 import MapSelector from './MapSelector'
-import MiniEntryBoxes from './MiniEntryBoxes'
 import PredictionDescription from './PredictionDescription';
 
 // chevrons
@@ -47,7 +43,7 @@ const PredictOutcomePage = () => {
       const red2 = parseInt(entries[4], 10);
       const red3 = parseInt(entries[5], 10);
 
-      const response = await fetch('http://localhost:8000/predict', {
+      const response = await fetch('http://localhost:8000/predict_normal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,6 +143,7 @@ const PredictOutcomePage = () => {
                 <>
                     {( selectedBoxID != null && 
                     <BrawlerSelector 
+                        standardMode={true}
                         selectedBoxID={selectedBoxID} 
                         setSelectedBoxID={setSelectedBoxID} 
                         entries={entries} 

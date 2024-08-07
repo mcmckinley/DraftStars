@@ -73,22 +73,50 @@ const RankedPredictionPage = () => {
     "Enter Blue's last pick"
   ]
 
-  const getPrediction = async () => {
+  const getRankedRecommendations = async () => {
     try {
       setIsAwaitingPrediction(true)
-      const blue1 = parseInt(entries[0], 10);
-      const blue2 = parseInt(entries[1], 10);
-      const blue3 = parseInt(entries[2], 10);
-      const red1 = parseInt(entries[3], 10);
-      const red2 = parseInt(entries[4], 10);
-      const red3 = parseInt(entries[5], 10);
 
-      const response = await fetch('http://localhost:8000/predict', {
+      // indices 33 and 55 are unused by the Brawl Stars API, and
+      // are not understood by the model. 
+      // Increase any index above 33 by one, and any index above 55 by two.
+      // Also, we repurpose index 33 to be used as a 'neutral' entry as a heuristic.
+      var adjustedEntries = []
+      for (var entry of entries) {
+        if (entry == '') {
+          adjustedEntries.push(33) 
+        } else {
+          adjustedEntry = parseInt(entry)
+          if (adjustedEntry > 32) {
+            adjustedEntry += 1
+          } else if (adjustedEntry > 54) {
+            adjustedEntry += 2
+          }
+        } 
+      }
+
+      const blue1 = adjustedEntries[0]
+      const blue2 = adjustedEntries[1]
+      const blue3 = adjustedEntries[2]
+      const red1 = adjustedEntries[3]
+      const red2 = adjustedEntries[4]
+      const red3 = adjustedEntries[5]
+
+      const blue_picks_first = teamWithFirstPick == "Blue" 
+
+      const ban1 =  bans[0] ? parseInt(bans[0]) : null
+      const ban2 =  bans[1] ? parseInt(bans[1]) : null
+      const ban3 =  bans[2] ? parseInt(bans[2]) : null
+      const ban4 =  bans[3] ? parseInt(bans[3]) : null
+      const ban5 =  bans[4] ? parseInt(bans[4]) : null
+      const ban6 =  bans[5] ? parseInt(bans[5]) : null
+
+      const response = await fetch('http://localhost:8000/get_ranked_recommendations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ blue1, blue2, blue3, red1, red2, red3, map }),
+        body: JSON.stringify({ blue1, blue2, blue3, red1, red2, red3, map, blue_picks_first, ban1, ban2, ban3, ban4, ban5, ban6 }),
       });
 
       if (!response.ok) {
@@ -96,77 +124,24 @@ const RankedPredictionPage = () => {
       }
 
       const data = await response.json();
-      setResult(data.result[0]);
-      setIsAwaitingPrediction(false)
-      setPreviousEntries(entries)
-      setPreviousMap(map)
-      console.log('Got result:', result)
-
-      // display an error if we can't connect to server
-    } catch (error) {
-      console.error(error)
-      setResult('error');
-    }
-  };
-
-  const getRecommendations = async () => {
-    try {
-      // setIsAwaitingPrediction(true)
-      const blue1 = entries[0] ? parseInt(entries[0], 10) : null;
-      const blue2 = entries[1] ? parseInt(entries[1], 10) : null;
-      const blue3 = entries[2] ? parseInt(entries[2], 10) : null;
-      const red1 = entries[3] ? parseInt(entries[3], 10) : null;
-      const red2 = entries[4] ? parseInt(entries[4], 10) : null;
-      const red3 = entries[5] ? parseInt(entries[5], 10) : null;
-      console.log(blue1)
-
-      const response = await fetch('http://localhost:8000/recommend', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ blue1, blue2, blue3, red1, red2, red3, map }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
+      // setResult(data.result[0]);
       // setIsAwaitingPrediction(false)
       // setPreviousEntries(entries)
       // setPreviousMap(map)
-      console.log('Got result:', data.prediction)
+      console.log('Got result:', data.result)
 
       // display an error if we can't connect to server
     } catch (error) {
       console.error(error)
-      setResult('error');
     }
   };
 
   // Runs when the element loads
   useEffect(() => {
-    // const shouldGetPredition = !anyEntriesEmpty() && (previousEntries != entries || previousMap != map)
-    // if (shouldGetPredition) {
-    //   console.log('Will get prediciton')
-    //   getPrediction()
-    // } else {
-    //   console.log('should not get prediction')
-    // }
-
-    // const shouldGetRecommendations = anyEntriesEmpty() && (previousEntries != entries || previousMap != map)
-    // if (shouldGetRecommendations) {
-    //   console.log('Will get recs')
-    //   getRecommendations()
-    // } else {
-    //   console.log('should not get recommendation')
-    // }
-
-    if (teamWithFirstPick == 'Red') {
-      setSelectedBoxID(5)
+    if (teamWithFirstPick && map !== null){ // only get recommendations if these are defined
+      getRankedRecommendations();
     }
-  }, [entries, map, teamWithFirstPick]); // Runs whenever these change
+  }, [map, entries]); // Runs when you select the map, and when entries change
 
   const DraftOrderSelector = ({ boxID }) => {
     return (

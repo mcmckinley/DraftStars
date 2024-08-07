@@ -10,25 +10,14 @@ class Model(nn.Module):
         encoder_layer = nn.TransformerEncoderLayer(
             d_model = brawler_emb_dim + map_emb_dim,
             nhead=num_heads,
-            dim_feedforward=dim_feedforward
+            dim_feedforward=dim_feedforward,
+            batch_first=True  # Set batch_first to True
         )
 
         self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
 
-        self.fc = nn.Linear((brawler_emb_dim + map_emb_dim) * 6, 1, bias=False)
+        self.fc = nn.Linear((brawler_emb_dim + map_emb_dim) * 6, 1)  # Assuming 3 characters per match
         self.sigmoid = nn.Sigmoid()
-
-        self._reset_parameters()
-
-    def _reset_parameters(self):
-        for layer in self.transformer_encoder.layers:
-            if hasattr(layer, 'self_attn'):
-                layer.self_attn.in_proj_bias.data.fill_(0)
-                layer.self_attn.out_proj.bias.data.fill_(0)
-            if hasattr(layer, 'linear1'):
-                layer.linear1.bias.data.fill_(0)
-            if hasattr(layer, 'linear2'):
-                layer.linear2.bias.data.fill_(0)
 
     def forward(self, x):
         brawlers, map = torch.split(x, [6, 1], dim=1)
@@ -38,9 +27,29 @@ class Model(nn.Module):
 
         embeddings = torch.cat([map_embedding, brawler_embedding], dim=2)
 
-        embeddings = embeddings.permute(1, 0, 2)  # Transformer expects (seq_len, batch_size, brawler_emb_dim)
+        # No need to permute the embeddings now
         transformer_output = self.transformer_encoder(embeddings)
-        transformer_output = transformer_output.permute(1, 0, 2)  # Back to (batch_size, seq_len, brawler_emb_dim)
+        # No need to permute the transformer_output now
         flattened_output = transformer_output.reshape(transformer_output.size(0), -1)
         output = self.fc(flattened_output)
         return self.sigmoid(output)
+
+traits_per_brawler = 40
+brawler_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_6/brawler_embeddings_V7_5.pt"))
+traits_per_map = 10
+map_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_6/map_embeddings_V7_5.pt"))
+num_heads = 2
+num_layers = 2
+dim_feedforward = 64
+
+
+# 1. Create a 'Neutral Brawler'. This is an average of all existing brawlers.
+n = torch.mean(brawler_embedding.weight, dim=0)
+brawler_embedding.weight[33] = n
+
+
+model = Model(traits_per_brawler, brawler_embedding, traits_per_map, map_embedding, num_heads, num_layers, dim_feedforward)
+model.load_state_dict(torch.load("app/pytorch/8_6/BMV7_5.pt"))
+model.eval()
+
+
