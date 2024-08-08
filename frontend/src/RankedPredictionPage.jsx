@@ -11,6 +11,7 @@ import PredictionDescription from './PredictionDescription';
 
 // chevrons
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
+import RankedRecommendationDisplay from './RankedRecommendationDisplay';
 
 const RankedPredictionPage = () => {
   // The values for each entry box
@@ -32,8 +33,6 @@ const RankedPredictionPage = () => {
 
   const [map, setMap] = useState(null)
   const [previousMap, setPreviousMap] = useState(0)
-
-  const [result, setResult] = useState(0.5)
 
   const [isShowingMapSection, setMapSectionVisibility] = useState(false)
   function toggleMapSectionVisibility () {
@@ -73,75 +72,10 @@ const RankedPredictionPage = () => {
     "Enter Blue's last pick"
   ]
 
-  const getRankedRecommendations = async () => {
-    try {
-      setIsAwaitingPrediction(true)
-
-      // indices 33 and 55 are unused by the Brawl Stars API, and
-      // are not understood by the model. 
-      // Increase any index above 33 by one, and any index above 55 by two.
-      // Also, we repurpose index 33 to be used as a 'neutral' entry as a heuristic.
-      var adjustedEntries = []
-      for (var entry of entries) {
-        if (entry == '') {
-          adjustedEntries.push(33) 
-        } else {
-          adjustedEntry = parseInt(entry)
-          if (adjustedEntry > 32) {
-            adjustedEntry += 1
-          } else if (adjustedEntry > 54) {
-            adjustedEntry += 2
-          }
-        } 
-      }
-
-      const blue1 = adjustedEntries[0]
-      const blue2 = adjustedEntries[1]
-      const blue3 = adjustedEntries[2]
-      const red1 = adjustedEntries[3]
-      const red2 = adjustedEntries[4]
-      const red3 = adjustedEntries[5]
-
-      const blue_picks_first = teamWithFirstPick == "Blue" 
-
-      const ban1 =  bans[0] ? parseInt(bans[0]) : null
-      const ban2 =  bans[1] ? parseInt(bans[1]) : null
-      const ban3 =  bans[2] ? parseInt(bans[2]) : null
-      const ban4 =  bans[3] ? parseInt(bans[3]) : null
-      const ban5 =  bans[4] ? parseInt(bans[4]) : null
-      const ban6 =  bans[5] ? parseInt(bans[5]) : null
-
-      const response = await fetch('http://localhost:8000/get_ranked_recommendations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ blue1, blue2, blue3, red1, red2, red3, map, blue_picks_first, ban1, ban2, ban3, ban4, ban5, ban6 }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      // setResult(data.result[0]);
-      // setIsAwaitingPrediction(false)
-      // setPreviousEntries(entries)
-      // setPreviousMap(map)
-      console.log('Got result:', data.result)
-
-      // display an error if we can't connect to server
-    } catch (error) {
-      console.error(error)
-    }
-  };
-
   // Runs when the element loads
   useEffect(() => {
-    if (teamWithFirstPick && map !== null){ // only get recommendations if these are defined
-      getRankedRecommendations();
-    }
-  }, [map, entries]); // Runs when you select the map, and when entries change
+
+  }, []); 
 
   const DraftOrderSelector = ({ boxID }) => {
     return (
@@ -331,10 +265,7 @@ const RankedPredictionPage = () => {
 
       <Section id='4' title='Select Brawlers' description={entryGuides[rankedModeSelectionIndex]}>
         <div className="section-lower-part">  
-          <BrawlerSelector 
-            rankedMode={true}
-            firstPick={teamWithFirstPick}
-            userDraftNumber={userDraftNumber}
+          <RankedRecommendationDisplay 
             teamWithFirstPick={teamWithFirstPick}
             rankedModeSelectionIndex={rankedModeSelectionIndex} 
             setRankedModeSelectionIndex={setRankedModeSelectionIndex}
@@ -343,15 +274,15 @@ const RankedPredictionPage = () => {
             setSelectedBoxID={setSelectedBoxID} 
             entries={entries} 
             setEntries={setEntries}
-            closeBrawlerSection={()=>{
-            // setBrawlerSectionVisibility(false)
-            }}
+            bans={bans}
+            map={map}
+            isBlueTeamTurn={selectedBoxID < 3}
           />
         </div>
       </Section>
       
       {/* Prediction bar */}
-      <div className="section">
+      {/* <div className="section">
           <div className="section-lower-part">  
           <div className="prediction-bar">
               <div className="red-prediction-bar"></div>
@@ -369,10 +300,10 @@ const RankedPredictionPage = () => {
               )}
           </div>
           </div>
-      </div> 
+      </div>  */}
 
       {/* Prediciton Description */}
-      <div className="section">
+      {/* <div className="section">
           <div className="section-upper-part">
           <SectionTitle text='Prediction' />
          
@@ -382,7 +313,7 @@ const RankedPredictionPage = () => {
           <PredictionDescription isAwaitingPrediction={isAwaitingPrediction} result={result}/>
           </div>
 
-      </div>
+      </div> */}
     </div> 
   );
 };

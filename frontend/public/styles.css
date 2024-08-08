@@ -303,6 +303,7 @@ input:focus {
 }
 
 
+
 .teams {
     border-radius: 5px;
     width: 100%;
@@ -465,4 +466,30 @@ input:focus {
 .prediction-values p {
     display: inline;
     margin: 1px;
+}
+
+
+
+.ranked-recommendation-top {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.ranked-prediction-box {
+    height: 60px;
+    width: 100%;
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.recommended-brawler {
+    height: 60px;
+}
+
+.prediction-box-left {
+    width: 70px;
+}
+.prediction-box-right {
+    width: 70px;
 }

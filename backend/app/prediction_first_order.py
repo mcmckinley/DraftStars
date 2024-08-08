@@ -8,7 +8,7 @@ def pred_first_order(possible_battles, available_brawlers):
 
   for i in range(len(available_brawlers)):
     outputs.append({
-        'pred': predictions[i].item(), 
+        'score': predictions[i].item(), 
         'recommendation': available_brawlers[i]
     })
 
