@@ -488,8 +488,9 @@ input:focus {
 }
 
 .prediction-box-left {
-    width: 70px;
+    width: 0px;
 }
 .prediction-box-right {
-    width: 70px;
+    width: 0px;
+    over
 }

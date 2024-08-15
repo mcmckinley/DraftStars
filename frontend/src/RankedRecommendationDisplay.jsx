@@ -27,8 +27,8 @@ const RankedRecommendationDisplay = ({
   const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
   const [predictions, setPredictions] = useState([
-    {'score': 0, 'recommendation': 1, 'counter': 2, 'response': 3},
-    {'score': 4, 'recommendation': 5, 'counter': 6, 'response': 7}
+    {'score': 0.6, 'recommendation': 1, 'counter': 2, 'response': 3},
+    {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
 
   const getRankedRecommendations = async () => {
@@ -76,8 +76,42 @@ const RankedRecommendationDisplay = ({
       });
 
       const data = await response.json();
-      setPredictions(data.result)
-      console.log('Got UNCLEAN result:', data.result)
+
+      var result = data.result
+
+      // Undo the operation preformed at the beginning of this function.
+      for (var i = 0; i < result.length; i++) {
+        if (result[i]['recommendation'] >= 55) {
+          result[i]['recommendation'] -= 2
+        } else if (result[i]['recommendation'] >= 33) {
+          result[i]['recommendation'] -= 1
+        }
+
+        if (result[i]['counter'] && result[i]['counter'] >= 55) {
+          result[i]['counter'] -= 2
+        } else if (result[i]['counter'] >= 33) {
+          result[i]['counter'] -= 1
+        }
+
+        if (result[i]['synergy_pick'] && result[i]['synergy_pick'] >= 55) {
+          result[i]['synergy_pick'] -= 2
+        } else if (result[i]['synergy_pick'] >= 33) {
+          result[i]['synergy_pick'] -= 1
+        }
+
+        if (result[i]['response'] && result[i]['response'] >= 55) {
+          result[i]['response'] -= 2
+        } else if (result[i]['response'] >= 33) {
+          result[i]['response'] -= 1
+        }
+      }
+
+      for (var i = 0; i < 5; i++){
+        console.log(`${i}: ${brawlers[result[i]['recommendation']].name} ${result[i]['score']}`)
+      }
+
+      setPredictions(result)
+      
       // display an error if we can't connect to server
     } catch (error) {
       console.error(error)
@@ -132,6 +166,12 @@ const RankedRecommendationDisplay = ({
 
   }, [filteredBrawlers]);
 
+  // Displays the result of a single prediction.
+  // This includes: 
+  //  recommended brawler
+  //  bar that shows the strength of the brawler
+  //  possible next pick
+
   const RankedPredictionBar = ({ prediction }) => {
     // console.log(prediction)
     const recommendation = prediction['recommendation']
@@ -141,18 +181,22 @@ const RankedRecommendationDisplay = ({
     const synergy_pick = prediction['synergy_pick']
 
     const isFourthPick = rankedModeSelectionIndex == 3
+
+    const recommendedBrawler = brawlers[recommendation]
+    const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
     
     return ( 
       <div className="ranked-prediction-box" onClick={() => {console.log('clicked RPB')}}>
         <div className="prediction-box-left">
-          <img src={icons[brawlers[recommendation].imgUrl]} className='recommended-brawler'></img>
+          <img src={recommendedBrawlerIcon} className='recommended-brawler'></img>
           {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)}
         </div>
-        
+        <div className="divider" style={{
+            width: '3px', position: 'absolute', right: '50%', height: '40px', backgroundColor: 'white', zIndex: 2
+        }}>
+
         <div className="prediction-bar" style={{width: '100%'}}>
-          <div className="divider" style={{
-            width: '3px', position: 'absolute', right: '50%', height: '100%', backgroundColor: 'white', zIndex: 2
-          }}>
+          
 
           </div>
         </div>
@@ -195,8 +239,8 @@ const RankedRecommendationDisplay = ({
         {predictions.length === 0 ? (
           <p>Loading...</p>
         ) : (
-          predictions.map(( prediction ) => (
-            <RankedPredictionBar prediction={prediction}/>
+          predictions.map(( prediction, index ) => (
+            <RankedPredictionBar key={index} prediction={prediction}/>
           ))
         )}
       </div>

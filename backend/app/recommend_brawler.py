@@ -80,11 +80,11 @@ def get_exclusion_list(pick_type, map):
 
 def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_first, bans):
     map = fix_map_index(map)
-    print('Got map:', maps[map])
+    # print('Got map:', maps[map])
 
-    for ban in bans:
-        print(ban)
-        print(type(ban))
+    # for ban in bans:
+        # print(ban)
+        # print(type(ban))
 
     battle = [blue1, blue2, blue3, red3, red2, red1, map]
     names = ['Blue 1', 'Blue 2', 'Blue 3', 'Red 3', 'Red 2', 'Red 1', 'Map']
@@ -131,7 +131,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
       return
 
     nameToRecommend = names[pick_order[recommendation_index]]
-    print(pick_type + ' for ' + nameToRecommend)
+    # print(pick_type + ' for ' + nameToRecommend)
 
     # 4. Find indices, existent or not, of the subsequent picks made by each team.
     #    counterpick_index: index of the enemy team's next pick
@@ -177,8 +177,8 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     for ban in bans:
       try:
         if ban:
-            print('Is ?')
-            print(ban == True)
+            # print('Is ?')
+            # print(ban == True)
             available_brawlers.remove(brawler_index(brawlers[ban]))
       except ValueError:
         # print('WARNING: Ban already exists, or not found:', ban)
@@ -236,7 +236,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     )
 
     # 9. Sort and print the predictions by score
-    preds = sorted(preds, key=lambda x: x['pred'], reverse=is_blue_team_turn)
+    preds = sorted(preds, key=lambda x: x['score'], reverse=is_blue_team_turn)
 
     #print('\nMap:', maps[map])
     #for prediction in preds:

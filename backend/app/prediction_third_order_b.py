@@ -8,7 +8,7 @@ def create_batches(data, batch_size):
 
 def pred_third_order_b(possible_battles, blue, available_brawlers):
 
-  print('Recommending for blue team') if blue else print('Recommending for red team')
+  # print('Recommending for blue team') if blue else print('Recommending for red team')
 
   # Batch the input the reduce RAM consumption
   predictions = []

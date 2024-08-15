@@ -2,7 +2,7 @@ import torch
 from .model import model
 
 def pred_second_order(possible_battles, blue, available_brawlers):
-  print('Second order prediction')
+  # print('Second order prediction')
   predictions = model(possible_battles)
 
   outputs = []

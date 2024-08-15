@@ -8,7 +8,7 @@ def create_batches(data, batch_size):
 
 def pred_third_order(possible_battles, blue, available_brawlers):
 
-  print('Recommending for blue team') if blue else print('Recommending for red team')
+  # print('Recommending for blue team') if blue else print('Recommending for red team')
 
   # Batch the input the reduce RAM consumption
   predictions = []
@@ -16,6 +16,8 @@ def pred_third_order(possible_battles, blue, available_brawlers):
   for batch in create_batches(possible_battles, batch_size):
     batch_predictions = model(batch)
     predictions.extend(batch_predictions)
+  
+  print('INFERENCE COMPLETE')
 
   outputs = []
 
@@ -70,5 +72,7 @@ def pred_third_order(possible_battles, blue, available_brawlers):
         'counter': strongest_counter_id_overall, # The best counter
         'response': best_response_id_overall, # The best response
     })
+
+  print('LOOPING COMPLETE')
 
   return outputs
