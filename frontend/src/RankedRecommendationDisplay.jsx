@@ -67,7 +67,7 @@ const RankedRecommendationDisplay = ({
       const ban5 =  bans[4] ? parseInt(bans[4]) : null
       const ban6 =  bans[5] ? parseInt(bans[5]) : null
 
-      const response = await fetch('http://localhost:8000/get_ranked_recommendations', {
+      const response = await fetch('http://192.168.1.42:8000/get_ranked_recommendations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

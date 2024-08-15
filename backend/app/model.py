@@ -35,9 +35,9 @@ class Model(nn.Module):
         return self.sigmoid(output)
 
 traits_per_brawler = 40
-brawler_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_6/brawler_embeddings_V7_5.pt"))
+brawler_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_6/brawler_embeddings_V7_5.pt", weights_only=True))
 traits_per_map = 10
-map_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_6/map_embeddings_V7_5.pt"))
+map_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_6/map_embeddings_V7_5.pt", weights_only=True))
 num_heads = 2
 num_layers = 2
 dim_feedforward = 64
@@ -49,7 +49,7 @@ brawler_embedding.weight[33] = n
 
 
 model = Model(traits_per_brawler, brawler_embedding, traits_per_map, map_embedding, num_heads, num_layers, dim_feedforward)
-model.load_state_dict(torch.load("app/pytorch/8_6/BMV7_5.pt"))
+model.load_state_dict(torch.load("app/pytorch/8_6/BMV7_5.pt", weights_only=True))
 model.eval()
 
 
