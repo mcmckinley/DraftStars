@@ -31,63 +31,58 @@ const RankedRecommendationDisplay = ({
     {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
 
+  // indices 33 and 55 are unused by the Brawl Stars API, and
+  // are not understood by the model. 
+  // Thus we must increase any index above 33 by one, and any index above 55 by two.
+  // Also, we repurpose index 33 to be used as a 'neutral' entry as a heuristic.
+  function adjustEntriesForModel(entryList){
+    var adjustedList = []
+    for (var entry of entryList) {
+      if (entry == '') {
+        adjustedList.push(33) 
+      } else {
+        var adjustedEntry = parseInt(entry)
+        if (adjustedEntry > 54) {
+          adjustedEntry += 2
+        } else if (adjustedEntry > 32) {
+          adjustedEntry += 1
+        }
+        adjustedList.push(parseInt(adjustedEntry))
+      } 
+    }
+    return adjustedList
+  }
+
   const getRankedRecommendations = async () => {
     try {
 	console.log('getting ranked reccs')
-      // indices 33 and 55 are unused by the Brawl Stars API, and
-      // are not understood by the model. 
-      // Increase any index above 33 by one, and any index above 55 by two.
-      // Also, we repurpose index 33 to be used as a 'neutral' entry as a heuristic.
-      var adjustedEntries = []
-      for (var entry of entries) {
-        if (entry == '') {
-          adjustedEntries.push(33) 
-        } else {
-          adjustedEntry = parseInt(entry)
-          if (adjustedEntry > 54) {
-            adjustedEntry += 2
-          } else if (adjustedEntry > 32) {
-            adjustedEntry += 1
-          }
-	  adjustedEntries.push(adjustedEntry)
-        } 
+
+      var payload = {}
+      
+      var adjustedEntries = adjustEntriesForModel(entries)
+      var adjustedBans = adjustEntriesForModel(bans)
+
+      payload['blue1'] = adjustedEntries[0]
+      payload['blue2'] = adjustedEntries[1]
+      payload['blue3'] = adjustedEntries[2]
+      payload['red1'] = adjustedEntries[3]
+      payload['red2'] = adjustedEntries[4]
+      payload['red3'] = adjustedEntries[5]
+
+      payload['blue_picks_first'] = teamWithFirstPick == 'Blue'
+
+      for (var i = 0; i < adjustedBans.length; i++){
+        payload['ban' + String(i + 1)] = adjustedBans[i]
       }
 
-
-      var adjustedBans = []
-      for (var ban of bans) {
-	var adjustedBan = parseInt(bans)
-	if (adjustedBan > 54){
-		adjustedBan += 2
-	} else if (adjustedBan > 32) {
-		adjustedBan += 1
-	}
-	adjustedBans.push(adjustedBan)
-	}
-
-
-      const blue1 = adjustedEntries[0]
-      const blue2 = adjustedEntries[1]
-      const blue3 = adjustedEntries[2]
-      const red1 = adjustedEntries[3]
-      const red2 = adjustedEntries[4]
-      const red3 = adjustedEntries[5]
-
-      const blue_picks_first = teamWithFirstPick == "Blue" 
-
-      const ban1 = adjustedBans[0] ? adjustedBans[0] : undefined
-      const ban2 = adjustedBans[1] ? adjustedBans[1] : undefined
-      const ban3 = adjustedBans[2] ? adjustedBans[2] : undefined
-      const ban4 = adjustedBans[3] ? adjustedBans[3] : undefined
-      const ban5 = adjustedBans[4] ? adjustedBans[4] : undefined
-      const ban6 = adjustedBans[5] ? adjustedBans[5] : undefined
+      console.log(payload)
 
       const response = await fetch('http://10.0.0.69:8000/get_ranked_recommendations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ blue1, blue2, blue3, red1, red2, red3, map, blue_picks_first, ban1, ban2, ban3, ban4, ban5, ban6 }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
