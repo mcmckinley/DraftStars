@@ -33,6 +33,7 @@ const RankedRecommendationDisplay = ({
 
   const getRankedRecommendations = async () => {
     try {
+	console.log('getting ranked reccs')
       // indices 33 and 55 are unused by the Brawl Stars API, and
       // are not understood by the model. 
       // Increase any index above 33 by one, and any index above 55 by two.
@@ -67,7 +68,7 @@ const RankedRecommendationDisplay = ({
       const ban5 =  bans[4] ? parseInt(bans[4]) : null
       const ban6 =  bans[5] ? parseInt(bans[5]) : null
 
-      const response = await fetch('http://192.168.1.42:8000/get_ranked_recommendations', {
+      const response = await fetch('http://10.0.0.69:8000/get_ranked_recommendations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,6 +115,7 @@ const RankedRecommendationDisplay = ({
       
       // display an error if we can't connect to server
     } catch (error) {
+	console.log('Failed to get ranked reccs.')
       console.error(error)
     }
   };
