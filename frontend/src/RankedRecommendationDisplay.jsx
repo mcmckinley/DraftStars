@@ -188,21 +188,19 @@ const RankedRecommendationDisplay = ({
     return ( 
       <div className="ranked-prediction-box" onClick={() => {console.log('clicked RPB')}}>
         <div className="prediction-box-left">
-          <img src={recommendedBrawlerIcon} className='recommended-brawler'></img>
-          {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)}
+          <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
+          {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
         </div>
-        <div className="divider" style={{
-            width: '3px', position: 'absolute', right: '50%', height: '40px', backgroundColor: 'white', zIndex: 2
-        }}>
 
-        <div className="prediction-bar" style={{width: '100%'}}>
-          
-
+        <div className="confidence-box" style={{}}>
+          <div className="confidence-bar" style={{
+            width: `${score * 100}%`
+          }}>
           </div>
         </div>
 
         <div className="prediction-box-right">
-          <img src={icons[brawlers[counter].imgUrl]} className='recommended-brawler'></img>
+          <img src={icons[brawlers[counter].imgUrl]} className='right-prediction-image'></img>
         </div>
       </div>
     )

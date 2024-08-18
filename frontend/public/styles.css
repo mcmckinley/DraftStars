@@ -483,14 +483,32 @@ input:focus {
     justify-content: space-between;
 }
 
-.recommended-brawler {
+.left-prediction-image {
+    height: 60px;
+}
+.right-prediction-image {
     height: 60px;
 }
 
 .prediction-box-left {
-    width: 0px;
+    width: 110px;
 }
 .prediction-box-right {
-    width: 0px;
-    over
+    width: 110px;
+    text-align: right;
+}
+/* Mirror the image on the right side, so those characters are looking in the opposite direction */
+.prediction-box-right img {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+/* The box that holds the confidence bar */
+.confidence-box {
+    flex-grow: 1;
+    height: 100%;
+}
+/* The actual blue display */
+.confidence-bar {
+    background-color: lightblue;
+    height: 100%
 }
