@@ -57,7 +57,9 @@ const RankedRecommendationDisplay = ({
     try {
 	console.log('getting ranked reccs')
 
-      var payload = {}
+      var payload = {
+        'map': map
+      }
       
       var adjustedEntries = adjustEntriesForModel(entries)
       var adjustedBans = adjustEntriesForModel(bans)
