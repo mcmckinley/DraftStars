@@ -58,7 +58,7 @@ const RankedRecommendationDisplay = ({
 	console.log('getting ranked reccs')
 
       var payload = {
-        'map': map
+        'map': parseInt(map)
       }
       
       var adjustedEntries = adjustEntriesForModel(entries)
@@ -73,8 +73,8 @@ const RankedRecommendationDisplay = ({
 
       payload['blue_picks_first'] = teamWithFirstPick == 'Blue'
 
-      for (var i = 0; i < adjustedBans.length; i++){
-        payload['ban' + String(i + 1)] = adjustedBans[i]
+      for (var i = 0; i < 6; i++){
+        payload['ban' + String(i + 1)] = adjustedBans[i] ? adjustedBans[i] : null
       }
 
       console.log(payload)
