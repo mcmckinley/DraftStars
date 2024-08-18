@@ -44,13 +44,27 @@ const RankedRecommendationDisplay = ({
           adjustedEntries.push(33) 
         } else {
           adjustedEntry = parseInt(entry)
-          if (adjustedEntry > 32) {
-            adjustedEntry += 1
-          } else if (adjustedEntry > 54) {
+          if (adjustedEntry > 54) {
             adjustedEntry += 2
+          } else if (adjustedEntry > 32) {
+            adjustedEntry += 1
           }
+	  adjustedEntries.push(adjustedEntry)
         } 
       }
+
+
+      var adjustedBans = []
+      for (var ban of bans) {
+	var adjustedBan = parseInt(bans)
+	if (adjustedBan > 54){
+		adjustedBan += 2
+	} else if (adjustedBan > 32) {
+		adjustedBan += 1
+	}
+	adjustedBans.push(adjustedBan)
+	}
+
 
       const blue1 = adjustedEntries[0]
       const blue2 = adjustedEntries[1]
@@ -61,12 +75,12 @@ const RankedRecommendationDisplay = ({
 
       const blue_picks_first = teamWithFirstPick == "Blue" 
 
-      const ban1 =  bans[0] ? parseInt(bans[0]) : null
-      const ban2 =  bans[1] ? parseInt(bans[1]) : null
-      const ban3 =  bans[2] ? parseInt(bans[2]) : null
-      const ban4 =  bans[3] ? parseInt(bans[3]) : null
-      const ban5 =  bans[4] ? parseInt(bans[4]) : null
-      const ban6 =  bans[5] ? parseInt(bans[5]) : null
+      const ban1 = adjustedBans[0] ? adjustedBans[0] : undefined
+      const ban2 = adjustedBans[1] ? adjustedBans[1] : undefined
+      const ban3 = adjustedBans[2] ? adjustedBans[2] : undefined
+      const ban4 = adjustedBans[3] ? adjustedBans[3] : undefined
+      const ban5 = adjustedBans[4] ? adjustedBans[4] : undefined
+      const ban6 = adjustedBans[5] ? adjustedBans[5] : undefined
 
       const response = await fetch('http://10.0.0.69:8000/get_ranked_recommendations', {
         method: 'POST',
