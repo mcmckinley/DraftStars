@@ -35,9 +35,11 @@ const RankedRecommendationDisplay = ({
 
   // If this is the first time the element is loaded, get the ranked recommendations
   useEffect(() => {
-    if (isFirstTimeLoadingSection3)
-      getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
+    if (isFirstTimeLoadingSection3) {
+      const predictions = getRankedRecommendations(entries, bans, map, teamWithFirstPick)
+      setPredictions(predictions)
       setIsFirstTimeLoadingSection3(false)
+    }
   }, [])
 
   // Takes text from the search bar and updates filteredBrawlers 
@@ -70,7 +72,8 @@ const RankedRecommendationDisplay = ({
     selectNextEntryBox()          // select the next entry box
     setQuery('')                  // clear the textInput
     setFilteredBrawlers(brawlers) // reset the brawlers search
-    getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
+    const predicitons = getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
+    setPredictions(predicitons)
   }
 
 

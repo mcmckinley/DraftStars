@@ -1,6 +1,6 @@
 // getRankedRecommendations.jsx
 
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import { brawlers } from './data'
 
 // indices 33 and 55 are unused by the Brawl Stars API, and
@@ -26,7 +26,7 @@ function adjustEntriesForModel(entryList){
 }
 
 // send the POST request to get recommendations from the model
-const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick, setPredictions) => {
+const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) => {
   try {
     console.log('getting ranked reccs')
 
@@ -95,7 +95,7 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick, s
       console.log(`${i}: ${brawlers[result[i]['recommendation']].name} ${result[i]['score']}`)
     }
 
-    setPredictions(result)
+    return result
     
     // display an error if we can't connect to server
   } catch (error) {
