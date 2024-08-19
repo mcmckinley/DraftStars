@@ -32,12 +32,12 @@ const RankedRecommendationDisplay = ({
     {'score': 0.6, 'recommendation': 1, 'counter': 2, 'response': 3},
     {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
-	  console.log(predictions)
 
   // If this is the first time the element is loaded, get the ranked recommendations
   useEffect(() => {
     if (isFirstTimeLoadingSection3) {
       getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
+      setIsFirstTimeLoadingSection3(false)
     }
   }, [])
 
@@ -128,15 +128,15 @@ const RankedRecommendationDisplay = ({
     <>
       <div className='teams'>
         <div className="team-div blue-team">
-          <BrawlerEntryBox index={0} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={1} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={2} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+          <BrawlerEntryBox index={0} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries} isSelectable={false}/>
+          <BrawlerEntryBox index={1} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries} isSelectable={false}/>
+          <BrawlerEntryBox index={2} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries} isSelectable={false}/>
         </div>
 
         <div className="team-div red-team">
-          <BrawlerEntryBox index={3} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={4} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
-          <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries}/>
+          <BrawlerEntryBox index={3} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries} isSelectable={false}/>
+          <BrawlerEntryBox index={4} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries} isSelectable={false}/>
+          <BrawlerEntryBox index={5} selectedBoxID={selectedBoxID} setSelectedBoxID={setSelectedBoxID} entries={entries} setEntries={setEntries} isSelectable={false}/>
         </div>
       </div>
 

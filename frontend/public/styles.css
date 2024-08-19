@@ -338,7 +338,7 @@ input:focus {
     z-index: 0;
     position: relative;
 }
-.entry-box:hover {
+.selectable-entry-box:hover {
     transform: scale(1.05); /* Adjust the scale factor as needed */
     z-index: 1;
 }

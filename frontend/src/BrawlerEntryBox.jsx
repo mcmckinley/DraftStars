@@ -8,10 +8,12 @@ import icons from './iconLoader';
 // (set)selectedBoxId: the index of the box currently selected
 // (set)brawler: the brawler ID assigned to the box
 
-const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, setEntries }) => {
+const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, isSelectable }) => {
 
   // Select / unselect when box is clicked
   const handleClick = () => {
+    if (!isSelectable)
+      return
     if (selectedBoxID == index){
       setSelectedBoxID(null)
     } else {
@@ -20,7 +22,7 @@ const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, setE
   }
   
   return (
-    <div className={`entry-box ${(selectedBoxID === index ? 'selected' : 'unselected')}`} onClick={handleClick}>
+    <div className={`entry-box ${(selectedBoxID === index ? 'selected' : 'unselected')} ${isSelectable ? 'selectable-entry-box' : ''}`} onClick={handleClick}>
       <img src={entries[index] ? icons[brawlers[entries[index]].imgUrl] : icons['ranked-icon.png']}></img>
     </div>
   )
