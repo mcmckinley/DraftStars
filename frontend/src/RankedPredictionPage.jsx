@@ -10,6 +10,8 @@ import MapSelector from './MapSelector'
 import PredictionDescription from './PredictionDescription';
 import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
 
+import getRankedRecommendations from './getRankedRecommendations';
+
 // chevrons
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 import RankedRecommendationDisplay from './RankedRecommendationDisplay';
@@ -42,6 +44,8 @@ const RankedPredictionPage = () => {
   const [isAwaitingPrediction, setIsAwaitingPrediction] = useState(false)
 
   const [IDofActiveSection, setIDofActiveSection] = useState(0)
+  const [isFirstTimeLoadingSection3, setIsFirstTimeLoadingSection3] = useState(true)
+
   const moveToNextSection = () => {
     setIDofActiveSection(IDofActiveSection + 1)
   }
@@ -232,6 +236,8 @@ const RankedPredictionPage = () => {
             bans={bans}
             map={map}
             isBlueTeamTurn={selectedBoxID < 3}
+            isFirstTimeLoadingSection3={isFirstTimeLoadingSection3}
+            setIsFirstTimeLoadingSection3={setIsFirstTimeLoadingSection3}
           />
         </div>
       </Section>
