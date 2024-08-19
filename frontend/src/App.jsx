@@ -17,9 +17,10 @@ const App = () => {
   const handleResize = () => {
     if (window.innerWidth <= 768) {
       setIsMobile(true);
+      setIsSidebarOpen(false);
     } else {
       setIsMobile(false);
-      setIsSidebarOpen(true); // Sidebar always open on desktop
+      setIsSidebarOpen(true);
     }
   };
 
@@ -44,9 +45,9 @@ const App = () => {
         <p className= {`sidebar-page-selector ${page ? 'active' : ''}`} onClick={() => setPage(true)}>Ranked Predictor</p>
       </div>
       {page ? (
-        <RankedPredictionPage />
+        <RankedPredictionPage isSidebarOpen={isSidebarOpen}/>
       ) : (
-        <PredictOutcomePage />
+        <PredictOutcomePage isSidebarOpen={isSidebarOpen}/>
       )}
     </div> // main
   );

@@ -7,7 +7,7 @@ const SelectTeamWithFirstPick = ({ teamWithFirstPick, setTeamWithFirstPick, move
       <>
         <div className={`thumb-div ${teamWithFirstPick == 'blue' ? 'selected-thumb':'unselected-thumb'}`} 
           onClick={ () => {
-            setTeamWithFirstPick('blue'); 
+            setTeamWithFirstPick('Blue'); 
             moveToNextSection()
           }}>
           <img src={icons['thumbs-up.png']}   />
@@ -16,7 +16,7 @@ const SelectTeamWithFirstPick = ({ teamWithFirstPick, setTeamWithFirstPick, move
 
         <div className={`thumb-div ${teamWithFirstPick == 'red' ? 'selected-thumb':'unselected-thumb'}`} 
           onClick={ () => {
-            setTeamWithFirstPick('red'); 
+            setTeamWithFirstPick('Red'); 
             moveToNextSection()
           }}>
           <img src={icons['thumbs-down.png']}   />

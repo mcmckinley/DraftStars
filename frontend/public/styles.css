@@ -40,7 +40,8 @@ input:focus {
 }
 
 .main {
-    display: flex
+    display: flex;
+    padding: 0 10px 0 0; 
 }
   
 
@@ -93,12 +94,16 @@ input:focus {
 
 .input-page {
     flex-grow: 1;
-    margin-left: 330px; /* Adjust for fixed sidebar width */
+    margin-left: 0;
+    transition: margin 0.3s; /* hides margin */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width:max-content
+}
+.input-page.with-sidebar {
+    margin-left: 340px /* makes room for sidebar */
 }
 
 .empty-space {

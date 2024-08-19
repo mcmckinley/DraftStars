@@ -16,7 +16,7 @@ import getRankedRecommendations from './getRankedRecommendations';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 import RankedRecommendationDisplay from './RankedRecommendationDisplay';
 
-const RankedPredictionPage = () => {
+const RankedPredictionPage = ({ isSidebarOpen }) => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
@@ -170,7 +170,7 @@ const RankedPredictionPage = () => {
   }
 
   return (
-    <div className="input-page">
+    <div className={`input-page  ${isSidebarOpen ? 'with-sidebar' : ''}`}>
       {/* <div className='empty-space'></div> */}
 
       {/* Select Map section */}      
