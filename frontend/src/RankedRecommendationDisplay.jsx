@@ -55,7 +55,7 @@ const RankedRecommendationDisplay = ({
 
   const getRankedRecommendations = async () => {
     try {
-	console.log('getting ranked reccs')
+	    console.log('getting ranked reccs')
 
       var payload = {
         'map': parseInt(map)
@@ -126,7 +126,7 @@ const RankedRecommendationDisplay = ({
       
       // display an error if we can't connect to server
     } catch (error) {
-	console.log('Failed to get ranked reccs.')
+	    console.log('Failed to get ranked reccs.')
       console.error(error)
     }
   };

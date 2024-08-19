@@ -6,7 +6,7 @@ import { maps } from './mapData'
 import MapSearchResult from './MapSearchResult';
 
 
-const MapSelector = ({ selectedMap, setMap, closeMapSelector, moveUserForward}) => {
+const MapSelector = ({ selectedMap, setMap, moveToNextSection=()=>{} }) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
   const [filteredMaps, setFilteredMaps] = useState(maps);
@@ -32,10 +32,8 @@ const MapSelector = ({ selectedMap, setMap, closeMapSelector, moveUserForward}) 
     if (filteredMaps.length === 1) {
       setMap(filteredMaps[0].id);
       console.log('Map:', filteredMaps[0].id)
-      closeMapSelector();
-      if (moveUserForward) {
-          moveUserForward()
-      }
+      moveToNextSection()
+
       // setIsFocused(false)
       if (inputRef.current) {
         inputRef.current.blur(); // Deselect the text box
@@ -63,8 +61,7 @@ const MapSelector = ({ selectedMap, setMap, closeMapSelector, moveUserForward}) 
             map={map} 
             setMap={setMap} 
             isSelected={selectedMap == map.id} 
-            closeMapSelector={closeMapSelector}  
-            moveUserForward={moveUserForward}
+            moveToNextSection={moveToNextSection}
           />
         ))}
       </div>

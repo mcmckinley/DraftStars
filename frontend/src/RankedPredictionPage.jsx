@@ -8,6 +8,7 @@ import icons from './iconLoader';
 import mapImages from './mapLoader';
 import MapSelector from './MapSelector'
 import PredictionDescription from './PredictionDescription';
+import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
 
 // chevrons
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
@@ -33,11 +34,6 @@ const RankedPredictionPage = () => {
 
   const [map, setMap] = useState(null)
   const [previousMap, setPreviousMap] = useState(0)
-
-  const [isShowingMapSection, setMapSectionVisibility] = useState(false)
-  function toggleMapSectionVisibility () {
-    setMapSectionVisibility(!isShowingMapSection)
-  }
   
 
   const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone']
@@ -118,24 +114,6 @@ const RankedPredictionPage = () => {
     return `section-${IDofActiveSection == id ? 'active' : 'inactive'}`
   }
 
-  // The thumbs up buttons to select which team has first pick
-  const SelectWhoHasFirstPick = ({ color }) => {
-    return (
-      <div className={`thumb-div ${teamWithFirstPick == color ? 'selected-thumb':'unselected-thumb'}`} 
-        onClick={ () => {
-          setTeamWithFirstPick(color); 
-          // only push the user forward if its their first time clicking the thumbs up/down
-          if (IDofActiveSection == 0) {
-            moveToNextSection()
-            setMapSectionVisibility(true)
-          }
-        }}>
-        <img src={icons[`thumbs-${color == 'Blue' ? 'up' : 'down'}.png`]}   />
-        <p>{color == 'Blue' ? 'Your' : 'Enemy'} team</p>
-      </div>
-    )
-  }
-
   // Shown in the top left of a section
   const SectionTitle = ({ text }) => {
     return (
@@ -150,7 +128,7 @@ const RankedPredictionPage = () => {
     return (
       <div className="section-upper-part-right"
         onClick={()=> {
-          if (IDofActiveSection == 3){
+          if (hasDoneButton){
             moveToNextSection()
           }
         }}>
@@ -176,7 +154,7 @@ const RankedPredictionPage = () => {
 
           <SectionDescription sectionID={id} text={description} hasDoneButton={hasDoneButton}>
             {/* Done button and mini ban boxes on section 3  */}
-            {id == 3 && IDofActiveSection > 3 && (
+            {id == 2 && IDofActiveSection > 2 && (
               <MiniBanBoxes />
             )}
           </SectionDescription>
@@ -191,55 +169,31 @@ const RankedPredictionPage = () => {
     <div className="input-page">
       {/* <div className='empty-space'></div> */}
 
-      {/* Who's picking first? section */}
-      <Section id='0' title='Which team has first pick?' description={teamWithFirstPick} >
-        <div className="first-pick-section">
-          <SelectWhoHasFirstPick color='Blue' />
-          <SelectWhoHasFirstPick color='Red'/>
-        </div>
-      </Section>
-
       {/* Select Map section */}      
-      <Section id='1' title='Select Map' description={map ? gameModes[maps[map].game_mode] + ' - ' + maps[map].name : ''}>
+      <Section id='0' title='Select Map' description={map ? gameModes[maps[map].game_mode] + ' - ' + maps[map].name : ''}>
         <div className="section-lower-part">
           <MapSelector 
             selectedMap={map} 
             setMap={setMap}
-            closeMapSelector={()=>setMapSectionVisibility(false)}
-            moveUserForward={() => {
-              if (IDofActiveSection == 1) {
-                setMapSectionVisibility(false)
-                setIDofActiveSection(2)
-              }
-            }}
+            moveToNextSection={moveToNextSection}
           />
         </div>
       </Section>
 
-
-      {/* When Do You Pick? section */}
-      <Section id='2' title='When do you pick?' description={userDraftNumber ? draftNumberStrings[userDraftNumber] : ''}>
+      {/* Who's picking first? section */}
+      <Section id='1' title='Which team has first pick?' description={teamWithFirstPick} >
         <div className="first-pick-section">
-          {(teamWithFirstPick == 'Blue' && 
-            <>
-              <DraftOrderSelector boxID={0} />
-              <DraftOrderSelector boxID={3} />
-              <DraftOrderSelector boxID={4} />
-            </>
-          )}
-          {(teamWithFirstPick == 'Red' &&
-            <>
-              <DraftOrderSelector boxID={1} />
-              <DraftOrderSelector boxID={2} />
-              <DraftOrderSelector boxID={5} />
-            </>
-          )}
+          <SelectTeamWithFirstPick 
+            teamWithFirstPick={teamWithFirstPick} 
+            setTeamWithFirstPick={setTeamWithFirstPick}
+            moveToNextSection={moveToNextSection} 
+          />
         </div>
       </Section>
 
       {/* Enter Bans section */}
-
-      <Section id='3' title='Enter bans' hasDoneButton={true}>
+      <Section id='2' title='Enter bans' hasDoneButton={true}>
+        {/* Shows the currently selected bans */}
         <div className="teams">
           {bans.map((ban, index) => (
             <div key={index} className="ban-box" onClick={()=>removeBan(index)}>
@@ -249,6 +203,7 @@ const RankedPredictionPage = () => {
           ))}
         </div>
 
+        {/* Shows list of brawlers */}
         <div className="section-lower-part">  
           <BrawlerSelector 
             banMode={true}
@@ -263,7 +218,7 @@ const RankedPredictionPage = () => {
 
       {/* Select Brawler section */}
 
-      <Section id='4' title='Select Brawlers' description={entryGuides[rankedModeSelectionIndex]}>
+      <Section id='3' title='Select Brawlers' description={entryGuides[rankedModeSelectionIndex]}>
         <div className="section-lower-part">  
           <RankedRecommendationDisplay 
             teamWithFirstPick={teamWithFirstPick}

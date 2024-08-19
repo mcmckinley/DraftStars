@@ -4,15 +4,12 @@ import mapImages from './mapLoader';
 const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
 
 
-const MapSearchResult = ({ index, map, setMap, isSelected, closeMapSelector, moveUserForward}) => {
+const MapSearchResult = ({ index, map, setMap, isSelected, moveToNextSection}) => {
     return (
         <div 
             onClick={() => {
                 setMap(map.id); 
-                closeMapSelector();
-                if (moveUserForward) {
-                    moveUserForward()
-                }
+                moveToNextSection()
             }} 
             className={'map-search-result' + (isSelected ? '' : '')}
             // style = {{backgroundColor: gameModeColors[map.game_mode]}}
