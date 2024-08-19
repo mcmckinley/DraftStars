@@ -32,13 +32,12 @@ const RankedRecommendationDisplay = ({
     {'score': 0.6, 'recommendation': 1, 'counter': 2, 'response': 3},
     {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
+	  console.log(predictions)
 
   // If this is the first time the element is loaded, get the ranked recommendations
   useEffect(() => {
     if (isFirstTimeLoadingSection3) {
-      const predictions = getRankedRecommendations(entries, bans, map, teamWithFirstPick)
-      setPredictions(predictions)
-      setIsFirstTimeLoadingSection3(false)
+      getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
     }
   }, [])
 
@@ -72,8 +71,7 @@ const RankedRecommendationDisplay = ({
     selectNextEntryBox()          // select the next entry box
     setQuery('')                  // clear the textInput
     setFilteredBrawlers(brawlers) // reset the brawlers search
-    const predicitons = getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
-    setPredictions(predicitons)
+    getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
   }
 
 
