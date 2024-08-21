@@ -7,9 +7,11 @@ import MapSearchResult from './MapSearchResult';
 
 
 const MapSelector = ({ selectedMap, setMap, moveToNextSection=()=>{} }) => {
+  var rankedMaps = maps.filter(map => map.isInRanked == 'true');
+
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
-  const [filteredMaps, setFilteredMaps] = useState(maps);
+  const [filteredMaps, setFilteredMaps] = useState(rankedMaps);
   // Focus state of the text box
   const [isFocused, setIsFocused] = useState(false);
   // used to deselect the text box once one search result is valid
