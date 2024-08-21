@@ -1,0 +1,11 @@
+# Route traffic to the frontend service
+mckinleydev.com {
+	reverse_proxy frontend:3000
+}
+
+
+# Route traffic to the backend service
+mckinleydev.com/api/* {
+	reverse_proxy backend:8000
+}
+

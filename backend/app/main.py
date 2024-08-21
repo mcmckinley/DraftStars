@@ -28,7 +28,7 @@ class Numbers(BaseModel):
     map: int
 
 
-@app.get("/")
+@app.get("/api/")
 def read_root():
     return {"message": "Hello from FastAPI"}
 
@@ -52,7 +52,7 @@ class RankedMatch(BaseModel):
     ban5: Optional[int]
     ban6: Optional[int]
 
-@app.post("/get_ranked_recommendations")
+@app.post("/api/get_ranked_recommendations")
 def get_ranked_recommendations(rm: RankedMatch):
     print('Getting ranked recommendations')
     print(rm.ban1)
