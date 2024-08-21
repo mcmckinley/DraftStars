@@ -52,7 +52,7 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick, s
 
     console.log(payload)
 
-    const response = await fetch('http://10.0.0.69:8000/get_ranked_recommendations', {
+    const response = await fetch('https://mckinleydev.com/api/get_ranked_recommendations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
