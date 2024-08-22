@@ -1,6 +1,6 @@
 // src/RankedRecommendationDisplay.jsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
 import { brawlers } from './data';  // Import the variable
 import icons from './iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
@@ -33,6 +33,8 @@ const RankedRecommendationDisplay = ({
     {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
 
+  const [filteredPredictions, setFilteredPredictions] = useState(predictions)
+
   // If this is the first time the element is loaded, get the ranked recommendations
   useEffect(() => {
     if (isFirstTimeLoadingSection3) {
@@ -47,10 +49,10 @@ const RankedRecommendationDisplay = ({
     setQuery(value);
 
     // Filter the brawlers based on the search query
-    const filtered = brawlers.filter(brawler =>
-      brawler.name.toLowerCase().includes(value.toLowerCase())
+    const filtered = predictions.filter(pred =>
+      brawlers[pred['recommendation']].name.toLowerCase().includes(value)
     );
-    setFilteredBrawlers(filtered);
+    setFilteredPredictions(filtered);
   };
 
   // Update the brawler ID, which updates the entry box
@@ -70,19 +72,19 @@ const RankedRecommendationDisplay = ({
     updateEntries(brawler.id)     // update the entries array
     selectNextEntryBox()          // select the next entry box
     setQuery('')                  // clear the textInput
-    setFilteredBrawlers(brawlers) // reset the brawlers search
+    setFilteredPredictions(predictions) // reset the brawlers search
     getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
   }
 
 
   // Search bar useEffect
-  useEffect(() => {
-    if (filteredBrawlers.length === 1) {
-      selectBrawler(filteredBrawlers[0]);
-    }
-    setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
+  // useEffect(() => {
+  //   if (filteredPredictions.length === 1) {
+  //     selectBrawler(filteredBrawlers[0]);
+  //   }
+  //   setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
 
-  }, [filteredBrawlers]);
+  // }, [filteredBrawlers]);
 
   // Displays the result of a single prediction.
   // This includes: 
@@ -154,9 +156,11 @@ const RankedRecommendationDisplay = ({
       <div className="brawler-gallery-search-results">
         {predictions.length === 0 ? (
           <p>Loading...</p>
+        ) : filteredPredictions.length === 0 ? (
+          <p>No brawlers found</p>
         ) : (
-          predictions.map(( prediction, index ) => (
-            <RankedPredictionBar key={index} prediction={prediction}/>
+          filteredPredictions.map((prediction, index) => (
+            <RankedPredictionBar key={index} prediction={prediction} />
           ))
         )}
       </div>

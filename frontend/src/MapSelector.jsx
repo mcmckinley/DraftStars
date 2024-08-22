@@ -23,7 +23,7 @@ const MapSelector = ({ selectedMap, setMap, moveToNextSection=()=>{} }) => {
     setQuery(value);
 
     // Filter the maps based on the search query
-    const filtered = maps.filter(map =>
+    const filtered = rankedMaps.filter(map =>
       map.name.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredMaps(filtered);
