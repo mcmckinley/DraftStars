@@ -236,7 +236,6 @@ const RankedPredictionPage = ({ isSidebarOpen }) => {
             setEntries={setEntries}
             bans={bans}
             map={map}
-            isBlueTeamTurn={selectedBoxID < 3}
             isFirstTimeLoadingSection3={isFirstTimeLoadingSection3}
             previousEntries={previousEntries}
             previouslySelectedBox={previouslySelectedBox}

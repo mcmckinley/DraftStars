@@ -14,7 +14,6 @@ const RankedRecommendationDisplay = ({
     teamWithFirstPick, 
     rankedModeSelectionIndex,
     setRankedModeSelectionIndex,
-    isBlueTeamTurn,
     isFirstTimeLoadingSection3,
     previousEntries,
     previouslySelectedBox
@@ -35,7 +34,9 @@ const RankedRecommendationDisplay = ({
     {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
 
-  const [filteredPredictions, setFilteredPredictions] = useState(predictions)
+  const [filteredPredictions, setFilteredPredictions] = useState([])
+
+  const isBlueTeamTurn = orderOfBoxSelection[rankedModeSelectionIndex] < 3
 
   // Initial useEffect: API request
   useEffect(() => {
@@ -43,6 +44,7 @@ const RankedRecommendationDisplay = ({
     if (isFirstTimeLoadingSection3.current && selectedBoxID != null) {
       getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
         setPredictions(result)
+        setFilteredPredictions(result)
       })
       isFirstTimeLoadingSection3.current = false
     }
@@ -57,6 +59,7 @@ const RankedRecommendationDisplay = ({
     if (previousEntries.current != entries && previouslySelectedBox.current != selectedBoxID){
       getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
         setPredictions(result)
+        setFilteredPredictions(result)
       })
 
       previousEntries.current = entries
@@ -106,26 +109,32 @@ const RankedRecommendationDisplay = ({
 
   // Search bar useEffect
   // useEffect(() => {
-  //   // if (filteredPredictions.length === 1) {
-  //   //   selectBrawler(filteredBrawlers[0]);
-  //   // }
+  //   if (filteredPredictions.length === 1) {
+  //     selectBrawler(filteredBrawlers[0]);
+  //   }
   // }, [filteredBrawlers]);
 
   const RankedPredictionBoxHeader = () => {
+    const recommendingPickFor = isBlueTeamTurn ? "friendly" : "enemy"
+    const recommendingCounterFor = isBlueTeamTurn ? "enemy" : "friendly"
+
+    const isLastPick = rankedModeSelectionIndex == 5
     return (
       <div className="ranked-prediction-box-header" onClick={() => {}}>
-        <div className="prediction-box-left">
+        <div className={"prediction-box-left " + recommendingPickFor}>
           <p>Brawler</p>
           {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
         </div>
 
-        <div className="confidence-box" style={{}}>
+        <div className={"confidence-box " + recommendingPickFor} style={{}}>
           <p>Score</p>
         </div>
 
-        <div className="prediction-box-right">
-          <p>Counter</p>
-        </div>
+        {!isLastPick && 
+          (<div className={"prediction-box-right " + recommendingCounterFor}>
+            <p>Counter</p>
+          </div>
+        )}
       </div>
     )
   }
@@ -158,6 +167,8 @@ const RankedRecommendationDisplay = ({
 
     const isFourthPick = rankedModeSelectionIndex == 3
 
+    const isLastPick = rankedModeSelectionIndex == 5
+
     const recommendedBrawler = brawlers[recommendation]
     const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
 
@@ -189,9 +200,11 @@ const RankedRecommendationDisplay = ({
           </div>
         </div>
 
-        <div className="prediction-box-right">
-          <img src={icons[brawlers[counter].imgUrl]} className='right-prediction-image'></img>
-        </div>
+        { !isLastPick && 
+          (<div className="prediction-box-right">
+            <img src={icons[brawlers[counter].imgUrl]} className='right-prediction-image'></img>
+          </div>
+        )}
       </div>
     )
   }
@@ -227,11 +240,11 @@ const RankedRecommendationDisplay = ({
         {predictions.length === 0 ? (
           <p>Loading...</p>
         ) : filteredPredictions.length === 0 ? (
-          <p>No brawlers found</p>
+          <p>No brawlers found. ENTER MESSAGE HERE</p>
         ) : (
           <>
             <RankedPredictionBoxHeader />
-            {predictions.map((prediction, index) => (
+            {filteredPredictions.map((prediction, index) => (
               <RankedPredictionBar 
                 key={index} 
                 prediction={prediction} 

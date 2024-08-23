@@ -400,7 +400,7 @@ input:focus {
 .brawler-gallery-search-results {
     border: 1px solid #ccc;
     overflow-y: scroll;
-    padding: 10px;
+    /* padding: 10px; */
 
     display: flex;
     flex-wrap: wrap;
@@ -483,7 +483,7 @@ input:focus {
 }
 
 .ranked-prediction-box-header p {
-    margin: 0;
+    margin: 5px;
     font-size: 16px;
     color: grey;
 }
@@ -541,4 +541,12 @@ input:focus {
 .confidence-bar {
     background-color: #245687;
     height: 100%;
+}
+/* background colors that vary based off of who the engine is recommending for (either enemy or friendly) */
+.enemy {
+    background-color: #4d0218;
+}
+
+.friendly {
+    background-color: #003c66;
 }
