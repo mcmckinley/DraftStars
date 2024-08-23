@@ -538,10 +538,16 @@ input:focus {
     height: 100%;
 }
 /* The actual blue display */
-.confidence-bar {
+.friendly-confidence-bar {
     background-color: #245687;
     height: 100%;
 }
+.enemy-confidence-bar {
+    background-color: #660000;
+    height: 100%;
+}
+
+
 /* background colors that vary based off of who the engine is recommending for (either enemy or friendly) */
 .enemy {
     background-color: #4d0218;

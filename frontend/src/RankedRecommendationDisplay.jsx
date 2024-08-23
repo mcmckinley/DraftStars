@@ -149,6 +149,8 @@ const RankedRecommendationDisplay = ({
   //  possible next pick
 
   const RankedPredictionBar = ({ prediction, handleSelection }) => {
+    const recommendingPickFor = isBlueTeamTurn ? "friendly" : "enemy"
+
     const [isHover, setIsHover] = useState(false);
 
     const handleMouseEnter = () => {
@@ -162,7 +164,7 @@ const RankedRecommendationDisplay = ({
     const recommendation = prediction['recommendation']
     const counter = prediction['counter']
     const response = prediction['response']
-    const score = prediction['score']
+    const score = recommendingPickFor == 'friendly' ? prediction['score'] : 1 - prediction['score']
     const synergy_pick = prediction['synergy_pick']
 
     const isFourthPick = rankedModeSelectionIndex == 3
@@ -194,7 +196,7 @@ const RankedRecommendationDisplay = ({
         </div>
 
         <div className="confidence-box" style={{}}>
-          <div className="confidence-bar" style={{
+          <div className={recommendingPickFor + '-confidence-bar'} style={{
             width: `${score * 100}%`
           }}>
           </div>
