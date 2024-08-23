@@ -9,6 +9,7 @@ from .prediction_first_order import pred_first_order
 from .prediction_second_order import pred_second_order
 from .prediction_third_order_a import pred_third_order
 from .prediction_third_order_b import pred_third_order_b
+from .prediction_final import pred_final
 
 
 mapsAccordingToFrontend = ["Undermine", "G.G. Mortuary", "Gem Fort", "Ahead of the Curve", "Between the Rivers", "Pinball Dreams", "Four Levels", "Sneaky Sneak", "Super Beach", "Double Locking", "Dragon Jaws", "Infinite Doom", "Center Stage", "Rustic Arcade", "Double Swoosh", "Hot Potato", "Goldarm Gulch", "Deathcap Trap", "Local Businesses", "Backyard Bowl", "Belle's Rock", "Flaring Phoenix", "Hard Lane", "Retina", "New Horizons", "Acute Angle", "Parallel Plays", "Open Business", "Coconut Cove", "Reflections", "Slayer's Paradise", "Island Hopping", "Diamond Dome", "Sneaky Fields", "Twilight Passage", "Spice Production", "Dueling Beetles", "Offside Trap", "Goalkeeper's Dream", "Hard Rock Mine", "Penalty Kick", "Last Stop", "Out in the Open", "Minecart Madness", "Open Space", "Sunny Soccer", "Deep End", "Safe Zone", "Ring of Fire", "Beach Ball", "Kaboom Canyon", "Spider Crawler"]
@@ -82,6 +83,9 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     map = fix_map_index(map)
     # print('Got map:', maps[map])
 
+    # Show that the model is receiving correct input
+    # print(brawlers[blue1], brawlers[blue2], brawlers[blue3], brawlers[red1])
+
     # for ban in bans:
         # print(ban)
         # print(type(ban))
@@ -102,8 +106,8 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
         break
 
     if recommendation_index == -1:
-      print('Invalid input: no unknown brawlers')
-      return
+      print('Getting final prediction')
+      return pred_final(battle)
 
     # 2. Continue following the pick order and identify if there are any more
     #      KNOWN values after we've found an unknown value.
@@ -171,7 +175,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     available_brawlers.remove(55)
 
     for i in range(6):
-      if battle[i] != 33:
+      if battle[i] != 33 and battle[i] != 55:
         available_brawlers.remove(brawler_index(brawlers[battle[i]]))
 
     for ban in bans:

@@ -141,7 +141,7 @@ export const maps = [{
 {
   "name": "Belle's Rock",
   "game_mode": "2",
-  "imgUrl": "Belle's-Rock.webp",
+  "imgUrl": "Belle's-Rock.png",
   "id": "20",
   "isInRanked": "true"
 },
@@ -253,7 +253,7 @@ export const maps = [{
 {
   "name": "Dueling Beetles",
   "game_mode": "5",
-  "imgUrl": "Dueling-Beetles.webp",
+  "imgUrl": "Dueling-Beetles.png",
   "id": "36",
   "isInRanked": "true"
 },

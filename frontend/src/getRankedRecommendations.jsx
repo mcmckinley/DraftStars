@@ -91,9 +91,7 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
       }
     }
 
-    for (var i = 0; i < 5; i++){
-      console.log(`${i}: ${brawlers[result[i]['recommendation']].name} ${result[i]['score']}`)
-    }
+
 
     return result
     

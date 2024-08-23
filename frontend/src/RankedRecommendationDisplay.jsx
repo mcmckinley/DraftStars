@@ -115,22 +115,28 @@ const RankedRecommendationDisplay = ({
   // }, [filteredBrawlers]);
 
   const RankedPredictionBoxHeader = () => {
-    const recommendingPickFor = isBlueTeamTurn ? "friendly" : "enemy"
+    var recommendingPickFor = isBlueTeamTurn ? "friendly" : "enemy"
     const recommendingCounterFor = isBlueTeamTurn ? "enemy" : "friendly"
 
     const isLastPick = rankedModeSelectionIndex == 5
+    const isFinalPrediction = rankedModeSelectionIndex == 6
+
+    if (isFinalPrediction) {
+      recommendingPickFor = 'friendly'
+    } 
     return (
       <div className="ranked-prediction-box-header" onClick={() => {}}>
-        <div className={"prediction-box-left " + recommendingPickFor}>
-          <p>Brawler</p>
-          {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
-        </div>
+        {!isFinalPrediction && (
+          <div className={"prediction-box-left " + recommendingPickFor}>
+            <p>Brawler</p>
+          </div>)
+        }
 
         <div className={"confidence-box " + recommendingPickFor} style={{}}>
           <p>Score</p>
         </div>
 
-        {!isLastPick && 
+        {!isLastPick && !isFinalPrediction && 
           (<div className={"prediction-box-right " + recommendingCounterFor}>
             <p>Counter</p>
           </div>
@@ -142,6 +148,30 @@ const RankedRecommendationDisplay = ({
   // Colors that correspond to each brawler's rarity.
   const rarityColors = ['#76b2cc', '#198000', '#002cbd', '#7700b3', '#a10040', '#abc200']
   const brighterRarityColors = ['#8ecde8', '#25bd00', '#2457ff', '#b524ff', '#fc0064', '#ddf71b']
+
+  // Once all the brawlers are entered, this shows who the model favors to win
+  const isFinalPrediction = rankedModeSelectionIndex == 6
+
+  const FinalPredictionBar = ({ prediction }) => {
+    const score = prediction['score']
+
+    return ( 
+      <div className="ranked-prediction-box" >
+        <div className="confidence-text">
+          <p>{Math.round(score * 100) / 100}</p>
+        </div>
+
+        <div className="confidence-box" style={{}}>
+          <div className={'friendly-confidence-bar'} style={{
+            width: `${score * 100}%`
+          }}>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+
   // Displays the result of a single prediction.
   // This includes: 
   //  recommended brawler
@@ -168,7 +198,6 @@ const RankedRecommendationDisplay = ({
     const synergy_pick = prediction['synergy_pick']
 
     const isFourthPick = rankedModeSelectionIndex == 3
-
     const isLastPick = rankedModeSelectionIndex == 5
 
     const recommendedBrawler = brawlers[recommendation]
@@ -242,7 +271,12 @@ const RankedRecommendationDisplay = ({
         {predictions.length === 0 ? (
           <p>Loading...</p>
         ) : filteredPredictions.length === 0 ? (
-          <p>No brawlers found. ENTER MESSAGE HERE</p>
+          <p>Loading...</p>
+        ) : isFinalPrediction ? (
+          <>
+            <RankedPredictionBoxHeader />
+            <FinalPredictionBar prediction={predictions[0]} />
+          </>
         ) : (
           <>
             <RankedPredictionBoxHeader />

@@ -194,9 +194,8 @@ input:focus {
 .search-bar {
     background-color: #333;
     color: white;
-    width: 98%;
-    border: 1px solid;
-    border-color: rgba(200, 200, 200, 0.5);
+    width: 99%;
+    border: 0.5% solid #ccc;
     border-radius: 2px;
     padding: 4px 3px;
     font-size: 18px;
@@ -398,7 +397,7 @@ input:focus {
 }
 
 .brawler-gallery-search-results {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(200, 200, 200, 0.5);
     overflow-y: scroll;
     /* padding: 10px; */
 
