@@ -111,7 +111,7 @@ const RankedRecommendationDisplay = ({
   //  bar that shows the strength of the brawler
   //  possible next pick
 
-  const RankedPredictionBar = ({ prediction }) => {
+  const RankedPredictionBar = ({ prediction, handleSelection }) => {
     // console.log(prediction)
     const recommendation = prediction['recommendation']
     const counter = prediction['counter']
@@ -125,7 +125,7 @@ const RankedRecommendationDisplay = ({
     const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
     
     return ( 
-      <div className="ranked-prediction-box" onClick={() => {console.log('clicked RPB')}}>
+      <div className="ranked-prediction-box" onClick={handleSelection}>
         <div className="prediction-box-left">
           <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
           {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
@@ -185,7 +185,13 @@ const RankedRecommendationDisplay = ({
           <>
             <RankedPredictionBoxHeader />
             {filteredPredictions.map((prediction, index) => (
-              <RankedPredictionBar key={index} prediction={prediction} />
+              <RankedPredictionBar 
+                key={index} 
+                prediction={prediction} 
+                handleSelection={ ()=>{ 
+                  selectBrawler(brawlers[prediction['recommendation']])}
+                }
+              />
             ))}
           </>
         )}

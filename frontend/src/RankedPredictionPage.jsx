@@ -57,19 +57,19 @@ const RankedPredictionPage = ({ isSidebarOpen }) => {
   };
 
   var entryGuides = teamWithFirstPick == 'Blue' ? [
-    "Enter Blue's first pick",
-    "Enter Red's first pick",
-    "Enter Red's second pick",
-    "Enter Blue's second pick",
-    "Enter Blue's last pick",
-    "Enter Red's last pick"
+    "Select Blue's first pick",
+    "Select Red's first pick",
+    "Select Red's second pick",
+    "Select Blue's second pick",
+    "Select Blue's last pick",
+    "Select Red's last pick"
   ] : [
-    "Enter Red's first pick",
-    "Enter Blue's first pick",
-    "Enter Blue's second pick",
-    "Enter Red's second pick",
-    "Enter Red's last pick",
-    "Enter Blue's last pick"
+    "Select Red's first pick",
+    "Select Blue's first pick",
+    "Select Blue's second pick",
+    "Select Red's second pick",
+    "Select Red's last pick",
+    "Select Blue's last pick"
   ]
 
   // Runs when the element loads

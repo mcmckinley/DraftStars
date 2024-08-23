@@ -509,6 +509,9 @@ input:focus {
 
     justify-content: space-between;
 }
+.ranked-prediction-box:hover {
+    background-color: #666;
+}
 
 .left-prediction-image {
     height: 60px;
