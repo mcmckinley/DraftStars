@@ -1,3 +1,8 @@
+# Staging environment for testing
+{
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
 # Route traffic to the frontend service
 mckinleydev.com {
 	reverse_proxy frontend:3000
@@ -6,6 +11,9 @@ mckinleydev.com {
 
 # Route traffic to the backend service
 mckinleydev.com/api/* {
-	reverse_proxy backend:8000
+	reverse_proxy backend:8889
 }
 
+plausible.mckinleydev.com {
+	reverse_proxy plausible:8000
+}
