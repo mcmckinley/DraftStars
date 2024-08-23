@@ -105,6 +105,9 @@ const RankedRecommendationDisplay = ({
     )
   }
 
+  // Colors that correspond to each brawler's rarity.
+  const rarityColors = ['#76b2cc', '#198000', '#002cbd', '#7700b3', '#a10040', '#abc200']
+  const brighterRarityColors = ['#8ecde8', '#25bd00', '#2457ff', '#b524ff', '#fc0064', '#ddf71b']
   // Displays the result of a single prediction.
   // This includes: 
   //  recommended brawler
@@ -112,6 +115,15 @@ const RankedRecommendationDisplay = ({
   //  possible next pick
 
   const RankedPredictionBar = ({ prediction, handleSelection }) => {
+    const [isHover, setIsHover] = useState(false);
+
+    const handleMouseEnter = () => {
+      setIsHover(true);
+    };
+    const handleMouseLeave = () => {
+      setIsHover(false);
+    };
+
     // console.log(prediction)
     const recommendation = prediction['recommendation']
     const counter = prediction['counter']
@@ -123,10 +135,20 @@ const RankedRecommendationDisplay = ({
 
     const recommendedBrawler = brawlers[recommendation]
     const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
-    
+
+    // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
+    const recommendedBrawlerBGColor = isHover ? brighterRarityColors[recommendedBrawler.rarity] : rarityColors[recommendedBrawler.rarity]
+
     return ( 
-      <div className="ranked-prediction-box" onClick={handleSelection}>
-        <div className="prediction-box-left">
+      <div className="ranked-prediction-box" 
+        onClick={handleSelection}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className={"prediction-box-left"}
+        style={{
+          backgroundColor: recommendedBrawlerBGColor
+        }}>
           <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
           {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
         </div>
