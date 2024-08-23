@@ -20,10 +20,6 @@ const RankedPredictionPage = ({ isSidebarOpen }) => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
-  const [previousEntries, setPreviousEntries] = useState(['', '', '', '', '', ''])
-  const anyEntriesEmpty = () => {
-    return entries.some(entry => entry === '');
-  };
 
   const [teamWithFirstPick, setTeamWithFirstPick] = useState(null)
   const [userDraftNumber, setUserDraftNumber] = useState(null)
@@ -44,7 +40,12 @@ const RankedPredictionPage = ({ isSidebarOpen }) => {
   const [isAwaitingPrediction, setIsAwaitingPrediction] = useState(false)
 
   const [IDofActiveSection, setIDofActiveSection] = useState(0)
-  const [isFirstTimeLoadingSection3, setIsFirstTimeLoadingSection3] = useState(true)
+
+  // passed down to RankedRecommendationDisplay; lets it know if it should request recommendations right away.
+  const isFirstTimeLoadingSection3 = useRef(true)
+
+  const previousEntries = useRef(entries)
+  const previouslySelectedBox = useRef(selectedBoxID)
 
   const moveToNextSection = () => {
     setIDofActiveSection(IDofActiveSection + 1)
@@ -237,7 +238,8 @@ const RankedPredictionPage = ({ isSidebarOpen }) => {
             map={map}
             isBlueTeamTurn={selectedBoxID < 3}
             isFirstTimeLoadingSection3={isFirstTimeLoadingSection3}
-            setIsFirstTimeLoadingSection3={setIsFirstTimeLoadingSection3}
+            previousEntries={previousEntries}
+            previouslySelectedBox={previouslySelectedBox}
           />
         </div>
       </Section>

@@ -15,7 +15,9 @@ const RankedRecommendationDisplay = ({
     rankedModeSelectionIndex,
     setRankedModeSelectionIndex,
     isBlueTeamTurn,
-    isFirstTimeLoadingSection3, setIsFirstTimeLoadingSection3 // If this is true, RankedRecommendationDisplay will send a request.
+    isFirstTimeLoadingSection3,
+    previousEntries,
+    previouslySelectedBox
   }) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
@@ -35,11 +37,36 @@ const RankedRecommendationDisplay = ({
 
   const [filteredPredictions, setFilteredPredictions] = useState(predictions)
 
-  // If this is the first time the element is loaded, get the ranked recommendations
+  // Initial useEffect: API request
   useEffect(() => {
-    if (isFirstTimeLoadingSection3) {
-      getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
-      setIsFirstTimeLoadingSection3(false)
+    // the second part of this condition KILLED me. I spent 3 hours this morning just for these 15 characters to solve my problem.
+    if (isFirstTimeLoadingSection3.current && selectedBoxID != null) {
+      getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
+        setPredictions(result)
+      })
+      isFirstTimeLoadingSection3.current = false
+    }
+
+    if (selectedBoxID == null) {
+      setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
+    }
+
+    // Send new request if both
+    //  a) the user has selected a new brawler
+    //  b) the DOM has updated
+    if (previousEntries.current != entries && previouslySelectedBox.current != selectedBoxID){
+      getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
+        setPredictions(result)
+      })
+
+      previousEntries.current = entries
+      previouslySelectedBox.current = selectedBoxID
+    } else {
+      // console.log('Did not update because either of these are equal')
+      // console.log(previousEntries.current)
+      // console.log(entries)
+      // console.log(previouslySelectedBox)
+      // console.log(selectedBoxID)
     }
   }, [])
 
@@ -65,6 +92,7 @@ const RankedRecommendationDisplay = ({
 
   const selectNextEntryBox = () => {
     setRankedModeSelectionIndex(rankedModeSelectionIndex + 1)
+    setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex + 1])
   }
 
   // Update when a brawler is selected
@@ -73,17 +101,14 @@ const RankedRecommendationDisplay = ({
     selectNextEntryBox()          // select the next entry box
     setQuery('')                  // clear the textInput
     setFilteredPredictions(predictions) // reset the brawlers search
-    getRankedRecommendations(entries, bans, map, teamWithFirstPick, setPredictions)
   }
 
 
   // Search bar useEffect
   // useEffect(() => {
-  //   if (filteredPredictions.length === 1) {
-  //     selectBrawler(filteredBrawlers[0]);
-  //   }
-  //   setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
-
+  //   // if (filteredPredictions.length === 1) {
+  //   //   selectBrawler(filteredBrawlers[0]);
+  //   // }
   // }, [filteredBrawlers]);
 
   const RankedPredictionBoxHeader = () => {
@@ -206,7 +231,7 @@ const RankedRecommendationDisplay = ({
         ) : (
           <>
             <RankedPredictionBoxHeader />
-            {filteredPredictions.map((prediction, index) => (
+            {predictions.map((prediction, index) => (
               <RankedPredictionBar 
                 key={index} 
                 prediction={prediction} 
