@@ -52,7 +52,7 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick, s
 
     console.log(payload)
 
-    const response = await fetch('https://mckinleydev.com/api/get_ranked_recommendations', {
+    const response = await fetch('http://127.0.0.1:8000/api/get_ranked_recommendations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +94,6 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick, s
     for (var i = 0; i < 5; i++){
       console.log(`${i}: ${brawlers[result[i]['recommendation']].name} ${result[i]['score']}`)
     }
-
 
     setPredictions(result)
     

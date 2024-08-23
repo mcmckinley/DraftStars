@@ -473,7 +473,29 @@ input:focus {
     margin: 1px;
 }
 
+/* Displays the text 'Recommendation', 'Score' and 'Counter'*/
+.ranked-prediction-box-header {
+    height: 30px;
+    width: 100%;
+    display: flex;
 
+    justify-content: space-between;
+}
+
+.ranked-prediction-box-header p {
+    margin: 0;
+    font-size: 16px;
+    color: grey;
+}
+
+.confidence-text {
+    width: 60px;
+}
+
+.confidence-text p {
+    font-family: monospace;
+    font-size: 16px;
+}
 
 .ranked-recommendation-top {
     margin-top: 5px;
@@ -514,6 +536,6 @@ input:focus {
 }
 /* The actual blue display */
 .confidence-bar {
-    background-color: lightblue;
-    height: 100%
+    background-color: #245687;
+    height: 100%;
 }

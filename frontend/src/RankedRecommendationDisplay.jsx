@@ -29,7 +29,7 @@ const RankedRecommendationDisplay = ({
   const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
   const [predictions, setPredictions] = useState([
-    {'score': 0.6, 'recommendation': 1, 'counter': 2, 'response': 3},
+    {'score': 0.6789, 'recommendation': 1, 'counter': 2, 'response': 3},
     {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
   ])
 
@@ -86,6 +86,25 @@ const RankedRecommendationDisplay = ({
 
   // }, [filteredBrawlers]);
 
+  const RankedPredictionBoxHeader = () => {
+    return (
+      <div className="ranked-prediction-box-header" onClick={() => {}}>
+        <div className="prediction-box-left">
+          <p>Brawler</p>
+          {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
+        </div>
+
+        <div className="confidence-box" style={{}}>
+          <p>Score</p>
+        </div>
+
+        <div className="prediction-box-right">
+          <p>Counter</p>
+        </div>
+      </div>
+    )
+  }
+
   // Displays the result of a single prediction.
   // This includes: 
   //  recommended brawler
@@ -110,6 +129,10 @@ const RankedRecommendationDisplay = ({
         <div className="prediction-box-left">
           <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
           {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
+        </div>
+
+        <div className="confidence-text">
+          <p>{Math.round(score * 100) / 100}</p>
         </div>
 
         <div className="confidence-box" style={{}}>
@@ -159,9 +182,12 @@ const RankedRecommendationDisplay = ({
         ) : filteredPredictions.length === 0 ? (
           <p>No brawlers found</p>
         ) : (
-          filteredPredictions.map((prediction, index) => (
-            <RankedPredictionBar key={index} prediction={prediction} />
-          ))
+          <>
+            <RankedPredictionBoxHeader />
+            {filteredPredictions.map((prediction, index) => (
+              <RankedPredictionBar key={index} prediction={prediction} />
+            ))}
+          </>
         )}
       </div>
     </>
