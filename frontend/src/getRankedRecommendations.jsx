@@ -14,7 +14,7 @@ function adjustEntriesForModel(entryList){
       adjustedList.push(33) 
     } else {
       var adjustedEntry = parseInt(entry)
-      if (adjustedEntry > 54) {
+      if (adjustedEntry >= 54) {
         adjustedEntry += 2
       } else if (adjustedEntry > 32) {
         adjustedEntry += 1
