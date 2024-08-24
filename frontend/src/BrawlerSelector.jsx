@@ -41,17 +41,29 @@ const BrawlerSelector = ({
 
   // Update the brawler ID, which updates the entry box
   // index: the ID of the brawler to be selected
-  const updateEntries = (newIndex) => {
+  const updateEntries = (selectedBrawlerIndex) => {
+    console.log('Selected ' + selectedBrawlerIndex)
     // Ban mode: push the brawler onto the array
     if (banMode) {
+      // If an already banned brawler is selected, remove it
+      if (entries.includes(selectedBrawlerIndex)){
+        const newEntries = entries.filter(entry => entry != selectedBrawlerIndex);
+        setEntries(newEntries); 
+        return;
+      }
+      // No more than 6 bans
+      if (entries.length > 5){
+        return;
+      }
+      
       const newBans = [...entries]
-      newBans.push(newIndex)
+      newBans.push(selectedBrawlerIndex)
       setEntries(newBans)
     }
     // Normal/Ranked: update the specific index of the array
     else {
       const newEntries = [...entries]
-      newEntries[selectedBoxID] = newIndex
+      newEntries[selectedBoxID] = selectedBrawlerIndex
       setEntries(newEntries)
     }
   }
@@ -110,8 +122,10 @@ const BrawlerSelector = ({
 
 
   const BrawlerSelectorItem = ({ brawler }) => {
+    var isBanned = banMode && entries.includes(brawler.id)
+
     return ( 
-      <div className="gallery-item" onClick={() => {console.log('brawler:', brawler.name); selectBrawler(brawler)}}>
+      <div className={"gallery-item" + (isBanned ? ' red-tint' : '')} onClick={() => {selectBrawler(brawler)}}>
         <img src={icons[brawler.imgUrl]} className={brawler.name}></img>
       </div> 
     )

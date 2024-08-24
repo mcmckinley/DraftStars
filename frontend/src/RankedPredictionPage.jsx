@@ -52,6 +52,7 @@ const RankedPredictionPage = () => {
   }
 
   const [bans, setBans] = useState([])
+  // When the x button under a ban is clicked, remove it
   const removeBan = (indexToRemove) => {
     const newBans = bans.filter((ban, index) => index !== indexToRemove);
     setBans(newBans);

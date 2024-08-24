@@ -412,6 +412,7 @@ input:focus {
 .gallery-item {
     /* height: 10%;
     width: 10%; */
+    position: relative; /* when displaying list of brawlers to ban, this allows a red tint to appear */
     height: 50px;
     width: 50px;
     overflow: hidden;
