@@ -71,7 +71,7 @@ input:focus {
     background-color: #333;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 791px) {
     .sidebar {
       transform: translateX(-100%); /* Move out of view by default on mobile */
     }
@@ -86,7 +86,7 @@ input:focus {
     margin-bottom: 20px;
 }
   
-@media (max-width: 768px) {
+@media (max-width: 791px) {
     .toggle-button {
         display: block;
     }
@@ -100,11 +100,15 @@ input:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width:max-content
+    width: max-content
 }
-.input-page.with-sidebar {
+.empty-space-for-sidebar {
+    min-width: 340px;
+    height: 100%;
+}
+/* .input-page.with-sidebar {
     margin-left: 340px /* makes room for sidebar */
-}
+
 
 .empty-space {
     height: 500px;
