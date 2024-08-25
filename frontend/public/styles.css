@@ -43,7 +43,7 @@ input:focus {
     display: flex;
     padding: 0 10px 0 0; 
 }
-  
+
 
 /* LEFT SIDEBAR */
 
@@ -95,16 +95,20 @@ input:focus {
 .input-page {
     flex-grow: 1;
     margin-left: 0;
-    transition: margin 0.3s; /* hides margin */
+    transition: width 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: max-content
+    /* width: max-content */
 }
 .empty-space-for-sidebar {
     min-width: 340px;
-    height: 100%;
+    transition: min-width 0.3s;
+}
+.empty-space-for-sidebar.hidden {
+    min-width: 0px;
+    width: 0px;
 }
 /* .input-page.with-sidebar {
     margin-left: 340px /* makes room for sidebar */

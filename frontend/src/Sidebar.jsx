@@ -7,13 +7,13 @@ const Sidebar = ({ page }) => {
 
     // Called when size of page changes
     const handleResize = () => {
-    if (window.innerWidth <= 791) {
-        setIsMobile(true);
-        setIsSidebarOpen(false);
-    } else {
-        setIsMobile(false);
-        setIsSidebarOpen(true);
-    }
+        if (window.innerWidth <= 791) {
+            setIsMobile(true);
+            setIsSidebarOpen(false);
+        } else {
+            setIsMobile(false);
+            setIsSidebarOpen(true);
+        }
     };
 
     // Toggles sidebar visibility
@@ -36,7 +36,7 @@ const Sidebar = ({ page }) => {
                 <p className= {`sidebar-page-selector ${page ? '' : 'active'}`} onClick={() => setPage(false)}>Match Predictor</p>
                 <p className= {`sidebar-page-selector ${page ? 'active' : ''}`} onClick={() => setPage(true)}>Ranked Predictor</p>
             </div>
-            <div className={isSidebarOpen ? 'empty-space-for-sidebar' : ''}></div>
+            <div className={'empty-space-for-sidebar' + (isSidebarOpen ? '' : ' hidden')}></div>
         </>
     )
 }
