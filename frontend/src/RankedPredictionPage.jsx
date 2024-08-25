@@ -34,7 +34,7 @@ const RankedPredictionPage = () => {
   const [previousMap, setPreviousMap] = useState(0)
   
 
-  const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone']
+  const gameModes      = ['Gem Grab', 'Brawl Ball', 'Knockout', 'Wipeout', 'Heist', 'Hot Zone', 'Bounty']
   const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
 
   const [isAwaitingPrediction, setIsAwaitingPrediction] = useState(false)

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import mapImages from './mapLoader';
 
-const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525']
+const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525', '#2be6ff']
 
 
 const MapSearchResult = ({ index, map, setMap, isSelected, moveToNextSection}) => {

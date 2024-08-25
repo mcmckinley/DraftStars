@@ -39,7 +39,7 @@ exclusion_category = {
     'Hard Rock Mine': 'gem_grab',
     'Undermine': 'gem_grab',
 
-    'Center Stage:': 'brawl_ball',
+    'Center Stage': 'brawl_ball',
     'Penalty Kick': 'brawl_ball',
     'Pinball Dreams': 'brawl_ball',
 
@@ -63,9 +63,9 @@ exclusion_category = {
 # Get a map's exclusion list for a given pick type, given the map ID and pick type
 def get_exclusion_list(pick_type, map):
   map_name = maps[map]
-  if pick_type == 'FIRST PICK' or pick_type == 'SECOND PICK' or pick_type == 'THIRD PICK':
+  if pick_type in ['FIRST PICK', 'SECOND PICK', 'THIRD PICK']:
     exclusion_list = exclusion_table_a[exclusion_category[map_name]]
-  elif pick_type == 'FOURTH PICK':
+  elif pick_type in ['FOURTH PICK', 'FIFTH PICK']:
     exclusion_list = exclusion_table_b[exclusion_category[map_name]]
   else:
     print('No brawler exclusions for fifth and sixth picks')

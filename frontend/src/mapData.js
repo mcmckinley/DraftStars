@@ -361,4 +361,26 @@ export const maps = [{
   "imgUrl": "Spider-Crawler.webp",
   "id": "51",
   "isInRanked": "false"
-}]
+},
+{
+  "name": "Canal Grande",
+  "game_mode": "6",
+  "imgUrl": "Canal-Grande.webp",
+  "id": "52",
+  "isInRanked": "true"
+},
+{
+  "name": "Hideout",
+  "game_mode": "6",
+  "imgUrl": "Hideout.webp",
+  "id": "53",
+  "isInRanked": "true"
+},
+{
+  "name": "Shooting Star",
+  "game_mode": "6",
+  "imgUrl": "Shooting-Star.webp",
+  "id": "54",
+  "isInRanked": "true"
+},
+]
