@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const Sidebar = ({ page }) => {
+const Sidebar = ({ pageIndex, setPageIndex, pageNames }) => {
     // UI states
     const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 791);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 791);
@@ -33,8 +33,17 @@ const Sidebar = ({ page }) => {
         <>
             <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
                 <h1>Draft Stars</h1>
-                <p className= {`sidebar-page-selector ${page ? '' : 'active'}`} onClick={() => setPage(false)}>Match Predictor</p>
-                <p className= {`sidebar-page-selector ${page ? 'active' : ''}`} onClick={() => setPage(true)}>Ranked Predictor</p>
+                {pageNames.map((name, index) => {
+                    return (
+                        <p 
+                            className={`sidebar-page-selector ${index == pageIndex ? 'active' : ''}`} 
+                            onClick={() => setPageIndex(index)}
+                            key={index}
+                        >
+                            {name}
+                        </p>
+                    );
+                })}
             </div>
             <div className={'empty-space-for-sidebar' + (isSidebarOpen ? '' : ' hidden')}></div>
         </>

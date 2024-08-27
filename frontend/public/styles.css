@@ -44,6 +44,33 @@ input:focus {
     padding: 0 10px 0 0; 
 }
 
+/* HOME */
+
+@keyframes black-and-white-pulse {
+    0%, 100% {
+        filter: sepia(0%) saturate(0%) brightness(0%) hue-rotate(0deg);
+    }
+    40% {
+        filter: sepia(0%) saturate(0%) brightness(100%) hue-rotate(0deg);
+    }
+}
+@keyframes black-and-white-pulse-background {
+    0%, 100% {
+        background-color: black;
+    }
+    40%, 60% {
+        background-color: #222;
+    }
+
+}
+
+.pulsing-brawler-headshot {
+    /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
+    animation: black-and-white-pulse 2s infinite, black-and-white-pulse-background 2s infinite;
+    flex-grow: 1;
+    height: 100vh;
+    overflow-x: visible;
+}
 
 /* LEFT SIDEBAR */
 
