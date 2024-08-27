@@ -32,7 +32,7 @@ const Sidebar = ({ page }) => {
     return (
         <>
             <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-                <h1>BrawlMind</h1>
+                <h1>Draft Stars</h1>
                 <p className= {`sidebar-page-selector ${page ? '' : 'active'}`} onClick={() => setPage(false)}>Match Predictor</p>
                 <p className= {`sidebar-page-selector ${page ? 'active' : ''}`} onClick={() => setPage(true)}>Ranked Predictor</p>
             </div>

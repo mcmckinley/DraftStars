@@ -106,40 +106,53 @@ const RankedRecommendationDisplay = ({
     setFilteredPredictions(predictions) // reset the brawlers search
   }
 
-
-  // Search bar useEffect
   // useEffect(() => {
   //   if (filteredPredictions.length === 1) {
   //     selectBrawler(filteredBrawlers[0]);
   //   }
   // }, [filteredBrawlers]);
 
+  // The header text for the list of recommendations. 
   const RankedPredictionBoxHeader = () => {
-    var recommendingPickFor = isBlueTeamTurn ? "friendly" : "enemy"
-    const recommendingCounterFor = isBlueTeamTurn ? "enemy" : "friendly"
+    var whoseTurnIsIt =   isBlueTeamTurn ? 'friendly' : 'enemy'
+    var whoseTurnIsNext = isBlueTeamTurn ? 'enemy' : 'friendly'
 
+    const isSecondPick = rankedModeSelectionIndex == 1
+    const isFourthPick = rankedModeSelectionIndex == 3
     const isLastPick = rankedModeSelectionIndex == 5
-    const isFinalPrediction = rankedModeSelectionIndex == 6
+    const pickingStageIsComplete = rankedModeSelectionIndex == 6
 
-    if (isFinalPrediction) {
-      recommendingPickFor = 'friendly'
-    } 
+    if (pickingStageIsComplete) {
+      whoseTurnIsIt = 'friendly'
+    } else if (isSecondPick || isFourthPick) {
+      whoseTurnIsNext = whoseTurnIsIt
+    }
     return (
       <div className="ranked-prediction-box-header" onClick={() => {}}>
-        {!isFinalPrediction && (
-          <div className={"prediction-box-left " + recommendingPickFor}>
+        {!pickingStageIsComplete && (
+          <div className={"prediction-box-left " + whoseTurnIsIt}>
             <p>Brawler</p>
           </div>)
         }
 
-        <div className={"confidence-box " + recommendingPickFor} style={{}}>
+        <div className={"confidence-box " + whoseTurnIsIt} style={{}}>
           <p>Score</p>
         </div>
 
-        {!isLastPick && !isFinalPrediction && 
-          (<div className={"prediction-box-right " + recommendingCounterFor}>
-            <p>Counter</p>
-          </div>
+        {/* Third column */}
+        {/* Show the best counter or synergiy  */}
+        {!isLastPick && !pickingStageIsComplete && (
+          <>
+            {isSecondPick || isFourthPick ? (
+              <div className={"prediction-box-right " + whoseTurnIsIt}>
+                <p>Best Synergy</p>
+              </div>
+            ) : (
+              <div className={"prediction-box-right " + whoseTurnIsNext}>
+                <p>Counter</p>
+              </div>
+            )}
+          </>
         )}
       </div>
     )
@@ -171,7 +184,6 @@ const RankedRecommendationDisplay = ({
     )
   }
 
-
   // Displays the result of a single prediction.
   // This includes: 
   //  recommended brawler
@@ -179,7 +191,7 @@ const RankedRecommendationDisplay = ({
   //  possible next pick
 
   const RankedPredictionBar = ({ prediction, handleSelection }) => {
-    const recommendingPickFor = isBlueTeamTurn ? "friendly" : "enemy"
+    const whoseTurnIsIt = isBlueTeamTurn ? "friendly" : "enemy"
 
     const [isHover, setIsHover] = useState(false);
 
@@ -194,9 +206,15 @@ const RankedRecommendationDisplay = ({
     const recommendation = prediction['recommendation']
     const counter = prediction['counter']
     const response = prediction['response']
-    const score = recommendingPickFor == 'friendly' ? prediction['score'] : 1 - prediction['score']
+    const score = whoseTurnIsIt == 'friendly' ? prediction['score'] : 1 - prediction['score']
     const synergy_pick = prediction['synergy_pick']
+    // console.log(prediction)
+    // console.log(prediction['synergy_pick'])
+    // console.log(synergy_pick)
+    // console.log(brawlers[synergy_pick])
+    
 
+    const isSecondPick = rankedModeSelectionIndex == 1
     const isFourthPick = rankedModeSelectionIndex == 3
     const isLastPick = rankedModeSelectionIndex == 5
 
@@ -212,20 +230,21 @@ const RankedRecommendationDisplay = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
+        {/* Image of the recommended brawler */}
         <div className={"prediction-box-left"}
         style={{
           backgroundColor: recommendedBrawlerBGColor
         }}>
           <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
-          {/* {isFourthPick && (<img src={icons[brawlers[synergy_pick].imgUrl]} className='recommended-brawler'></img>)} */}
         </div>
 
+        {/* Text that shows the score of the recommendation */}
         <div className="confidence-text">
           <p>{Math.round(score * 100) / 100}</p>
         </div>
 
         <div className="confidence-box" style={{}}>
-          <div className={recommendingPickFor + '-confidence-bar'} style={{
+          <div className={whoseTurnIsIt + '-confidence-bar'} style={{
             width: `${score * 100}%`
           }}>
           </div>
@@ -233,7 +252,13 @@ const RankedRecommendationDisplay = ({
 
         { !isLastPick && 
           (<div className="prediction-box-right">
-            <img src={icons[brawlers[counter].imgUrl]} className='right-prediction-image'></img>
+            {/* If it's recommending a second pick or a fourth pick, the program shows a synergy pick option,
+                rather than the opposing team's potential counter.*/}
+            { isFourthPick || isSecondPick ? (
+              <img src={icons[brawlers[synergy_pick].imgUrl]} className='right-prediction-image'></img>
+            ) : (
+              <img src={icons[brawlers[counter].imgUrl]} className='right-prediction-image'></img>
+            )}
           </div>
         )}
       </div>

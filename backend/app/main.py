@@ -57,7 +57,6 @@ class RankedMatch(BaseModel):
 @app.post("/api/get_ranked_recommendations")
 def get_ranked_recommendations(rm: RankedMatch):
     # print('Getting ranked recommendations')
-    print('map:', mapsAccordingToModel[rm.map])
     return {
         "result": recommend_brawler(rm.blue1, rm.blue2, rm.blue3, rm.red1, rm.red2, rm.red3, rm.map, rm.blue_picks_first, [rm.ban1, rm.ban2, rm.ban3, rm.ban4, rm.ban5, rm.ban6])
     }

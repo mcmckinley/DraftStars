@@ -12,10 +12,10 @@ from .prediction_third_order_b import pred_third_order_b
 from .prediction_final import pred_final
 
 
-mapsAccordingToFrontend = ["Undermine", "G.G. Mortuary", "Gem Fort", "Ahead of the Curve", "Between the Rivers", "Pinball Dreams", "Four Levels", "Sneaky Sneak", "Super Beach", "Double Locking", "Dragon Jaws", "Infinite Doom", "Center Stage", "Rustic Arcade", "Double Swoosh", "Hot Potato", "Goldarm Gulch", "Deathcap Trap", "Local Businesses", "Backyard Bowl", "Belle's Rock", "Flaring Phoenix", "Hard Lane", "Retina", "New Horizons", "Acute Angle", "Parallel Plays", "Open Business", "Coconut Cove", "Reflections", "Slayer's Paradise", "Island Hopping", "Diamond Dome", "Sneaky Fields", "Twilight Passage", "Spice Production", "Dueling Beetles", "Offside Trap", "Goalkeeper's Dream", "Hard Rock Mine", "Penalty Kick", "Last Stop", "Out in the Open", "Minecart Madness", "Open Space", "Sunny Soccer", "Deep End", "Safe Zone", "Ring of Fire", "Beach Ball", "Kaboom Canyon", "Spider Crawler"]
+mapsAccordingToFrontend = ["Undermine", "G.G. Mortuary", "Gem Fort", "Ahead of the Curve", "Between the Rivers", "Pinball Dreams", "Four Levels", "Sneaky Sneak", "Super Beach", "Double Locking", "Dragon Jaws", "Infinite Doom", "Center Stage", "Rustic Arcade", "Double Swoosh", "Hot Potato", "Goldarm Gulch", "Deathcap Trap", "Local Businesses", "Backyard Bowl", "Belle's Rock", "Flaring Phoenix", "Hard Lane", "Retina", "New Horizons", "Acute Angle", "Parallel Plays", "Open Business", "Coconut Cove", "Reflections", "Slayer's Paradise", "Island Hopping", "Diamond Dome", "Sneaky Fields", "Twilight Passage", "Spice Production", "Dueling Beetles", "Offside Trap", "Goalkeeper's Dream", "Hard Rock Mine", "Penalty Kick", "Last Stop", "Out in the Open", "Minecart Madness", "Open Space", "Sunny Soccer", "Deep End", "Safe Zone", "Ring of Fire", "Beach Ball", "Kaboom Canyon", "Spider Crawler", "Canal Grande", "Hideout", "Shooting Star"]
 
 brawlers = ['SHELLY', 'COLT', 'BULL', 'BROCK', 'RICO', 'SPIKE', 'BARLEY', 'JESSIE', 'NITA', 'DYNAMIKE', 'EL PRIMO', 'MORTIS', 'CROW', 'POCO', 'BO', 'PIPER', 'PAM', 'TARA', 'DARRYL', 'PENNY', 'FRANK', 'GENE', 'TICK', 'LEON', 'ROSA', 'CARL', 'BIBI', '8-BIT', 'SANDY', 'BEA', 'EMZ', 'MR. P', 'MAX', 'empty1', 'JACKY', 'GALE', 'NANI', 'SPROUT', 'SURGE', 'COLETTE', 'AMBER', 'LOU', 'BYRON', 'EDGAR', 'RUFFS', 'STU', 'BELLE', 'SQUEAK', 'GROM', 'BUZZ', 'GRIFF', 'ASH', 'MEG', 'LOLA', 'FANG', 'empty2', 'EVE', 'JANET', 'BONNIE', 'OTIS', 'SAM', 'GUS', 'BUSTER', 'CHESTER', 'GRAY', 'MANDY', 'R-T', 'WILLOW', 'MAISIE', 'HANK', 'CORDELIUS', 'DOUG', 'PEARL', 'CHUCK', 'CHARLIE', 'MICO', 'KIT', 'LARRY & LAWRIE', 'MELODIE', 'ANGELO', 'DRACO', 'LILY', 'BERRY', 'CLANCY']
-maps = ["Sneaky Fields", "Kaboom Canyon", "Spider Crawler", "Island Hopping", "Between the Rivers", "Retina", "Goldarm Gulch", "Minecart Madness", "Penalty Kick", "Gem Fort", "Offside Trap", "Open Business", "Center Stage", "Local Businesses", "Last Stop", "Sneaky Sneak", "Ahead of the Curve", "Flaring Phoenix", "Out in the Open", "Deep End", "Ring of Fire", "Infinite Doom", "Beach Ball", "Goalkeeper's Dream", "New Horizons", "Hard Rock Mine", "Pinball Dreams", "Diamond Dome", "Spice Production", "Safe Zone", "Rustic Arcade", "Four Levels", "Twilight Passage", "Belle's Rock", "Hard Lane", "G.G. Mortuary", "Deathcap Trap", "Dueling Beetles", "Parallel Plays", "Reflections", "Double Locking", "Double Swoosh", "Dragon Jaws", "Acute Angle", "Coconut Cove", "Open Space", "Super Beach", "Undermine", "Hot Potato", "Backyard Bowl", "Sunny Soccer", "Slayer's Paradise"]
+maps = ["Deathcap Trap", "Kaboom Canyon", "Sneaky Sneak", "Retina", "Minecart Madness", "Hard Lane", "Backyard Bowl", "Sunny Soccer", "Deep End", "Slayer's Paradise", "Center Stage", "Hot Potato", "Coconut Cove", "Open Business", "Spice Production", "Gem Fort", "Local Businesses", "Between the Rivers", "Four Levels", "Beach Ball", "Goalkeeper's Dream", "Acute Angle", "Offside Trap", "Island Hopping", "G.G. Mortuary", "Penalty Kick", "Dueling Beetles", "Diamond Dome", "Hard Rock Mine", "Open Space", "Rustic Arcade", "Undermine", "Ring of Fire", "Twilight Passage", "New Horizons", "Double Swoosh", "Pinball Dreams", "Double Locking", "Spider Crawler", "Safe Zone", "Infinite Doom", "Flaring Phoenix", "Reflections", "Out in the Open", "Super Beach", "Belle's Rock", "Sneaky Fields", "Dragon Jaws", "Goldarm Gulch", "Last Stop", "Parallel Plays", "Ahead of the Curve", "Canal Grande", "Hideout", "Shooting Star"]
 
 num_brawlers = len(brawlers)
 num_maps = len(maps)
@@ -26,6 +26,8 @@ def brawler_index(brawler):
 def map_index(map):
     return maps.index(map)
 
+# map: the index of the map received by the frontend
+# return the corrected index relative to the backend
 def fix_map_index(map):
     return map_index(mapsAccordingToFrontend[map])
 
@@ -81,7 +83,7 @@ def get_exclusion_list(pick_type, map):
 
 def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_first, bans):
     map = fix_map_index(map)
-    # print('Got map:', maps[map])
+    print('Got map:', maps[map])
 
     # Show that the model is receiving correct input
     # print(brawlers[blue1], brawlers[blue2], brawlers[blue3], brawlers[red1])
@@ -147,7 +149,10 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     if pick_type == 'FIRST PICK':
       counterpick_index = 1
       response_index = 3
-    elif pick_type == 'SECOND PICK' or pick_type == 'THIRD PICK':
+    elif pick_type == 'SECOND PICK':
+      counterpick_index = 3
+      response_index = 2 # Technically, this is not a response, it's just a another pick.    
+    elif pick_type == 'THIRD PICK':
       counterpick_index = 3
       response_index = 5
     elif pick_type == 'FOURTH PICK':
@@ -225,7 +230,10 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
           is_blue_team_turn,
           available_brawlers
     )
-    elif pick_type == 'FOURTH PICK':
+    # Second and fourth picks: rather that showing the best counter to the recommendation,
+    # show the best subsequent pick. 
+    elif pick_type == 'FOURTH PICK' or pick_type == 'SECOND PICK':
+      print('---------',pick_type)
       preds = pred_third_order_b(
           possible_battles,
           is_blue_team_turn,
@@ -243,7 +251,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     preds = sorted(preds, key=lambda x: x['score'], reverse=is_blue_team_turn)
 
     #print('\nMap:', maps[map])
-    #for prediction in preds:
-    #  print(prediction)
+    # for prediction in preds[0:5]:
+    #   print(brawlers[prediction['recommendation']])
     
     return preds
