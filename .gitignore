@@ -3,6 +3,7 @@ backend/app/pytorch
 backend/app/pytorch/
 
 frontend/node_modules
+frontend/package-lock.json
 
 # Icons
 frontend/src/icons
@@ -14,3 +15,5 @@ frontend/App-Save.jsx
 # Automation scripts (for now)
 
 scripts
+
+.DS_Store

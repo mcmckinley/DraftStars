@@ -37,23 +37,43 @@ class Model(nn.Module):
         flattened_output = transformer_output.reshape(transformer_output.size(0), -1)
         output = self.fc(flattened_output)
         return self.sigmoid(output)
+    
 
 traits_per_brawler = 40
-brawler_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_24/brawler_embeddings_V7_6.pt", weights_only=True))
 traits_per_map = 10
-map_embedding = nn.Embedding.from_pretrained(torch.load("app/pytorch/8_24/map_embeddings_V7_6.pt", weights_only=True))
 num_heads = 2
-num_layers = 2
-dim_feedforward = 64
+num_layers = 4
+dim_feedforward = 128
 
+empty_brawler_embedding = nn.Embedding.from_pretrained(torch.zeros(len(brawlers), traits_per_brawler))
+empty_map_embedding = nn.Embedding.from_pretrained(torch.zeros(len(maps) - 3, traits_per_map))
 
-# 1. Create a 'Neutral Brawler'. This is an average of all existing brawlers.
-n = torch.mean(brawler_embedding.weight, dim=0)
-brawler_embedding.weight[33] = n
+example_brawler = 0
 
+model = Model(traits_per_brawler, empty_brawler_embedding, traits_per_map, empty_map_embedding, num_heads, num_layers, dim_feedforward)
+model.load_state_dict(torch.load(path_to_model, weights_only=True))
 
-model = Model(traits_per_brawler, brawler_embedding, traits_per_map, map_embedding, num_heads, num_layers, dim_feedforward)
-model.load_state_dict(torch.load("app/pytorch/8_24/BMV7_6.pt", weights_only=True))
+#print('NEUTRAL BRAWLER')
+#print(model.brawler_embedding.weight[33])
+
+#for name, param in model.named_parameters():
+#    print(f' {name}: {param}')
+
+#n = torch.mean(adjusted_brawler_embedding.weight, dim=0)
+#adjusted_brawler_embedding.weight[33] = n
+
+with torch.no_grad():
+    adjusted_map_embedding = csv_to_embedding(path_to_map_embeddings)
+    adjusted_brawler_embedding = csv_to_embedding(path_to_adjusted_brawler_embeddings)
+
+    n = torch.mean(adjusted_brawler_embedding.weight, dim=0)
+    adjusted_brawler_embedding.weight[33] = n
+
+    model.brawler_embedding.weight.copy_(adjusted_brawler_embedding.weight)
+    model.map_embedding = adjusted_map_embedding
+
+    print('shelly weight:', model.brawler_embedding.weight[0])
+
 model.eval()
 
-
+print('model.py:', id(model))
