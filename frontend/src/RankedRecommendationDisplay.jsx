@@ -30,8 +30,8 @@ const RankedRecommendationDisplay = ({
   const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
   const [predictions, setPredictions] = useState([
-    {'score': 0.6789, 'recommendation': 1, 'counter': 2, 'response': 3},
-    {'score': 0.3, 'recommendation': 5, 'counter': 6, 'response': 7}
+    {'score': 0.6789, 'name': 1, 'counter': 2, 'response': 3},
+    {'score': 0.3, 'name': 5, 'counter': 6, 'response': 7}
   ])
 
   const [filteredPredictions, setFilteredPredictions] = useState([])
@@ -80,7 +80,7 @@ const RankedRecommendationDisplay = ({
 
     // Filter the brawlers based on the search query
     const filtered = predictions.filter(pred =>
-      brawlers[pred['recommendation']].name.toLowerCase().includes(value)
+      brawlers[pred['name']].name.toLowerCase().includes(value)
     );
     setFilteredPredictions(filtered);
   };
@@ -203,7 +203,7 @@ const RankedRecommendationDisplay = ({
     };
 
     // console.log(prediction)
-    const recommendation = prediction['recommendation']
+    const recommendation = prediction['name']
     const counter = prediction['counter']
     const response = prediction['response']
     const score = whoseTurnIsIt == 'friendly' ? prediction['score'] : 1 - prediction['score']
@@ -213,6 +213,10 @@ const RankedRecommendationDisplay = ({
     // console.log(synergy_pick)
     // console.log(brawlers[synergy_pick])
     
+
+    if (prediction['reason']){
+      return <IgnoredBrawlerDisplay prediction={prediction} handleSelection={handleSelection} />
+    }
 
     const isSecondPick = rankedModeSelectionIndex == 1
     const isFourthPick = rankedModeSelectionIndex == 3
@@ -265,6 +269,57 @@ const RankedRecommendationDisplay = ({
     )
   }
 
+  const IgnoredBrawlerDisplay = ({ prediction, handleSelection }) => {
+    const whoseTurnIsIt = isBlueTeamTurn ? "friendly" : "enemy"
+
+    const [isHover, setIsHover] = useState(false);
+
+    const handleMouseEnter = () => {
+      setIsHover(true);
+    };
+    const handleMouseLeave = () => {
+      setIsHover(false);
+    };
+
+    // console.log(prediction)
+    const recommendation = prediction['name']
+    const reason = prediction['reason']
+    console.log(prediction)
+    console.log('Ignored brawler:', recommendation)
+    const recommendedBrawler = brawlers[recommendation]
+    console.log('Recommended brawler:', recommendedBrawler)
+    const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
+
+    // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
+    const recommendedBrawlerBGColor = isHover ? brighterRarityColors[recommendedBrawler.rarity] : rarityColors[recommendedBrawler.rarity]
+
+    return ( 
+      <div className="ranked-prediction-box" 
+        onClick={handleSelection}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Image of the recommended brawler */}
+        <div className={"prediction-box-left"}
+        style={{
+          backgroundColor: recommendedBrawlerBGColor
+        }}>
+          <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
+        </div>
+
+        {/* Text that shows the score of the recommendation */}
+        <div className="confidence-text">
+          <p></p>
+        </div>
+
+        <div className="confidence-box" style={{}}>
+        </div>
+      </div>
+    )
+  }
+
+
+
   return (
     <>
       <div className='teams'>
@@ -310,7 +365,7 @@ const RankedRecommendationDisplay = ({
                 key={index} 
                 prediction={prediction} 
                 handleSelection={ ()=>{ 
-                  selectBrawler(brawlers[prediction['recommendation']])}
+                  selectBrawler(brawlers[prediction['name']])}
                 }
               />
             ))}

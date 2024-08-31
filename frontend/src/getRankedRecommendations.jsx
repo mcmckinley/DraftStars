@@ -66,10 +66,10 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
 
     // Undo the operation preformed at the beginning of this function.
     for (var i = 0; i < result.length; i++) {
-      if (result[i]['recommendation'] >= 55) {
-        result[i]['recommendation'] -= 2
-      } else if (result[i]['recommendation'] >= 33) {
-        result[i]['recommendation'] -= 1
+      if (result[i]['name'] >= 55) {
+        result[i]['name'] -= 2
+      } else if (result[i]['name'] >= 33) {
+        result[i]['name'] -= 1
       }
 
       if (result[i]['counter'] && result[i]['counter'] >= 55) {

@@ -28,7 +28,7 @@ def pred_second_order(possible_battles, blue, available_brawlers):
 
     outputs.append({
         'score': predictions[i * len(remaining_brawlers) + brawler_strongest_counter_index].item(), # The score
-        'recommendation': available_brawlers[i], # The recommendation
+        'name': available_brawlers[i], # The recommendation
         'counter': brawler_strongest_counter_id # The best counter
     })
 

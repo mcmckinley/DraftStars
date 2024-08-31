@@ -79,18 +79,17 @@ def get_exclusion_list(pick_type, map):
 
 
 def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_first, bans):
+    
+  
     map = fix_map_index(map)
-    print('Got map:', maps[map])
-
-    # Show that the model is receiving correct input
-    # print(brawlers[blue1], brawlers[blue2], brawlers[blue3], brawlers[red1])
-
+    
+    # Show that the model is receiving correct input    
+    # print('Got map:', maps[map])
+    # print(brawlers[blue1], brawlers[blue2], brawlers[blue3], brawlers[red1], brawlers[red2], brawlers[red3])
     # for ban in bans:
-        # print(ban)
-        # print(type(ban))
+        # print('ban:', brawlers[ban])
 
     battle = [blue1, blue2, blue3, red3, red2, red1, map]
-    names = ['Blue 1', 'Blue 2', 'Blue 3', 'Red 3', 'Red 2', 'Red 1', 'Map']
     pick_order = [0, 5, 4, 1, 2, 3] if blue_picks_first else [5, 0, 1, 4, 3, 2]
     blue_has_pick_at_index = [1, 0, 0, 1, 1, 0] if blue_picks_first else [0, 1, 1, 0, 0, 1]
 
@@ -133,7 +132,9 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
       print('Invalid input: unknown pick type')
       return
 
-    nameToRecommend = names[pick_order[recommendation_index]]
+    # Useful for fixing errors in identifying the recommendation order. 
+    # names = ['Blue 1', 'Blue 2', 'Blue 3', 'Red 3', 'Red 2', 'Red 1', 'Map']
+    # nameToRecommend = names[pick_order[recommendation_index]]
     # print(pick_type + ' for ' + nameToRecommend)
 
     # 4. Find indices, existent or not, of the subsequent picks made by each team.
@@ -192,6 +193,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
 
     # 6. Thinking three moves ahead is costly. We account for this by disregarding certain brawlers
     #    that in most circumstances make for unreasonable early picks.
+    #    By disregarding half of the brawlers, we decrease the runtime significantly.
 
     brawlers_to_exclude = get_exclusion_list(pick_type, map)
     for brawler in brawlers_to_exclude:
@@ -199,6 +201,29 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
         available_brawlers.remove(brawler)
       except ValueError:
         continue
+
+    # 6.1. Keep track of which brawlers are being ignored, and why.
+
+    ignored_brawlers = []
+    for i in range(6):
+      if battle[i] != 33 and battle[i] != 55:
+        ignored_brawlers.append({
+          'name': battle[i],
+          'reason': 'already picked'
+        })
+    
+    for ban in bans:
+      ignored_brawlers.append({
+        'name': ban,
+        'reason': 'banned'
+      })
+    
+    for brawler in brawlers_to_exclude:
+      if brawler not in bans and brawler not in battle:
+        ignored_brawlers.append({
+          'name': brawler,
+          'reason': 'model has not considered this brawler'
+        })
 
     # 7. Create a tensor of all possible battles.
 
@@ -247,8 +272,11 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     # 9. Sort and print the predictions by score
     preds = sorted(preds, key=lambda x: x['score'], reverse=is_blue_team_turn)
 
+    preds = preds + ignored_brawlers
+
+    # Compare this to the frontend's output to show that they match
     #print('\nMap:', maps[map])
     # for prediction in preds[0:5]:
-    #   print(brawlers[prediction['recommendation']])
+    #   print(brawlers[prediction['name']])
     
     return preds

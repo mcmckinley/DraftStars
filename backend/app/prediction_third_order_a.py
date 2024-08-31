@@ -68,7 +68,7 @@ def pred_third_order(possible_battles, blue, available_brawlers):
     #print()
     outputs.append({
         'score': predictions[i * len(secondary_brawlers) * len(tertiary_brawlers) + strongest_counter_index_overall * len(tertiary_brawlers) + best_response_index_overall].item(), # The score
-        'recommendation': available_brawlers[i], # The recommendation
+        'name': available_brawlers[i], # The recommendation
         'counter': strongest_counter_id_overall, # The best counter
         'response': best_response_id_overall, # The best response
     })
