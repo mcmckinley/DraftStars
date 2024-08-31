@@ -135,7 +135,7 @@ const RankedRecommendationDisplay = ({
           </div>)
         }
 
-        <div className={"confidence-box " + whoseTurnIsIt} style={{}}>
+        <div className={"confidence-header " + whoseTurnIsIt} style={{}}>
           <p>Score</p>
         </div>
 
@@ -212,7 +212,7 @@ const RankedRecommendationDisplay = ({
     // console.log(prediction['synergy_pick'])
     // console.log(synergy_pick)
     // console.log(brawlers[synergy_pick])
-    
+
 
     if (prediction['reason']){
       return <IgnoredBrawlerDisplay prediction={prediction} handleSelection={handleSelection} />
@@ -229,7 +229,7 @@ const RankedRecommendationDisplay = ({
     const recommendedBrawlerBGColor = isHover ? brighterRarityColors[recommendedBrawler.rarity] : rarityColors[recommendedBrawler.rarity]
 
     return ( 
-      <div className="ranked-prediction-box" 
+      <div className="ranked-prediction-box selectable-prediction-box"  
         onClick={handleSelection}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -274,27 +274,47 @@ const RankedRecommendationDisplay = ({
 
     const [isHover, setIsHover] = useState(false);
 
-    const handleMouseEnter = () => {
+    var handleMouseEnter = () => {
       setIsHover(true);
     };
-    const handleMouseLeave = () => {
+    var handleMouseLeave = () => {
       setIsHover(false);
     };
 
     // console.log(prediction)
     const recommendation = prediction['name']
-    const reason = prediction['reason']
-    console.log(prediction)
-    console.log('Ignored brawler:', recommendation)
+    const reasonForBeingIgnored = prediction['reason']
+
     const recommendedBrawler = brawlers[recommendation]
-    console.log('Recommended brawler:', recommendedBrawler)
     const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
 
     // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
     const recommendedBrawlerBGColor = isHover ? brighterRarityColors[recommendedBrawler.rarity] : rarityColors[recommendedBrawler.rarity]
 
+    const isBanned = reasonForBeingIgnored == 'BANNED'
+    const isPicked = reasonForBeingIgnored == 'PICKED'
+    const isNotConsidered = reasonForBeingIgnored == 'NOT CONSIDERED'
+
+    // Banned and picked brawlers cannot be selected
+    if (isBanned || isPicked) {
+      handleSelection = () => {};
+    }
+
+    var tint = ''
+    if (isBanned) {
+      tint = 'red-tint'
+      handleMouseEnter = null
+      handleMouseLeave = null
+    } else if (isPicked) {
+      tint = 'gray-tint'
+      handleMouseEnter = null
+      handleMouseLeave = null
+    }
+
+    var canSelect = !(isBanned || isPicked)
+
     return ( 
-      <div className="ranked-prediction-box" 
+      <div className={"ranked-prediction-box " + tint + (canSelect ? ' selectable-prediction-box' : '')}
         onClick={handleSelection}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -304,15 +324,11 @@ const RankedRecommendationDisplay = ({
         style={{
           backgroundColor: recommendedBrawlerBGColor
         }}>
-          <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
+          <img src={recommendedBrawlerIcon} className={'left-prediction-image'}></img>
         </div>
 
-        {/* Text that shows the score of the recommendation */}
-        <div className="confidence-text">
-          <p></p>
-        </div>
-
-        <div className="confidence-box" style={{}}>
+        <div className={"confidence-box "}style={{}}>
+          <p>{reasonForBeingIgnored}</p>
         </div>
       </div>
     )

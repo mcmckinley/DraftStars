@@ -205,25 +205,25 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     # 6.1. Keep track of which brawlers are being ignored, and why.
 
     ignored_brawlers = []
+    for brawler in brawlers_to_exclude:
+      if brawler not in bans and brawler not in battle:
+        ignored_brawlers.append({
+          'name': brawler,
+          'reason': 'NOT CONSIDERED'
+        })
+    
     for i in range(6):
       if battle[i] != 33 and battle[i] != 55:
         ignored_brawlers.append({
           'name': battle[i],
-          'reason': 'already picked'
+          'reason': 'PICKED'
         })
     
     for ban in bans:
       ignored_brawlers.append({
         'name': ban,
-        'reason': 'banned'
+        'reason': 'BANNED'
       })
-    
-    for brawler in brawlers_to_exclude:
-      if brawler not in bans and brawler not in battle:
-        ignored_brawlers.append({
-          'name': brawler,
-          'reason': 'model has not considered this brawler'
-        })
 
     # 7. Create a tensor of all possible battles.
 

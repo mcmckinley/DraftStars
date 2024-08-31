@@ -51,7 +51,7 @@ input:focus {
         filter: sepia(0%) saturate(0%) brightness(0%) hue-rotate(0deg);
     }
     40% {
-        filter: sepia(0%) saturate(0%) brightness(100%) hue-rotate(0deg);
+        filter: sepia(0%) saturate(0%) brightness(50%) hue-rotate(0deg);
     }
 }
 @keyframes black-and-white-pulse-background {
@@ -61,7 +61,6 @@ input:focus {
     40%, 60% {
         background-color: #222;
     }
-
 }
 
 .pulsing-brawler-headshot {
@@ -404,16 +403,6 @@ input:focus {
 .mini-ban-box img {
     height: 100%;
 }
-.red-tint::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 0, 0, 0.5); 
-    pointer-events: none;
-}
 
 
 
@@ -543,8 +532,9 @@ input:focus {
     display: flex;
 
     justify-content: space-between;
+    position: relative;
 }
-.ranked-prediction-box:hover {
+.selectable-prediction-box:hover {
     background-color: #666;
 }
 
@@ -557,6 +547,7 @@ input:focus {
 
 .prediction-box-left {
     width: 110px;
+    position: relative; /* allows for red tint for banned brawlers */
 }
 .prediction-box-right {
     width: 110px;
@@ -571,7 +562,19 @@ input:focus {
 .confidence-box {
     flex-grow: 1;
     height: 100%;
+    justify-self: center;
+    align-self: center;
+    overflow: hidden;
 }
+
+.confidence-header {
+    flex-grow: 1;
+    height: 100%;
+    justify-self: center;
+    align-self: center;
+    overflow: hidden;
+}
+
 /* The actual blue display */
 .friendly-confidence-bar {
     background-color: #245687;
@@ -582,6 +585,13 @@ input:focus {
     height: 100%;
 }
 
+/* The text that say BANNED, PICKED, or NOT CONSIDERED */
+.confidence-box p {
+    margin: 12px 0px 12px 6px;
+    font-size: 30px;
+    color: grey;
+}
+
 
 /* background colors that vary based off of who the engine is recommending for (either enemy or friendly) */
 .enemy {
@@ -590,4 +600,26 @@ input:focus {
 
 .friendly {
     background-color: #003c66;
+}
+
+
+.red-tint::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 0, 0, 0.5); 
+    pointer-events: none;
+}
+.gray-tint::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); 
+    pointer-events: none;
 }
