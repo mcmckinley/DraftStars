@@ -1,6 +1,10 @@
 import torch
 import torch.nn as nn
 
+from .config import *
+
+from .csv_to_embedding import csv_to_embedding
+
 class Model(nn.Module):
     def __init__(self, brawler_emb_dim, initial_brawler_embedding, map_emb_dim, initial_map_embedding, num_heads, num_layers, dim_feedforward):
         super(Model, self).__init__()

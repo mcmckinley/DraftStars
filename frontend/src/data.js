@@ -573,7 +573,22 @@ export const brawlers = [{
   "imgUrl": "clancy.png",
   "id": "81",
   "rarity": "4"
-},]
+},
+{
+  "name_caps": "MOE",
+  "name": "Moe",
+  "imgUrl": "moe.png",
+  "id": "82",
+  "rarity": "4"
+},
+{
+  "name_caps": "KENJI",
+  "name": "Kenji",
+  "imgUrl": "kenji.png",
+  "id": "83",
+  "rarity": "5"
+},
+]
 
 // Write data
 // for (word of brawlers) {

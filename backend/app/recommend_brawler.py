@@ -11,11 +11,8 @@ from .prediction_third_order_a import pred_third_order
 from .prediction_third_order_b import pred_third_order_b
 from .prediction_final import pred_final
 
-
-mapsAccordingToFrontend = ["Undermine", "G.G. Mortuary", "Gem Fort", "Ahead of the Curve", "Between the Rivers", "Pinball Dreams", "Four Levels", "Sneaky Sneak", "Super Beach", "Double Locking", "Dragon Jaws", "Infinite Doom", "Center Stage", "Rustic Arcade", "Double Swoosh", "Hot Potato", "Goldarm Gulch", "Deathcap Trap", "Local Businesses", "Backyard Bowl", "Belle's Rock", "Flaring Phoenix", "Hard Lane", "Retina", "New Horizons", "Acute Angle", "Parallel Plays", "Open Business", "Coconut Cove", "Reflections", "Slayer's Paradise", "Island Hopping", "Diamond Dome", "Sneaky Fields", "Twilight Passage", "Spice Production", "Dueling Beetles", "Offside Trap", "Goalkeeper's Dream", "Hard Rock Mine", "Penalty Kick", "Last Stop", "Out in the Open", "Minecart Madness", "Open Space", "Sunny Soccer", "Deep End", "Safe Zone", "Ring of Fire", "Beach Ball", "Kaboom Canyon", "Spider Crawler", "Canal Grande", "Hideout", "Shooting Star"]
-
-brawlers = ['SHELLY', 'COLT', 'BULL', 'BROCK', 'RICO', 'SPIKE', 'BARLEY', 'JESSIE', 'NITA', 'DYNAMIKE', 'EL PRIMO', 'MORTIS', 'CROW', 'POCO', 'BO', 'PIPER', 'PAM', 'TARA', 'DARRYL', 'PENNY', 'FRANK', 'GENE', 'TICK', 'LEON', 'ROSA', 'CARL', 'BIBI', '8-BIT', 'SANDY', 'BEA', 'EMZ', 'MR. P', 'MAX', 'empty1', 'JACKY', 'GALE', 'NANI', 'SPROUT', 'SURGE', 'COLETTE', 'AMBER', 'LOU', 'BYRON', 'EDGAR', 'RUFFS', 'STU', 'BELLE', 'SQUEAK', 'GROM', 'BUZZ', 'GRIFF', 'ASH', 'MEG', 'LOLA', 'FANG', 'empty2', 'EVE', 'JANET', 'BONNIE', 'OTIS', 'SAM', 'GUS', 'BUSTER', 'CHESTER', 'GRAY', 'MANDY', 'R-T', 'WILLOW', 'MAISIE', 'HANK', 'CORDELIUS', 'DOUG', 'PEARL', 'CHUCK', 'CHARLIE', 'MICO', 'KIT', 'LARRY & LAWRIE', 'MELODIE', 'ANGELO', 'DRACO', 'LILY', 'BERRY', 'CLANCY']
-maps = ["Deathcap Trap", "Kaboom Canyon", "Sneaky Sneak", "Retina", "Minecart Madness", "Hard Lane", "Backyard Bowl", "Sunny Soccer", "Deep End", "Slayer's Paradise", "Center Stage", "Hot Potato", "Coconut Cove", "Open Business", "Spice Production", "Gem Fort", "Local Businesses", "Between the Rivers", "Four Levels", "Beach Ball", "Goalkeeper's Dream", "Acute Angle", "Offside Trap", "Island Hopping", "G.G. Mortuary", "Penalty Kick", "Dueling Beetles", "Diamond Dome", "Hard Rock Mine", "Open Space", "Rustic Arcade", "Undermine", "Ring of Fire", "Twilight Passage", "New Horizons", "Double Swoosh", "Pinball Dreams", "Double Locking", "Spider Crawler", "Safe Zone", "Infinite Doom", "Flaring Phoenix", "Reflections", "Out in the Open", "Super Beach", "Belle's Rock", "Sneaky Fields", "Dragon Jaws", "Goldarm Gulch", "Last Stop", "Parallel Plays", "Ahead of the Curve", "Canal Grande", "Hideout", "Shooting Star"]
+from .config import *
+from .csv_to_embedding import csv_to_embedding
 
 num_brawlers = len(brawlers)
 num_maps = len(maps)
@@ -29,7 +26,7 @@ def map_index(map):
 # map: the index of the map received by the frontend
 # return the corrected index relative to the backend
 def fix_map_index(map):
-    return map_index(mapsAccordingToFrontend[map])
+    return map_index(maps_according_to_frontend[map])
 
 
 # Tables that hold 1s where the brawler should be excluded, 0s if not
