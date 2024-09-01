@@ -126,7 +126,7 @@ const BrawlerSelector = ({
 
     return ( 
       <div className={"gallery-item" + (isBanned ? ' red-tint' : '')} onClick={() => {selectBrawler(brawler)}}>
-        <img src={icons[brawler.imgUrl]} className={brawler.name}></img>
+        <img src={icons[brawler.imgUrl]} alt={brawler.name} className={brawler.name}></img>
       </div> 
     )
   }

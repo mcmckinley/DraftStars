@@ -115,7 +115,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
       <div className="mini-ban-boxes">
         {bans.map((ban, index) => (
           <div key={index} className="mini-ban-box red-tint">
-            <img src={icons[brawlers[ban].imgUrl]}></img>
+            <img src={icons[brawlers[ban].imgUrl]} alt={brawlers[ban].name}></img>
           </div>
         ))}
       </div> 
@@ -241,7 +241,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
             <>
               {bans.map((ban, index) => (
                 <div key={index} className="ban-box" onClick={()=>removeBan(index)}>
-                  <img src={icons[brawlers[ban].imgUrl]} />
+                  <img src={icons[brawlers[ban].imgUrl]} alt={brawlers[ban].name} />
                   <FaTimes className='x-button'/>
                 </div>
               ))}

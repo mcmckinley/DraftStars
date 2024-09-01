@@ -245,7 +245,7 @@ const RankedRecommendationDisplay = ({
         style={{
           backgroundColor: recommendedBrawlerBGColor
         }}>
-          <img src={recommendedBrawlerIcon} className='left-prediction-image'></img>
+          <img src={recommendedBrawlerIcon} alt={recommendedBrawler.name} className='left-prediction-image'></img>
         </div>
 
         {/* Text that shows the score of the recommendation */}
@@ -265,9 +265,9 @@ const RankedRecommendationDisplay = ({
             {/* If it's recommending a second pick or a fourth pick, the program shows a synergy pick option,
                 rather than the opposing team's potential counter.*/}
             { isFourthPick || isSecondPick ? (
-              <img src={icons[brawlers[synergy_pick].imgUrl]} className='right-prediction-image'></img>
+              <img src={icons[brawlers[synergy_pick].imgUrl]} alt={brawlers[synergy_pick].name} className='right-prediction-image'></img>
             ) : (
-              <img src={icons[brawlers[counter].imgUrl]} className='right-prediction-image'></img>
+              <img src={icons[brawlers[counter].imgUrl]} alt={brawlers[counter].name} className='right-prediction-image'></img>
             )}
           </div>
         )}
@@ -335,7 +335,7 @@ const RankedRecommendationDisplay = ({
         style={{
           backgroundColor: recommendedBrawlerBGColor
         }}>
-          <img src={recommendedBrawlerIcon} className={'left-prediction-image'}></img>
+          <img src={recommendedBrawlerIcon} alt={recommendedBrawler.name} className={'left-prediction-image'}></img>
         </div>
 
         <div className={"confidence-box "}style={{}}>

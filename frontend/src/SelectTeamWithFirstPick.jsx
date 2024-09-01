@@ -10,7 +10,7 @@ const SelectTeamWithFirstPick = ({ teamWithFirstPick, setTeamWithFirstPick, move
             setTeamWithFirstPick('Blue'); 
             moveToNextSection()
           }}>
-          <img src={icons['thumbs-up.png']}   />
+          <img src={icons['thumbs-up.png']} alt='thumbs up'  />
           <p>Your team</p>
         </div>
 
@@ -19,7 +19,7 @@ const SelectTeamWithFirstPick = ({ teamWithFirstPick, setTeamWithFirstPick, move
             setTeamWithFirstPick('Red'); 
             moveToNextSection()
           }}>
-          <img src={icons['thumbs-down.png']}   />
+          <img src={icons['thumbs-down.png']} alt='thumbs down' />
           <p>Enemy team</p>
         </div>
       </>

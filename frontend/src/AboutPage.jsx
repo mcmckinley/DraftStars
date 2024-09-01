@@ -21,8 +21,8 @@ const AboutPage = ({ setPageIndex }) => {
             <h1 className='about-page-item'>About</h1>
             
             <div className='icon-row about-page-item'>
-                <img src={symbols['github-mark.svg']}></img>
-                <img src={symbols['reddit.svg']}></img>
+                <img src={symbols['github-mark.svg']} alt='github logo'></img>
+                <img src={symbols['reddit.svg']} alt='reddit logo'></img>
             </div>
 
             <h2 className='about-page-item'>Created by Michael McKinley</h2>

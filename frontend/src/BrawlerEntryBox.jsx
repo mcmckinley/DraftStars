@@ -21,9 +21,13 @@ const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, isSe
     }
   }
   
+  const brawlerID = entries[index]
+  
   return (
     <div className={`entry-box ${(selectedBoxID === index ? 'selected' : 'unselected')} ${isSelectable ? 'selectable-entry-box' : ''}`} onClick={handleClick}>
-      <img src={entries[index] ? icons[brawlers[entries[index]].imgUrl] : icons['ranked-icon.png']}></img>
+      <img src={brawlerID ? icons[brawlers[brawlerID].imgUrl] : icons['ranked-icon.png']} 
+        alt={brawlerID ? brawlers[brawlerID].name : '?'}
+      ></img>
     </div>
   )
 }
