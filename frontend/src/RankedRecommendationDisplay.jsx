@@ -17,7 +17,7 @@ const RankedRecommendationDisplay = ({
     isFirstTimeLoadingSection3,
     previousEntries,
     previouslySelectedBox,
-    error
+    error, setError
   }) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');

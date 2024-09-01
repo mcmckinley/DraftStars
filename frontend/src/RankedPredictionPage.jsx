@@ -283,7 +283,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
             isFirstTimeLoadingSection3={isFirstTimeLoadingSection3}
             previousEntries={previousEntries}
             previouslySelectedBox={previouslySelectedBox}
-            error={error}
+            error={error} setError={setError}
           />
         </div>
       </Section>

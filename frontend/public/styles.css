@@ -1,3 +1,32 @@
+:root {
+    --entry-box-image-sidelength: 65px;
+    --prediction-box-height: 60px;
+    --section-header-font-size: 22px;
+    --map-search-result-height: 50px;
+    --prediction-box-image-width: 110px;
+    --confidence-box-font-size: 30px;
+}
+
+@media (max-width: 600px) {
+    :root {
+        --entry-box-image-sidelength: 55px;
+    }
+}
+
+@media (max-width: 440px) {
+    :root {
+        --prediction-box-height: 40px;
+        --section-header-font-size: 16px;
+        --map-search-result-height: 40px;
+        --prediction-box-image-width: 80px;
+        --confidence-box-font-size: 20px
+    }
+}
+
+
+html {
+    overflow-x: hidden;
+}
 /* Font */
 .lexend {
   font-family: "Lexend", sans-serif;
@@ -15,11 +44,12 @@ body {
     font-family: Lexend;
     color: white;
     background-color: #222;
-    margin: 0
+    margin: 0;
+    overflow-x: hidden;
 }
 
 p {
-    font-size: 22px;
+    font-size: var(--section-header-font-size);
 }
 
 /* Makes text elements unselectable */
@@ -291,6 +321,9 @@ input:focus {
     margin: 2px 0px;
     border-radius: 4px;
     align-items: center;
+    height: var(--map-search-result-height);
+    display: flex;
+    justify-content: space-between;
 }
 
 .map-search-result:hover {
@@ -312,12 +345,6 @@ input:focus {
 
 .map-select-div-right-side {
     height: 120px;
-}
-
-.map-search-result {
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .map-search-result img {
@@ -410,14 +437,14 @@ input:focus {
 
 /* bans section */
 .ban-box {
-    width: 65px;
+    width: var(--entry-box-image-sidelength);
     height: 85px;
     transition: transform 0.15s ease-in-out;
     overflow: hidden;
     z-index: 0;
 }
 .ban-box img {
-    height: 65px;
+    height: var(--entry-box-image-sidelength);
 }
 .ban-placeholder {
     margin: 0;
@@ -475,8 +502,8 @@ input:focus {
 
 /* The box that the user clicks on to select a brawler */
 .entry-box {
-    width: 65px;
-    height: 65px;
+    width:  var(--entry-box-image-sidelength);
+    height: var(--entry-box-image-sidelength);
     transition: transform 0.15s ease-in-out;
     overflow: hidden;
     z-index: 0;
@@ -640,7 +667,7 @@ input:focus {
 }
 
 .ranked-prediction-box {
-    height: 60px;
+    height: var(--prediction-box-height);
     width: 100%;
     display: flex;
 
@@ -652,14 +679,14 @@ input:focus {
 }
 
 .left-prediction-image {
-    height: 60px;
+    height: var(--prediction-box-height);
 }
 .right-prediction-image {
-    height: 60px;
+    height: var(--prediction-box-height);
 }
 
 .prediction-box-left {
-    width: 110px;
+    width: var(--prediction-box-image-width);
     position: relative; /* allows for red tint for banned brawlers */
 }
 .prediction-box-right {
@@ -701,7 +728,7 @@ input:focus {
 /* The text that say BANNED, PICKED, or NOT CONSIDERED */
 .confidence-box p {
     margin: 12px 0px 12px 6px;
-    font-size: 30px;
+    font-size: var(--confidence-box-font-size);
     color: grey;
 }
 
