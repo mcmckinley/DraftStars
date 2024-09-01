@@ -18,9 +18,6 @@ body {
     margin: 0
 }
 
-h1 {
-    font-size: 30px;
-}
 p {
     font-size: 22px;
 }
@@ -350,6 +347,35 @@ input:focus {
     height: 60%;
     padding-right: 5px; /* space between icon and text */
 }
+
+
+
+.about-page {
+    padding-left: 10px;
+}
+.about-page-header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.about-page h1 {
+    font-size: 45px;
+    margin: 10px 0px;;
+}
+
+.icon-row {
+    height: 40px;
+    width: 100%;
+}
+
+.icon-row img {
+    height: 100%;
+    filter: invert(100%); /* default is black. make it white */
+}
+
+
+
 
 /* RANKED - First pick section */
 
