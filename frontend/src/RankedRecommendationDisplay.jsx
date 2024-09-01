@@ -359,7 +359,7 @@ const RankedRecommendationDisplay = ({
     useEffect(() => {
       const loop = setInterval(() => {
           setCurrentImage(getRandomImage());
-      }, 2000);
+      }, 4000);
 
       return () => clearInterval(loop);
     }, []);

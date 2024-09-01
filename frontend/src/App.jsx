@@ -7,29 +7,20 @@ import Sidebar from './Sidebar';
 
 const App = () => {
 
-  const [pageIndex, setPageIndex] = useState(1)
+  const [pageIndex, setPageIndex] = useState(0)
 
   var pages = [
-    <HomePage />,
-    <RankedPredictionPage />, 
-    <PredictOutcomePage />
+    <HomePage setPageIndex={setPageIndex}/>,
+    <RankedPredictionPage setPageIndex={setPageIndex} />, 
+    // <PredictOutcomePage />
   ]
   var pageNames = [
     'Home', 
     'Ranked Predictor',
-    '3v3 Predictor'
+    // '3v3 Predictor'
   ]
 
-  return (
-    <div className="main">
-      <Sidebar 
-        pageIndex={pageIndex} 
-        setPageIndex={setPageIndex}
-        pageNames={pageNames}
-      />
-      {pages[pageIndex]}
-    </div> // main
-  );
+  return pages[pageIndex]
 };
 
 export default App;

@@ -51,7 +51,7 @@ input:focus {
         filter: sepia(0%) saturate(0%) brightness(0%) hue-rotate(0deg);
     }
     40% {
-        filter: sepia(0%) saturate(0%) brightness(50%) hue-rotate(0deg);
+        filter: sepia(0%) saturate(0%) brightness(30%) hue-rotate(0deg);
     }
 }
 @keyframes black-and-white-pulse-background {
@@ -65,13 +65,53 @@ input:focus {
 
 .home-screen-background-image {
     flex-grow: 1;
+    position: fixed;
     height: 100vh;
-    overflow-x: visible;
+    overflow-x: hidden;
+    z-index: 1;
 }
 .pulsing-brawler-headshot {
     /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
-    animation: black-and-white-pulse 2s infinite /*, black-and-white-pulse-background 2s infinite */ ;
+    animation: black-and-white-pulse 4s infinite, black-and-white-pulse-background 4s infinite;
 }
+.home-screen {
+    /* position: fixed; */
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.home-screen-center {
+    z-index: 2;
+}
+
+.home-screen h1 {
+    font-size: 90px;
+    margin: 10px;
+}
+
+.home-screen-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.navigation-button {
+    border: 1px solid #888;
+    border-radius: 5px;
+}
+
+.navigation-button p {
+    margin: 10px;
+}
+.navigation-button:hover {
+    text-decoration: underline;
+}
+
 
 
 /* LEFT SIDEBAR */
@@ -443,9 +483,13 @@ input:focus {
     width: 50px;
     overflow: hidden;
 }
-
 .gallery-item img {
     height: 100%;
+}
+/* Lighten up the brawler images when you hover over them.
+   Makes it more clear that they can be clicked. */
+.gallery-item:hover {
+    filter: sepia(0%) saturate(100%) brightness(130%) hue-rotate(0deg);
 }
 
 
