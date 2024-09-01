@@ -29,10 +29,7 @@ const RankedRecommendationDisplay = ({
   // The orders of in which players select their brawlers, based off of box IDs 
   const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
-  const [predictions, setPredictions] = useState([
-    {'score': 0.6789, 'name': 1, 'counter': 2, 'response': 3},
-    {'score': 0.3, 'name': 5, 'counter': 6, 'response': 7}
-  ])
+  const [predictions, setPredictions] = useState([])
 
   const [error, setError] = useState(null)
 
@@ -225,7 +222,7 @@ const RankedRecommendationDisplay = ({
 
 
     if (prediction['reason']){
-      return <IgnoredBrawlerDisplay prediction={prediction} handleSelection={handleSelection} />
+      return <IgnoredBrawlerBar prediction={prediction} handleSelection={handleSelection} />
     }
 
     const isSecondPick = rankedModeSelectionIndex == 1
@@ -279,7 +276,12 @@ const RankedRecommendationDisplay = ({
     )
   }
 
-  const IgnoredBrawlerDisplay = ({ prediction, handleSelection }) => {
+  // These are showns at the bottom of the list.
+  // It shows which brawlers were not considered by the model, due to 
+  //    - the backend's heuristical strategy
+  //    - being banned
+  //    - being picked
+  const IgnoredBrawlerBar = ({ prediction, handleSelection }) => {
     const whoseTurnIsIt = isBlueTeamTurn ? "friendly" : "enemy"
 
     const [isHover, setIsHover] = useState(false);
@@ -312,7 +314,7 @@ const RankedRecommendationDisplay = ({
 
     var tint = ''
     if (isBanned) {
-      tint = 'red-tint'
+      tint = 'dark-red-tint'
       handleMouseEnter = null
       handleMouseLeave = null
     } else if (isPicked) {
@@ -339,6 +341,39 @@ const RankedRecommendationDisplay = ({
 
         <div className={"confidence-box "}style={{}}>
           <p>{reasonForBeingIgnored}</p>
+        </div>
+      </div>
+    )
+  }
+
+  console.log(predictions)
+
+  const LoadingBar = () => {
+    function getRandomImage() {
+      const randomID = Math.floor(Math.random() * brawlers.length)
+      return brawlers[randomID].imgUrl
+    }
+
+    const [currentImage, setCurrentImage] = useState(getRandomImage())
+
+    useEffect(() => {
+      const loop = setInterval(() => {
+          setCurrentImage(getRandomImage());
+      }, 2000);
+
+      return () => clearInterval(loop);
+    }, []);
+
+    return ( 
+      <div className="ranked-prediction-box">
+        <div className={"prediction-box-left"}
+        style={{
+        }}>
+          <img src={icons[currentImage]} className='left-prediction-image pulsing-brawler-headshot'></img>
+        </div>
+
+        <div className={"confidence-box "}style={{}}>
+          <p>AWAITING RESPONSE...</p>
         </div>
       </div>
     )
@@ -376,10 +411,13 @@ const RankedRecommendationDisplay = ({
       <div className={"brawler-gallery-search-results" + (error != null ? ' error' : '')}>
         { error ? (
           <p>An error occured.<br />{error}</p>
-        ) :predictions.length === 0 ? (
-          <p>Loading...</p>
+        ) : predictions.length == 0 ? (
+          <LoadingBar />
         ) : filteredPredictions.length === 0 ? (
-          <p>Loading...</p>
+          <>
+            <RankedPredictionBoxHeader />
+            <p>(no filtered preds)Loading...</p>
+          </>
         ) : isFinalPrediction ? (
           <>
             <RankedPredictionBoxHeader />

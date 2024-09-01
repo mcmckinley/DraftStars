@@ -20,7 +20,7 @@ const HomePage = () => {
     }, []);
 
     return (
-        <img className='pulsing-brawler-headshot' src={icons[currentImage]} />
+        <img className='home-screen-background-image pulsing-brawler-headshot' src={icons[currentImage]} />
     )
 }
 

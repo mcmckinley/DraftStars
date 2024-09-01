@@ -63,13 +63,16 @@ input:focus {
     }
 }
 
-.pulsing-brawler-headshot {
-    /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
-    animation: black-and-white-pulse 2s infinite, black-and-white-pulse-background 2s infinite;
+.home-screen-background-image {
     flex-grow: 1;
     height: 100vh;
     overflow-x: visible;
 }
+.pulsing-brawler-headshot {
+    /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
+    animation: black-and-white-pulse 2s infinite /*, black-and-white-pulse-background 2s infinite */ ;
+}
+
 
 /* LEFT SIDEBAR */
 
@@ -614,6 +617,16 @@ input:focus {
     right: 0;
     bottom: 0;
     background-color: rgba(255, 0, 0, 0.5); 
+    pointer-events: none;
+}
+.dark-red-tint::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 0, 0, 0.2); 
     pointer-events: none;
 }
 .gray-tint::after {
