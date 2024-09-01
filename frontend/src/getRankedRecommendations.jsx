@@ -64,6 +64,11 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
 
     var result = data.result
 
+    if (result['error']){
+      console.log(result)
+      return result
+    }
+
     // Undo the operation preformed at the beginning of this function.
     for (var i = 0; i < result.length; i++) {
       if (result[i]['name'] >= 55) {
@@ -90,16 +95,25 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
         result[i]['response'] -= 1
       }
     }
-
-
-
+    console.log(result)
     return result
     
     // display an error if we can't connect to server
   } catch (error) {
-    console.log('Failed to get ranked reccs.')
-    console.error(error)
-    return []
+    console.log('Failed to get recommendations.')
+    
+    return {
+      'error': 'Could not connect to the server.'
+    }
+
+    // Useful for development without backend
+    // return [
+    //   {'score': 0.6789, 'name': 1, 'counter': 2, 'response': 3},
+    //   {'score': 0.3, 'name': 5, 'counter': 6, 'response': 7},
+    //   {'name': 70, 'reason': 'BANNED'},
+    //   {'name': 70, 'reason': 'PICKED'},
+    //   {'name': 71, 'reason': 'NOT CONSIDERED'}
+    // ]
   }
 };
 

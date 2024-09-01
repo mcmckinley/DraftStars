@@ -79,9 +79,11 @@ def get_exclusion_list(pick_type, map):
 
 
 def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_first, bans):
-    
-  
     map = fix_map_index(map)
+
+    # return {
+    #   'error': 'This is a test.'
+    # }
     
     # Show that the model is receiving correct input    
     # print('Got map:', maps[map])
@@ -115,7 +117,9 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     while j < 6:
       if battle[pick_order[j]] != 33:
         print('Invalid input: bad ordering')
-        return
+        return {
+          'error': 'Invalid ordering. Please report this error.'
+        }
       j += 1
 
     # 3. Identify the 'pick type'.
@@ -129,7 +133,9 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     elif recommendation_index == 4: pick_type = 'FIFTH PICK'
     elif recommendation_index == 5: pick_type = 'LAST PICK'
     else:
-      print('Invalid input: unknown pick type')
+      return {
+        'error': 'Could not identify pick type. Please report this error.'
+      }
       return
 
     # Useful for fixing errors in identifying the recommendation order. 
@@ -165,7 +171,9 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
 
     if (counterpick_index == -1 or response_index == -1):
       print('Invalid input: no potential counter / response')
-      return
+      return {
+          'error': 'An error occured while identifying the pick order. Please report this error.'
+      }
 
     # 5. Create a list of brawlers that are available for selection.
     #    Remove brawlers that are already selected, as well as those
@@ -184,11 +192,8 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     for ban in bans:
       try:
         if ban:
-            # print('Is ?')
-            # print(ban == True)
             available_brawlers.remove(brawler_index(brawlers[ban]))
       except ValueError:
-        # print('WARNING: Ban already exists, or not found:', ban)
         continue
 
     # 6. Thinking three moves ahead is costly. We account for this by disregarding certain brawlers

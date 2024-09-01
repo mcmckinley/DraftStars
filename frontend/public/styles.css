@@ -428,6 +428,9 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
 }
+.error { 
+    background-color: #990000;
+}
 
 .gallery-item {
     /* height: 10%;

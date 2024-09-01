@@ -34,6 +34,8 @@ const RankedRecommendationDisplay = ({
     {'score': 0.3, 'name': 5, 'counter': 6, 'response': 7}
   ])
 
+  const [error, setError] = useState(null)
+
   const [filteredPredictions, setFilteredPredictions] = useState([])
 
   const isBlueTeamTurn = orderOfBoxSelection[rankedModeSelectionIndex] < 3
@@ -43,8 +45,12 @@ const RankedRecommendationDisplay = ({
     // the second part of this condition KILLED me. I spent 3 hours this morning just for these 15 characters to solve my problem.
     if (isFirstTimeLoadingSection3.current && selectedBoxID != null) {
       getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
-        setPredictions(result)
-        setFilteredPredictions(result)
+        if (result['error']){
+          setError(result['error'])
+        } else {
+          setPredictions(result)
+          setFilteredPredictions(result)
+        }
       })
       isFirstTimeLoadingSection3.current = false
     }
@@ -58,8 +64,12 @@ const RankedRecommendationDisplay = ({
     //  b) the DOM has updated
     if (previousEntries.current != entries && previouslySelectedBox.current != selectedBoxID){
       getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
-        setPredictions(result)
-        setFilteredPredictions(result)
+        if (result['error']){
+          setError(result['error'])
+        } else {
+          setPredictions(result)
+          setFilteredPredictions(result)
+        }
       })
 
       previousEntries.current = entries
@@ -363,8 +373,10 @@ const RankedRecommendationDisplay = ({
           ref={inputRef}
         />
 
-      <div className="brawler-gallery-search-results">
-        {predictions.length === 0 ? (
+      <div className={"brawler-gallery-search-results" + (error != null ? ' error' : '')}>
+        { error ? (
+          <p>An error occured.<br />{error}</p>
+        ) :predictions.length === 0 ? (
           <p>Loading...</p>
         ) : filteredPredictions.length === 0 ? (
           <p>Loading...</p>
