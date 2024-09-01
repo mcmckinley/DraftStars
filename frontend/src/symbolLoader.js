@@ -5,6 +5,6 @@ function importAll(r) {
     return images;
 }
   
-const symbols = importAll(require.context('./symbols', false, /\.(png|webp)$/));
+const symbols = importAll(require.context('./symbols', false, /\.(png|svg)$/));
 
 export default symbols;

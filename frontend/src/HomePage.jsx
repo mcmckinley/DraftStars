@@ -34,7 +34,7 @@ const HomePage = ({ setPageIndex }) => {
             <div className='home-screen'>
                 <div className='home-screen-center'>
                     <h1>Draft Stars</h1>
-                    <h2>AI powered draft engine for Brawl Stars</h2>
+                    <h2>AI draft engine for Brawl Stars</h2>
                     <div className='home-screen-buttons'>
                         <NavigationButton text={'Use the Engine'} destinationIndex={1} />
                         <NavigationButton text={'About'} destinationIndex={2} />

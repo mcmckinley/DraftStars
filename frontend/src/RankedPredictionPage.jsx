@@ -6,6 +6,7 @@ import { maps } from './mapData'
 import BrawlerSelector from './BrawlerSelector';
 import icons from './iconLoader';
 import mapImages from './mapLoader';
+import symbols from './symbolLoader';
 import MapSelector from './MapSelector'
 import PredictionDescription from './PredictionDescription';
 import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
@@ -16,7 +17,7 @@ import getRankedRecommendations from './getRankedRecommendations';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 import RankedRecommendationDisplay from './RankedRecommendationDisplay';
 
-const RankedPredictionPage = () => {
+const RankedPredictionPage = ({ setPageIndex }) => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
@@ -86,7 +87,7 @@ const RankedPredictionPage = () => {
               setUserDraftNumber(boxID)
               moveToNextSection()
           }}>
-          <img src={icons["ranked-icon.png"]}   />
+          <img src={icons["ranked-icon.png"]} />
           <p>{draftNumberStrings[boxID]}</p>
       </div>
     )
@@ -174,6 +175,24 @@ const RankedPredictionPage = () => {
   return (
     <div className={`input-page`}>
       {/* <div className='empty-space'></div> */}
+      <div className='engine-page-header'>
+        <h2>Engine</h2>
+        <p onClick={() => {setPageIndex(0)}}
+          className='navigation-button'
+        >
+          Home
+        </p>
+        <p onClick={() => {setPageIndex(2)}}
+          className='navigation-button'
+        >
+          About
+        </p>
+        <div className='reset-button'>
+          <img src={symbols['reset.svg']} className='reset-icon' />
+          <p>Reset</p>
+        </div>
+        
+      </div>
 
       {/* Select Map section */}      
       <Section id='0' title='Select Map' description={map ? gameModes[maps[map].game_mode] + ' - ' + maps[map].name : ''}>

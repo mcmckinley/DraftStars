@@ -323,8 +323,35 @@ input:focus {
     height: 100%;
 }
 
-/* RANKED - First pick section */
+.engine-page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    
+    justify-content: space-between;
+}
+.engine-page-header h2 {
+    padding-left: 10px;
+}
+.engine-page-header p {
+    padding: 5px;
+}
+.reset-button {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 10px;
+}
+.reset-icon {
+    filter: invert(100%); /* default is black. make it white */
+    height: 60%;
+    padding-right: 5px; /* space between icon and text */
+}
 
+/* RANKED - First pick section */
 
 .first-pick-section {
     display: flex;
