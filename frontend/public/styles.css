@@ -71,6 +71,10 @@ input:focus {
     /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
     animation: black-and-white-pulse 4s infinite, black-and-white-pulse-background 4s infinite;
 }
+.pulsing-brawler-headshot-fast {
+    /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
+    animation: black-and-white-pulse 2s infinite;
+}
 .home-screen {
     /* position: fixed; */
     width: 100vw;
@@ -414,6 +418,12 @@ input:focus {
 }
 .ban-box img {
     height: 65px;
+}
+.ban-placeholder {
+    margin: 0;
+    height: 85px;
+    color: grey;
+    text-align: center;
 }
 
 

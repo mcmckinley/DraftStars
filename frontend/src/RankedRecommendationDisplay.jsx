@@ -16,7 +16,8 @@ const RankedRecommendationDisplay = ({
     setRankedModeSelectionIndex,
     isFirstTimeLoadingSection3,
     previousEntries,
-    previouslySelectedBox
+    previouslySelectedBox,
+    error
   }) => {
   // State for the search query and filtered results
   const [query, setQuery] = useState('');
@@ -30,8 +31,6 @@ const RankedRecommendationDisplay = ({
   const orderOfBoxSelection = (teamWithFirstPick == 'Blue' ? [0, 5, 4, 1, 2, 3] : [5, 0, 1, 4, 3, 2])
 
   const [predictions, setPredictions] = useState([])
-
-  const [error, setError] = useState(null)
 
   const [filteredPredictions, setFilteredPredictions] = useState([])
 
@@ -346,8 +345,6 @@ const RankedRecommendationDisplay = ({
     )
   }
 
-  console.log(predictions)
-
   const LoadingBar = () => {
     function getRandomImage() {
       const randomID = Math.floor(Math.random() * brawlers.length)
@@ -359,7 +356,7 @@ const RankedRecommendationDisplay = ({
     useEffect(() => {
       const loop = setInterval(() => {
           setCurrentImage(getRandomImage());
-      }, 4000);
+      }, 2000);
 
       return () => clearInterval(loop);
     }, []);
@@ -369,7 +366,7 @@ const RankedRecommendationDisplay = ({
         <div className={"prediction-box-left"}
         style={{
         }}>
-          <img src={icons[currentImage]} className='left-prediction-image pulsing-brawler-headshot'></img>
+          <img src={icons[currentImage]} className='left-prediction-image pulsing-brawler-headshot-fast'></img>
         </div>
 
         <div className={"confidence-box "}style={{}}>
@@ -416,7 +413,7 @@ const RankedRecommendationDisplay = ({
         ) : filteredPredictions.length === 0 ? (
           <>
             <RankedPredictionBoxHeader />
-            <p>(no filtered preds)Loading...</p>
+            <p>No brawlers found</p>
           </>
         ) : isFinalPrediction ? (
           <>

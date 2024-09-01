@@ -59,21 +59,38 @@ const RankedPredictionPage = ({ setPageIndex }) => {
     setBans(newBans);
   };
 
-  var entryGuides = teamWithFirstPick == 'Blue' ? [
-    "Select Blue's first pick",
-    "Select Red's first pick",
-    "Select Red's second pick",
-    "Select Blue's second pick",
-    "Select Blue's last pick",
-    "Select Red's last pick"
-  ] : [
-    "Select Red's first pick",
-    "Select Blue's first pick",
-    "Select Blue's second pick",
-    "Select Red's second pick",
-    "Select Red's last pick",
-    "Select Blue's last pick"
-  ]
+  const [error, setError] = useState(null)
+
+  function reset () {
+    setIDofActiveSection(0)
+    setTeamWithFirstPick(null)
+    setMap(null)
+    setBans([])
+    setEntries([])
+    setError(null)
+  }
+
+  var entryGuides = ['']
+  if (teamWithFirstPick == 'Blue'){
+    entryGuides = [
+      "Select Blue's first pick",
+      "Select Red's first pick",
+      "Select Red's second pick",
+      "Select Blue's second pick",
+      "Select Blue's last pick",
+      "Select Red's last pick"
+    ]
+  }
+  if (teamWithFirstPick == 'Red') {
+    entryGuides = [
+      "Select Red's first pick",
+      "Select Blue's first pick",
+      "Select Blue's second pick",
+      "Select Red's second pick",
+      "Select Red's last pick",
+      "Select Blue's last pick"
+    ]
+  }
 
   // Runs when the element loads
   useEffect(() => {
@@ -135,7 +152,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
     return (
       <div className="section-upper-part-right"
         onClick={()=> {
-          if (hasDoneButton){
+          if (hasDoneButton && sectionID == IDofActiveSection){
             moveToNextSection()
           }
         }}>
@@ -189,7 +206,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
         </p>
         <div className='reset-button'>
           <img src={symbols['reset.svg']} className='reset-icon' />
-          <p>Reset</p>
+          <p onClick={reset}>Reset</p>
         </div>
         
       </div>
@@ -217,15 +234,22 @@ const RankedPredictionPage = ({ setPageIndex }) => {
       </Section>
 
       {/* Enter Bans section */}
-      <Section id='2' title='Enter bans' hasDoneButton={true}>
+      <Section id='2' title='Enter bans' hasDoneButton={bans.length > 3}>
         {/* Shows the currently selected bans */}
         <div className="teams">
-          {bans.map((ban, index) => (
-            <div key={index} className="ban-box" onClick={()=>removeBan(index)}>
-              <img src={icons[brawlers[ban].imgUrl]} />
-              <FaTimes className='x-button'/>
-            </div>
-          ))}
+          { bans.length > 0 ? (
+            <>
+              {bans.map((ban, index) => (
+                <div key={index} className="ban-box" onClick={()=>removeBan(index)}>
+                  <img src={icons[brawlers[ban].imgUrl]} />
+                  <FaTimes className='x-button'/>
+                </div>
+              ))}
+            </>
+          ) : (
+            <p className='ban-placeholder'>Select 4 to 6 brawlers from the gallery below.</p>
+          )}
+          
         </div>
 
         {/* Shows list of brawlers */}
@@ -259,6 +283,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
             isFirstTimeLoadingSection3={isFirstTimeLoadingSection3}
             previousEntries={previousEntries}
             previouslySelectedBox={previouslySelectedBox}
+            error={error}
           />
         </div>
       </Section>
