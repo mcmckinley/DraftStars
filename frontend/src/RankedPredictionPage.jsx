@@ -10,6 +10,7 @@ import symbols from './symbolLoader';
 import MapSelector from './MapSelector'
 import PredictionDescription from './PredictionDescription';
 import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
+import Footer from './Footer';
 
 import getRankedRecommendations from './getRankedRecommendations';
 
@@ -190,8 +191,8 @@ const RankedPredictionPage = ({ setPageIndex }) => {
   }
 
   return (
+    <>
     <div className={`input-page`}>
-      {/* <div className='empty-space'></div> */}
       <div className='engine-page-header'>
         <h2>Engine</h2>
         <p onClick={() => {setPageIndex(0)}}
@@ -206,7 +207,7 @@ const RankedPredictionPage = ({ setPageIndex }) => {
         </p>
         <div className='reset-button'>
           <img src={symbols['reset.svg']} className='reset-icon' />
-          <p onClick={reset}>Reset</p>
+          <p className='reset-button-text' onClick={reset}>Reset</p>
         </div>
         
       </div>
@@ -288,40 +289,13 @@ const RankedPredictionPage = ({ setPageIndex }) => {
         </div>
       </Section>
       
-      {/* Prediction bar */}
-      {/* <div className="section">
-          <div className="section-lower-part">  
-          <div className="prediction-bar">
-              <div className="red-prediction-bar"></div>
-              <div className="blue-prediction-bar" style={{width: result*100+'%', transition: 'width 0.3s',}}></div>
-          </div>
-
-          <div className="prediction-values">
-              {result != null ? (
-              <>
-                  <p>{Math.round(result * 100) / 100}</p>
-                  <p>{Math.round((1-result) * 100) / 100}</p>
-              </>
-              ) : (
-              <p>Error: Could not connect to server.</p>
-              )}
-          </div>
-          </div>
-      </div>  */}
-
-      {/* Prediciton Description */}
-      {/* <div className="section">
-          <div className="section-upper-part">
-          <SectionTitle text='Prediction' />
          
           </div>
 
-          <div className="section-lower-part">
-          <PredictionDescription isAwaitingPrediction={isAwaitingPrediction} result={result}/>
-          </div>
+    <Footer />
 
-      </div> */}
-    </div> 
+
+    </>
   );
 };
 
