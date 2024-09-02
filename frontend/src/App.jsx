@@ -8,7 +8,7 @@ import Sidebar from './Sidebar';
 
 const App = () => {
 
-  const [pageIndex, setPageIndex] = useState(2)
+  const [pageIndex, setPageIndex] = useState(1)
 
   var pages = [
     <HomePage setPageIndex={setPageIndex}/>,

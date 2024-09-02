@@ -86,7 +86,7 @@ const RankedRecommendationDisplay = ({
 
     // Filter the brawlers based on the search query
     const filtered = predictions.filter(pred =>
-      brawlers[pred['name']].name.toLowerCase().includes(value)
+      brawlers[pred['name']].name.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredPredictions(filtered);
   };
