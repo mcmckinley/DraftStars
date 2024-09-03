@@ -11,9 +11,9 @@ const App = () => {
   const [pageIndex, setPageIndex] = useState(1)
 
   var pages = [
-    <HomePage setPageIndex={setPageIndex}/>,
-    <RankedPredictionPage setPageIndex={setPageIndex} />, 
-    <AboutPage setPageIndex={setPageIndex}/>
+    <HomePage pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
+    <RankedPredictionPage pageIndex={pageIndex} setPageIndex={setPageIndex} />, 
+    <AboutPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>
   ]
 
   return pages[pageIndex]

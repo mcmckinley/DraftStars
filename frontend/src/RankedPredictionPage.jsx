@@ -11,6 +11,7 @@ import MapSelector from './MapSelector'
 import PredictionDescription from './PredictionDescription';
 import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
 import Footer from './Footer';
+import Header from './Header';
 
 import getRankedRecommendations from './getRankedRecommendations';
 
@@ -18,7 +19,7 @@ import getRankedRecommendations from './getRankedRecommendations';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 import RankedRecommendationDisplay from './RankedRecommendationDisplay';
 
-const RankedPredictionPage = ({ setPageIndex }) => {
+const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
@@ -194,20 +195,10 @@ const RankedPredictionPage = ({ setPageIndex }) => {
     <>
     <div className={`input-page`}>
       <div className='engine-page-header'>
-        <h2>Engine</h2>
-        <p onClick={() => {setPageIndex(0)}}
-          className='navigation-button'
-        >
-          Home
-        </p>
-        <p onClick={() => {setPageIndex(2)}}
-          className='navigation-button'
-        >
-          About
-        </p>
-        <div className='reset-button'>
+        <Header pageIndex={pageIndex} setPageIndex={setPageIndex} />
+        <div className='reset-button no-text-select' onClick={reset}>
           <img src={symbols['reset.svg']} className='reset-icon' />
-          <p className='reset-button-text' onClick={reset}>Reset</p>
+          <p className='reset-button-text' >Reset</p>
         </div>
         
       </div>

@@ -46,14 +46,16 @@ body {
     background-color: #222;
     margin: 0;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-p {
+p, h3{
     font-size: var(--section-header-font-size);
 }
 
 /* Makes text elements unselectable */
-.unselectable {
+.no-text-select {
     user-select: none; /* Standard */
     -webkit-user-select: none; /* For Safari */
     -moz-user-select: none; /* For Firefox */
@@ -69,6 +71,22 @@ input:focus {
 .main {
     display: flex;
     padding: 0 10px 0 0; 
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    margin-top: 15px;
+}
+
+.footer p {
+    font-size: 14px;
+    font-weight: 300;
+    color: #666;
+    max-width: 800px;
+    text-align: center;
 }
 
 /* HOME */
@@ -135,9 +153,19 @@ input:focus {
     border: 1px solid #888;
     border-radius: 5px;
 }
+.navigation-button-selected {
+    border: 1px solid #888;
+    border-radius: 5px;
+    color: #baffad;
+}
 
-.navigation-button p {
+.navigation-button h3 {
     margin: 10px;
+    font-weight: 400;
+}
+.navigation-button-selected h3 {
+    margin: 10px;
+    font-weight: 400;
 }
 .navigation-button:hover {
     text-decoration: underline;
@@ -193,15 +221,17 @@ input:focus {
 }
 
 .input-page {
-    flex-grow: 1;
+    /* flex-grow: 1; */
     margin-left: 0;
     transition: width 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
+    min-height: 100vh;
     /* width: max-content */
 }
+
 .empty-space-for-sidebar {
     min-width: 340px;
     transition: min-width 0.3s;
@@ -224,7 +254,7 @@ input:focus {
     border-radius: 7px;
     margin: 6px;
     width: 100%;
-    max-width: 700px
+    max-width: 700px /* add this to input-page? */
 }
 
 /* Sections for Ranked Prediction screen behave differently */
@@ -360,20 +390,20 @@ input:focus {
     
     justify-content: space-between;
 }
-.engine-page-header h2 {
+/* .engine-page-header h2 {
     padding-left: 10px;
 }
 .engine-page-header p {
     padding: 5px;
-}
+} */
 .reset-button {
-    height: 40px;
+    /* height: 40px; */
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-right: 10px;
     border: 1px solid #888;
     border-radius: 5px;
+    margin-top: 10px;
 }
 .reset-button:hover {
     background-color: #444;
@@ -381,19 +411,31 @@ input:focus {
 
 .reset-icon {
     filter: invert(100%); /* default is black. make it white */
-    height: 60%;
-    padding-left: 5px; /* space between icon and text */
+    height: 20px;
+    padding-left: 8px; /* space between icon and text */
 }
 .reset-button-text {
-    margin: 0px
+    margin: 10px;
+    font-weight: 400;
 }
 
 
 
 .about-page {
-    max-width: 800px; /* I don't like when pages are super wide. */
+    /* max-width: 800px; /* I don't like when pages are super wide. */
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+    align-items: center;
+    
 }
-.about-page-header {
+.about-page h1, h2, p {
+    max-width: 700px;
+    width: 100%;
+}
+
+.header {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
@@ -408,10 +450,15 @@ input:focus {
     font-size: 16px;
     font-weight: 300;
 }
+.about-page-header {
+    width: 100%;
+    max-width: 700px;
+}
 
 .social-media-image-link-row {
     height: 40px;
     width: 100%;
+    max-width: 700px;
 }
 .social-media-image-link-row img {
     height: 100%;

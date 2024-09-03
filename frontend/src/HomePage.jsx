@@ -24,7 +24,7 @@ const HomePage = ({ setPageIndex }) => {
             onClick={() => {
                 setPageIndex(destinationIndex)
             }}> 
-            <p>{text}</p>
+            <h3>{text}</h3>
         </div>
     }
 

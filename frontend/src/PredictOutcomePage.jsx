@@ -98,7 +98,7 @@ const PredictOutcomePage = () => {
                 ) : (
                     <FaChevronDown color="#bbb"/>
                 )}
-                <p className="unselectable">{gameModes[maps[map].game_mode] + ' - ' + maps[map].name}</p>
+                <p className="no-text-select">{gameModes[maps[map].game_mode] + ' - ' + maps[map].name}</p>
             </div>
             </div>
 
