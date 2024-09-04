@@ -165,8 +165,8 @@ const RankedRecommendationDisplay = ({
   }
 
   // Colors that correspond to each brawler's rarity.
-  const rarityColors = ['#76b2cc', '#198000', '#002cbd', '#7700b3', '#a10040', '#abc200']
-  const brighterRarityColors = ['#8ecde8', '#25bd00', '#2457ff', '#b524ff', '#fc0064', '#ddf71b']
+
+  const rarities = ['starter', 'rare', 'super-rare', 'epic', 'mythic', 'legendary']
 
   // Once all the brawlers are entered, this shows who the model favors to win
   const isFinalPrediction = rankedModeSelectionIndex == 6
@@ -232,7 +232,11 @@ const RankedRecommendationDisplay = ({
     const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
 
     // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
-    const recommendedBrawlerBGColor = isHover ? brighterRarityColors[recommendedBrawler.rarity] : rarityColors[recommendedBrawler.rarity]
+    var recommendedBrawlerRarity = 'rarity-' + rarities[recommendedBrawler.rarity]
+    if (isHover) {
+      recommendedBrawlerRarity += '-accent'
+    }
+  
 
     return ( 
       <div className="ranked-prediction-box selectable-prediction-box"  
@@ -241,10 +245,7 @@ const RankedRecommendationDisplay = ({
         onMouseLeave={handleMouseLeave}
       >
         {/* Image of the recommended brawler */}
-        <div className={"prediction-box-left"}
-        style={{
-          backgroundColor: recommendedBrawlerBGColor
-        }}>
+        <div className={"prediction-box-left " + recommendedBrawlerRarity}>
           <img src={recommendedBrawlerIcon} alt={recommendedBrawler.name} className='left-prediction-image'></img>
         </div>
 
@@ -299,8 +300,10 @@ const RankedRecommendationDisplay = ({
     const recommendedBrawler = brawlers[recommendation]
     const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
 
-    // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
-    const recommendedBrawlerBGColor = isHover ? brighterRarityColors[recommendedBrawler.rarity] : rarityColors[recommendedBrawler.rarity]
+    var recommendedBrawlerRarity = 'rarity-' + rarities[recommendedBrawler.rarity]
+    if (isHover) {
+      recommendedBrawlerRarity += '-accent'
+    }
 
     const isBanned = reasonForBeingIgnored == 'BANNED'
     const isPicked = reasonForBeingIgnored == 'PICKED'
@@ -331,10 +334,7 @@ const RankedRecommendationDisplay = ({
         onMouseLeave={handleMouseLeave}
       >
         {/* Image of the recommended brawler */}
-        <div className={"prediction-box-left"}
-        style={{
-          backgroundColor: recommendedBrawlerBGColor
-        }}>
+        <div className={"prediction-box-left " + recommendedBrawlerRarity}>
           <img src={recommendedBrawlerIcon} alt={recommendedBrawler.name} className={'left-prediction-image'}></img>
         </div>
 

@@ -20,7 +20,8 @@ const HomePage = ({ setPageIndex }) => {
     }, []);
 
     const NavigationButton = ({ text, destinationIndex }) => {
-        return <div className='navigation-button' 
+        return <div className='navigation-button homepage' 
+
             onClick={() => {
                 setPageIndex(destinationIndex)
             }}> 

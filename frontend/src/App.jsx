@@ -8,6 +8,31 @@ import Sidebar from './Sidebar';
 
 const App = () => {
 
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    if (theme == 'dark') {
+      document.body.classList.add('dark-theme');
+      document.body.classList.remove('light-theme');
+
+    } else {
+      document.body.classList.add('light-theme');
+      document.body.classList.remove('dark-theme');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  // Automatically update the theme based on the user's setting
+
+  useEffect(() => {
+    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(userPrefersDark ? 'dark' : 'light');
+  }, []);
+  
+
   const [pageIndex, setPageIndex] = useState(1)
 
   var pages = [

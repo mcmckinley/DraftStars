@@ -5,7 +5,34 @@
     --map-search-result-height: 50px;
     --prediction-box-image-width: 110px;
     --confidence-box-font-size: 30px;
+
+
+    
+
+    --background-color: #fff;
+    --secondary-color: #eee;
+    --tertiary-color: #ddd;
+    --quaternary-color: #ccc;
+    --text-color: #000;    
+    --secondary-text-color: #222;
+    --selected-header-button-text-color: #026300;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        
+
+        --background-color: #222;
+        --secondary-color: #333;
+        --tertiary-color: #444;
+        --quaternary-color: #555;
+        --text-color: #fff;
+        --secondary-text-color: red;
+        --selected-header-button-text-color: #baffad;
+    }
+}
+
+
 
 @media (max-width: 600px) {
     :root {
@@ -21,6 +48,38 @@
         --prediction-box-image-width: 80px;
         --confidence-box-font-size: 20px
     }
+}
+
+/* Each brawler in brawl stars has a rarity */
+.rarity-starter {    background-color: #8ecde8 }
+.rarity-rare {       background-color: #29d100 }
+.rarity-super-rare { background-color: #1a7de8 }
+.rarity-epic {       background-color: #9411d6 }
+.rarity-mythic {     background-color: #fc0064 }
+.rarity-legendary {  background-color: #f5f505 }
+    
+.rarity-starter-accent {    background-color: #ade6ff }
+.rarity-rare-accent {       background-color: #71f551 }
+.rarity-super-rare-accent { background-color: #69acf5 }
+.rarity-epic-accent {       background-color: #bc3ffc }
+.rarity-mythic-accent {     background-color: #fa7070 }
+.rarity-legendary-accent {  background-color: #fcfc97 }
+
+
+@media (prefers-color-scheme: dark) {
+.rarity-starter {           background-color: #76b2cc }
+.rarity-rare {              background-color: #198000 }
+.rarity-super-rare {        background-color: #002cbd }
+.rarity-epic {              background-color: #7700b3 }
+.rarity-mythic {            background-color: #a10040 }
+.rarity-legendary {         background-color: #abc200 }
+    
+.rarity-starter-accent {    background-color: #8ecde8 }
+.rarity-rare-accent {       background-color: #25bd00 }
+.rarity-super-rare-accent { background-color: #2457ff }
+.rarity-epic-accent {       background-color: #b524ff }
+.rarity-mythic-accent {     background-color: #fc0064 }
+.rarity-legendary-accent {  background-color: #ddf71b }
 }
 
 
@@ -42,8 +101,8 @@ input, button {
 
 body {
     font-family: Lexend;
-    color: white;
-    background-color: #222;
+    color: var(--text-color);
+    background-color: var(--background-color);
     margin: 0;
     overflow-x: hidden;
     display: flex;
@@ -87,6 +146,7 @@ input:focus {
     color: #666;
     max-width: 800px;
     text-align: center;
+    padding: 0px 10px;
 }
 
 /* HOME */
@@ -115,6 +175,15 @@ input:focus {
     overflow-x: hidden;
     z-index: 1;
 }
+/* Move the brawler images closer to the center on mobile, 
+   so that their faces don't get cut off */
+@media (max-width: 500px) {
+    .home-screen-background-image {
+        transform: translate(-300px) 
+    }
+}
+
+
 .pulsing-brawler-headshot {
     /* filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg); */
     animation: black-and-white-pulse 4s infinite, black-and-white-pulse-background 4s infinite;
@@ -136,6 +205,7 @@ input:focus {
 
 .home-screen-center {
     z-index: 2;
+    color: white;
 }
 
 .home-screen h1 {
@@ -152,11 +222,13 @@ input:focus {
 .navigation-button {
     border: 1px solid #888;
     border-radius: 5px;
+    background-color: var(--secondary-color);
 }
 .navigation-button-selected {
     border: 1px solid #888;
     border-radius: 5px;
-    color: #baffad;
+    /* color: var(--selected-header-button-text-color); */
+    background-color: var(--tertiary-color);
 }
 
 .navigation-button h3 {
@@ -169,6 +241,9 @@ input:focus {
 }
 .navigation-button:hover {
     text-decoration: underline;
+}
+.navigation-button.homepage {
+    background-color: #333;
 }
 
 
@@ -190,13 +265,13 @@ input:focus {
 }
 
 .sidebar-page-selector {
-    background-color: #222;
+    background-color: var(--background-color);
     border-radius: 8px;
     font-weight: 300;
     padding: 3px;
 }
 .sidebar-page-selector.active {
-    background-color: #333;
+    background-color: --secondary-color;
 }
 
 @media (max-width: 791px) {
@@ -229,6 +304,7 @@ input:focus {
     align-items: center;
 
     min-height: 100vh;
+    padding: 10px
     /* width: max-content */
 }
 
@@ -250,7 +326,7 @@ input:focus {
 
 /* make the sections within the map select div show side by side */
 .section {
-    background-color: #333;
+    background-color: var(--secondary-color);
     border-radius: 7px;
     margin: 6px;
     width: 100%;
@@ -260,16 +336,16 @@ input:focus {
 /* Sections for Ranked Prediction screen behave differently */
 
 .section-active {
-    background-color: #333;
+    background-color: var(--secondary-color);
     border-radius: 7px;
     margin: 6px;
     width: 100%;
     max-width: 700px;
-    border: 1px solid #555;
+    border: 1px solid var(--tertiary-color);
 }
 
 .section-inactive {
-    background-color: #333;
+    background-color: var(--secondary-color);
     border-radius: 7px;
     margin: 6px;
     width: 100%;
@@ -311,10 +387,10 @@ input:focus {
     padding: 3px;
     border-radius: 8px;
 
-    color: #bbb;
+    color: var(--text-color);
 }
 .section-upper-part-right:hover {
-    background-color: #444;
+    background-color: var(--tertiary-color);
 }
 
 .section-upper-part p {
@@ -330,10 +406,10 @@ input:focus {
 }
 
 .search-bar {
-    background-color: #333;
+    background-color: var(--secondary-color);
     color: white;
     width: 99%;
-    border: 0.5% solid #ccc;
+    border: 1px solid var(--quaternary-color);
     border-radius: 2px;
     padding: 4px 3px;
     font-size: 18px;
@@ -346,7 +422,8 @@ input:focus {
 }
 
 .map-search-result {
-    background-color: #444;
+    background-color: var(--tertiary-color);
+
     transition: background-color 0.2s ease; /* Smooth transition */
     margin: 2px 0px;
     border-radius: 4px;
@@ -357,7 +434,7 @@ input:focus {
 }
 
 .map-search-result:hover {
-    background-color: #555;
+    background-color: var(--quaternary-color);
 }
 
 .map-search-result p {
@@ -403,10 +480,9 @@ input:focus {
     align-items: center;
     border: 1px solid #888;
     border-radius: 5px;
-    margin-top: 10px;
 }
 .reset-button:hover {
-    background-color: #444;
+    background-color: var(--tertiary-color);
 }
 
 .reset-icon {
@@ -428,22 +504,29 @@ input:focus {
 
     min-height: 100vh;
     align-items: center;
-    
+    padding: 10px
 }
 .about-page h1, h2, p {
     max-width: 700px;
     width: 100%;
+    /* margin-left: 15px;
+    margin-right: 15px; */
+}
+
+.about-page h2 {
+    font-weight: normal;
+    margin-top: 10px;
 }
 
 .header {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
 }
 
 .about-page h1 {
     font-size: 45px;
-    margin: 10px 0px;;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .about-page p {
@@ -459,6 +542,8 @@ input:focus {
     height: 40px;
     width: 100%;
     max-width: 700px;
+    /* margin-left: 15px;
+    margin-right: 15px; */
 }
 .social-media-image-link-row img {
     height: 100%;
@@ -482,10 +567,14 @@ input:focus {
     width: 80px;
     padding: 4px;
     margin: 4px;
+    border-radius: 8px;
+}
+.thumb-div:hover {
+    background-color: var(--tertiary-color);
 }
 .selected-thumb {
     width: 80px;
-    background-color: #444;
+    background-color: var(--tertiary-color);
     border-radius: 6px;
 }
 .unselected-thumb {
@@ -521,22 +610,42 @@ input:focus {
 /* Brawler section */
 
 /* Animation for player boxes when selected */
-@keyframes tint-pulse {
+@keyframes light-theme-tint-pulse {
     0%, 100% {
-        filter: sepia(0%) saturate(100%) brightness(60%) hue-rotate(0deg);
+        filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg);
+    }
+    50% {
+        filter: sepia(0%) saturate(100%) brightness(120%) hue-rotate(0deg);
+    }
+}
+@keyframes dark-theme-tint-pulse {
+    0%, 100% {
+        filter: sepia(0%) saturate(100%) brightness(70%) hue-rotate(0deg);
     }
     50% {
         filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg);
     }
 }
+
+
 .selected {
     filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(210deg);
-    animation: tint-pulse 1s infinite;
-}
-.unselected {
-    filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg);
+    animation: light-theme-tint-pulse 1s infinite;
 }
 
+.unselected {
+    filter: sepia(0%) saturate(100%) brightness(120%) hue-rotate(0deg);
+}
+
+@media(prefers-color-scheme: dark){
+    .selected {
+        filter: sepia(0%) saturate(100%) brightness(70%) hue-rotate(210deg);
+        animation: dark-theme-tint-pulse 1s infinite;
+    }
+    .unselected {
+        filter: sepia(0%) saturate(100%) brightness(100%) hue-rotate(0deg);
+    }
+}
 
 
 .teams {
@@ -649,20 +758,20 @@ input:focus {
 
 
 .get-prediction-button {
-    background-color: #444;
+    background-color: var(--tertiary-color);
     color: white;
     width: 100%;
-    border: 1px solid #222;
+    border: 1px solid var(--background-color);
     border-radius: 4px;
 }
 .get-prediction-button:hover {
-    background-color: #555;
+    background-color: var(--quaternary-color);
 }
 .get-prediction-button-disabled {
-    background-color: #444;
+    background-color: var(--tertiary-color);
     color: grey;
     width: 100%;
-    border: 1px solid #222;
+    border: 1px solid var(--background-color);
     border-radius: 4px;
 
 }
@@ -711,9 +820,10 @@ input:focus {
 }
 
 .ranked-prediction-box-header p {
-    margin: 5px;
+    padding: 5px;
+    margin: 0;
     font-size: 16px;
-    color: grey;
+    color: var(--secondary-text-color);
 }
 
 .confidence-text {
@@ -739,7 +849,7 @@ input:focus {
     position: relative;
 }
 .selectable-prediction-box:hover {
-    background-color: #666;
+    background-color: var(--quaternary-color);
 }
 
 .left-prediction-image {
@@ -781,13 +891,24 @@ input:focus {
 
 /* The actual blue display */
 .friendly-confidence-bar {
-    background-color: #245687;
+    background-color: #619eff;
     height: 100%;
 }
 .enemy-confidence-bar {
-    background-color: #660000;
+    background-color: #f50202;
     height: 100%;
 }
+@media(prefers-color-scheme: dark){
+    .friendly-confidence-bar {
+        background-color: #245687;
+        height: 100%;
+    }
+    .enemy-confidence-bar {
+        background-color: #660000;
+        height: 100%;
+    }
+}
+
 
 /* The text that say BANNED, PICKED, or NOT CONSIDERED */
 .confidence-box p {
@@ -799,13 +920,21 @@ input:focus {
 
 /* background colors that vary based off of who the engine is recommending for (either enemy or friendly) */
 .enemy {
-    background-color: #4d0218;
+    background-color: /*#ff0320*/ #fa0a0a;
 }
 
 .friendly {
-    background-color: #003c66;
+    background-color: #b8d1ff;
 }
-
+@media (prefers-color-scheme: dark) {
+    .enemy {
+        background-color: #4d0218;
+    }
+    
+    .friendly {
+        background-color: #003c66;
+    }
+}
 
 .red-tint::after {
     content: '';
