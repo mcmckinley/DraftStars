@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { brawlers } from './data.js'
-import icons from './iconLoader.js'
 
-const HomePage = ({ setPageIndex }) => {
-
+const HomePage = ({ icons, setPageIndex }) => {
     function getRandomImage() {
         const randomID = Math.floor(Math.random() * brawlers.length)
         return brawlers[randomID].imgUrl
@@ -11,13 +9,26 @@ const HomePage = ({ setPageIndex }) => {
 
     const [currentImage, setCurrentImage] = useState(getRandomImage())
 
-    useEffect(() => {
-        const loop = setInterval(() => {
-            setCurrentImage(getRandomImage());
-        }, 4000);
+    const [isFading, setIsFading] = useState(true);
 
-        return () => clearInterval(loop);
-    }, []);
+    // Issue: if the page is unloaded for a while, the homepage animation / icon switching go out of 
+    // sync. This happens on my Mac in Safari (potentially also due to low power mode.) 
+
+    useEffect(() => {
+        const updateImage = () => {
+          setIsFading(true); 
+          setTimeout(() => {
+            setCurrentImage(getRandomImage()); 
+          }, 4000); 
+        };
+    
+        const intervalId = setInterval(updateImage, 4000); 
+    
+        return () => { 
+            clearInterval(intervalId); 
+            setIsFading(false);
+        }
+      }, [icons]);
 
     const NavigationButton = ({ text, destinationIndex }) => {
         return <div className='navigation-button homepage' 
@@ -31,7 +42,7 @@ const HomePage = ({ setPageIndex }) => {
 
     return (
         <>
-            <img className='home-screen-background-image pulsing-brawler-headshot' src={icons[currentImage]} />
+            <img id='icon-background' className={'home-screen-background-image' + (isFading ? ' pulsing-brawler-headshot':'')} src={icons[currentImage]} />
             <div className='home-screen'>
                 <div className='home-screen-center'>
                     <h1>Draft Stars</h1>
