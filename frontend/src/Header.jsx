@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Header = ({ pageIndex, setPageIndex }) => {
-    const pages = ['Home', 'Engine', 'About'];
+    const pages = ['Home', 'Engine', 'About', 'Feedback'];
 
 
     return (

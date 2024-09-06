@@ -966,3 +966,45 @@ input:focus {
     background-color: rgba(0, 0, 0, 0.3); 
     pointer-events: none;
 }
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 700px;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.feedback-form input, textarea, button {
+    background-color: var(--secondary-color) !important;
+    color: var(--text-color);
+    border: 1px solid var(--secondary-color); /* invisible when no hover */
+    border-radius: 2px;
+    resize: none;
+    font-size: 16px;
+    padding: 8px;
+}
+.feedback-form input:hover, textarea:hover, button:hover {
+    border: 1px solid var(--quaternary-color);
+}
+
+.feedback-form textarea {
+    outline: 0px; /* remove the ugly blue default outline */
+    height: 200px;
+    flex-grow: 0.6;
+}
+
+.feedback-form input:focus {
+    border: 1px solid var(--secondary-color); /* invisible when no hover */
+}
+
+/* Autofilling an email with Chrome overrides the background color to an ugly white.
+   Get rid of it. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--secondary-color) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}
