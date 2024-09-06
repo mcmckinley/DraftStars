@@ -3,3 +3,5 @@ uvicorn
 numpy
 torch
 pandas
+python-multipart
+python-dotenv

@@ -6,6 +6,8 @@ import RankedPredictionPage from './RankedPredictionPage';
 import AboutPage from './AboutPage'
 import Sidebar from './Sidebar';
 
+import icons from './iconLoader.js'
+
 const App = () => {
 
   const [theme, setTheme] = useState('light');
@@ -33,10 +35,10 @@ const App = () => {
   }, []);
   
 
-  const [pageIndex, setPageIndex] = useState(1)
+  const [pageIndex, setPageIndex] = useState(0)
 
   var pages = [
-    <HomePage pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
+    <HomePage icons={icons} pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
     <RankedPredictionPage pageIndex={pageIndex} setPageIndex={setPageIndex} />, 
     <AboutPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>
   ]
