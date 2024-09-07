@@ -30,5 +30,5 @@ def send_email(message: str):
         server.sendmail(EMAIL_HOST_USER, EMAIL_RECEIVER, text)
         server.quit()
         # print("Email sent successfully")
-    # except Exception as e:
-        # print(f"Failed to send email: {e}")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
