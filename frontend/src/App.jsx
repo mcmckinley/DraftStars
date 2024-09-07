@@ -4,7 +4,7 @@ import HomePage from './HomePage';
 import PredictOutcomePage from './PredictOutcomePage';
 import RankedPredictionPage from './RankedPredictionPage';
 import AboutPage from './AboutPage'
-import Sidebar from './Sidebar';
+import FeedbackPage from './FeedbackPage';
 
 import icons from './iconLoader.js'
 
@@ -35,12 +35,13 @@ const App = () => {
   }, []);
   
 
-  const [pageIndex, setPageIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useState(3)
 
   var pages = [
     <HomePage icons={icons} pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
     <RankedPredictionPage pageIndex={pageIndex} setPageIndex={setPageIndex} />, 
-    <AboutPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>
+    <AboutPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
+    <FeedbackPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>
   ]
 
   return pages[pageIndex]
