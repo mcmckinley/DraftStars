@@ -55,8 +55,6 @@ const FeedbackPage = ({ pageIndex, setPageIndex }) => {
             </div>
             
             <h1>Feedback</h1>
-
-            <p>Please report any bugs you find and share any suggestions you may have.</p>
             
             <FeedbackForm />
 

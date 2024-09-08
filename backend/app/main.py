@@ -15,7 +15,7 @@ from .recommend_brawler import recommend_brawler
 from .model import model
 from .config import *
 
-from .send_feedback import send_email
+from .send_email import send_email
 from .verify_recaptcha import verify_recaptcha
 
 app = FastAPI()
@@ -31,8 +31,8 @@ app.add_middleware(
 
 
 class Feedback(BaseModel):
-    name: str
     email: str
+    subject: str
     message: str
     recaptchaToken: str
 
@@ -41,8 +41,8 @@ async def submit_feedback(feedback: Feedback):
     # Validate the reCAPTCHA token
     verify_recaptcha(feedback.recaptchaToken)
 
-    feedback_message = f"Name: {feedback.name}\nEmail: {feedback.email}\nMessage: {feedback.message}"
-    send_email(feedback_message)
+    feedback_message = f"'Draft Stars Feedback Form Submission\nEmail: {feedback.email}\nMessage: {feedback.message}"
+    send_email(feedback.subject, feedback_message)
 
 
 class Numbers(BaseModel):
