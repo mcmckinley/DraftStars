@@ -11,10 +11,14 @@ const initialFormData = {
 const FeedbackForm = () => {
 
     const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [isAwaitingServerResponse, setIsAwaitingServerResponse] = useState(false)
 
     const [formData, setFormData] = useState(initialFormData)
 
     const handleInputChange = (e) => {
+        if (isAwaitingServerResponse) {
+          return;
+        }
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -23,19 +27,15 @@ const FeedbackForm = () => {
     };
 
    const handleSubmit = async (e) => {
+      setIsAwaitingServerResponse(true) 
       e.preventDefault();
       try {
         const token = await executeRecaptcha("submit_form");
 
-        console.log('Got token')
-        console.log(formData)
-        console.log(token)
         const dataToSubmit = {
           ...formData,
           ['recaptchaToken']: token
         };
-        console.log('Submitting this:')
-        console.log(dataToSubmit)
         // Send the form data and token to the backend
         await fetch("https://draftstars.net/api/submit-feedback", {
           method: "POST",
@@ -65,7 +65,7 @@ const FeedbackForm = () => {
                 type="email" 
                 id="email" 
                 name="email"
-                placeholder='Email'
+                placeholder='Your Email'
                 className='email-input'
                 required 
               />
@@ -88,8 +88,13 @@ const FeedbackForm = () => {
                 placeholder='Draft Stars is the best app ever because...'
                 required
               />
-          
-              <button type="submit">Submit</button>
+
+              
+              { isAwaitingServerResponse ? (
+                <button className="submit-button-awaiting-submission">Submitting</button>
+              ) : (
+                <button type="submit">Submit</button>
+              )}
             </form>
           </>
         ) : (

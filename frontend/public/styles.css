@@ -1008,3 +1008,7 @@ input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px var(--secondary-color) inset !important;
     -webkit-text-fill-color: var(--text-color) !important;
 }
+
+.submit-button-awaiting-submission {
+    color: #666
+}

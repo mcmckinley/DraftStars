@@ -28,7 +28,7 @@ function adjustEntriesForModel(entryList){
 // send the POST request to get recommendations from the model
 const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) => {
   try {
-    console.log('getting ranked reccs')
+    // console.log('getting ranked reccs')
 
     var payload = {
       'map': parseInt(map)
@@ -50,9 +50,7 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
       payload['ban' + String(i + 1)] = adjustedBans[i] ? adjustedBans[i] : null
     }
 
-    console.log(payload)
-
-    const response = await fetch('http://127.0.0.1:8000/api/get_ranked_recommendations', {
+    const response = await fetch('http://draftstars.net/api/get_ranked_recommendations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,7 +63,6 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
     var result = data.result
 
     if (result['error']){
-      console.log(result)
       return result
     }
 
@@ -95,7 +92,6 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
         result[i]['response'] -= 1
       }
     }
-    console.log(result)
     return result
     
     // display an error if we can't connect to server

@@ -42,7 +42,6 @@ const BrawlerSelector = ({
   // Update the brawler ID, which updates the entry box
   // index: the ID of the brawler to be selected
   const updateEntries = (selectedBrawlerIndex) => {
-    console.log('Selected ' + selectedBrawlerIndex)
     // Ban mode: push the brawler onto the array
     if (banMode) {
       // If an already banned brawler is selected, remove it

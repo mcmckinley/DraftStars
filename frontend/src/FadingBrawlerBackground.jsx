@@ -13,14 +13,12 @@ const FadingBrawlerBackground = ({ isVisible }) => {
 
     const updateImage = () => {
         var randomBrawlerID = getRandomImage()
-        console.log(randomBrawlerID)
         setCurrentImage(randomBrawlerID); 
     };
 
     useEffect(() => {
         const faceSwapInterval = setInterval(updateImage, 4000); 
-        console.log('BEGINNING')
-        return () => { clearInterval(faceSwapInterval); console.log('ENDING') }
+        return () => clearInterval(faceSwapInterval)
     }, [])
 
     return <img id='icon-background' className={'home-screen-background-image pulsing-brawler-headshot'} src={icons[currentImage]} />   

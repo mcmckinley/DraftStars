@@ -60,7 +60,7 @@ const PredictOutcomePage = () => {
       setIsAwaitingPrediction(false)
       setPreviousEntries(entries)
       setPreviousMap(map)
-      console.log('Got result:', result)
+      // console.log('Got result:', result)
 
       // display an error if we can't connect to server
     } catch (error) {
