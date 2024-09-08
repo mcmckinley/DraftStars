@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, HTTPException, Depends
 
 # allows backend to return an HTML document when user submits feedback.
 # The html document contains a link that returns the user to the website.
@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 
 
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field #  Feild for recaptcha
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import time
@@ -16,7 +16,7 @@ from .model import model
 from .config import *
 
 from .send_feedback import send_email
-from .return_to_home import return_to_home_html
+from .verify_recaptcha import verify_recaptcha
 
 app = FastAPI()
 
@@ -34,15 +34,16 @@ class Feedback(BaseModel):
     name: str
     email: str
     message: str
+    recaptchaToken: str
 
 @app.post("/submit-feedback")
-async def submit_feedback(name: str = Form(...), email: str = Form(...), message: str = Form(...)):
-    feedback = Feedback(name=name, email=email, message=message)
+async def submit_feedback(feedback: Feedback):
+    # Validate the reCAPTCHA token
+    verify_recaptcha(feedback.recaptchaToken)
 
-    feedback_message = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+    feedback_message = f"Name: {feedback.name}\nEmail: {feedback.email}\nMessage: {feedback.message}"
     send_email(feedback_message)
 
-    return HTMLResponse(content=return_to_home_html)
 
 class Numbers(BaseModel):
     blue1: int

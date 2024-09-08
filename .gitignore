@@ -17,3 +17,5 @@ frontend/App-Save.jsx
 scripts
 
 .DS_Store
+.env
+plausible-conf.env

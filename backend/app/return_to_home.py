@@ -9,7 +9,7 @@ return_to_home_html = """
     <body>
         <h1>Thank you for your feedback!</h1>
         <p>I will email you if I have any follow up questions.</p>
-        <a href="http://localhost:3000">Return to Draft Stars</a>
+        <a href="http://draftstars.net">Return to Draft Stars</a>
     </body>
     </html>
     """
