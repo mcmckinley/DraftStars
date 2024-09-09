@@ -37,14 +37,15 @@ const AboutPage = ({ pageIndex, setPageIndex }) => {
         {
             'url': 'https://github.com/mcmckinley/DraftStars',
             'icon': symbols['github-mark.svg'],
+            'handle': 'mcmckinley/DraftStars',
             'alt': 'github logo'
         },
         {
             'url': 'https://www.reddit.com/user/mmiichael',
             'icon': symbols['reddit.svg'],
+            'handle': 'u/mmiichael',
             'alt': 'reddit logo'
-        }
-    ]
+    }]
 
     return <>
         
@@ -63,27 +64,21 @@ const AboutPage = ({ pageIndex, setPageIndex }) => {
             <div className='social-media-image-link-row'>
                 {
                     socials.map((social, index) => {
-                        return (<a href={social['url']} key={index}>
+                        return (
+                            <a href={social['url']} key={index}>
                                 <img src={social['icon']} alt={social['alt']} className='social-link'></img>
-                        </a>)
+                                <p>{social['handle']}</p>
+                            </a>
+                        )
                     })
                 }
             </div>
 
             <h2>
-                Created by Michael McKinley
-            </h2>
-            <p>
-                mckinleydev.com<br />
-                u/mmiichael<br />
-                You can support this project at buymeacoffee.com/draftstars
-            </p>
-
-            <h2>
                 Description
             </h2>
             <p>
-                Draft Stars is an AI-powered draft engine for Brawl Stars. Trained on over one million battles, it recommends character selections that optimize your chances of success based on unique in-game situations.
+                Draft Stars is an AI-powered draft engine for Brawl Stars. Trained on over one million battles, it recommends character selections that optimize your chances of success based on unique in-game matchups.
             </p>
 
             <h2>

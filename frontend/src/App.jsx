@@ -5,6 +5,7 @@ import PredictOutcomePage from './PredictOutcomePage';
 import RankedPredictionPage from './RankedPredictionPage';
 import AboutPage from './AboutPage'
 import FeedbackPage from './FeedbackPage';
+import updateFavicon from './utils/favicon.js';
 
 import icons from './iconLoader.js'
 
@@ -13,6 +14,7 @@ const App = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
+    updateFavicon(theme == 'dark');
     if (theme == 'dark') {
       document.body.classList.add('dark-theme');
       document.body.classList.remove('light-theme');

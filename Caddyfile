@@ -1,7 +1,7 @@
 # Staging environment for testing
-{
-    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-}
+# {
+#     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+# }
 
 # Route traffic to the frontend service
 draftstars.net {
@@ -19,9 +19,6 @@ draftstars.net {
 		}
 	}
 }
-
-
-# Route traffic to the backend service
 
 plausible.draftstars.net {
 	reverse_proxy plausible:8000
