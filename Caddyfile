@@ -4,22 +4,14 @@
 # }
 
 # Route traffic to the frontend service
-draftstars.net {
-
-	handle_path /api/* {
-		reverse_proxy backend:8889
-	}
-	
-	reverse_proxy frontend:3000 {
-	 	@error status 502
-		handle_response @error {
-			root    * /error-pages
-			rewrite * /{rp.status_code}.html
-			file_server
-		}
-	}
+brawlmind.com {	
+	reverse_proxy frontend:3000
 }
 
-plausible.draftstars.net {
+brawlmind.com /api/* {
+	reverse_proxy backend:8889
+}
+
+plausible.brawlmind.com {
 	reverse_proxy plausible:8000
 }

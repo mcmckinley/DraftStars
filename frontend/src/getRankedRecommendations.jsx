@@ -50,7 +50,7 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
       payload['ban' + String(i + 1)] = adjustedBans[i] ? adjustedBans[i] : null
     }
 
-    const response = await fetch('http://draftstars.net/api/get_ranked_recommendations', {
+    const response = await fetch('https://draftstars.net/api/get_ranked_recommendations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
