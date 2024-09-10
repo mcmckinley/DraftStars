@@ -8,7 +8,8 @@ brawlmind.com {
 	reverse_proxy frontend:3000
 }
 
-brawlmind.com /api/* {
+# This always produces an error message. Ignore it. It works.
+brawlmind.com/api/* {
 	reverse_proxy backend:8889
 }
 

@@ -28,7 +28,7 @@
         --tertiary-color: #444;
         --quaternary-color: #555;
         --text-color: #fff;
-        --secondary-text-color: red;
+        --secondary-text-color: #ddd;
         --selected-header-button-text-color: #baffad;
     }
 }
@@ -863,6 +863,9 @@ input:focus {
     margin: 0;
     font-size: 16px;
     color: var(--secondary-text-color);
+}
+.prediction-box-header-right {
+    width: 110px;
 }
 
 .confidence-text {

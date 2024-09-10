@@ -64,11 +64,16 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
   const [error, setError] = useState(null)
 
   function reset () {
+    isFirstTimeLoadingSection3.current = true;
     setIDofActiveSection(0)
     setTeamWithFirstPick(null)
     setMap(null)
     setBans([])
-    setEntries([])
+    setEntries(['', '', '', '', '', ''])
+    previousEntries.current = ['', '', '', '', '', '']
+    setSelectedBoxID(null)
+    previouslySelectedBox.current = null
+    setRankedModeSelectionIndex(0)
     setError(null)
   }
 

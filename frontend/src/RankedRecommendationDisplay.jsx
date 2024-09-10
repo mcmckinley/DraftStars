@@ -38,8 +38,10 @@ const RankedRecommendationDisplay = ({
 
   // Initial useEffect: API request
   useEffect(() => {
+    // console.log(`In useeffect, to determine whether to get ranked recommendations.\n isFirstTime: ${isFirstTimeLoadingSection3.current}\nSelected box: ${selectedBoxID}\npreviousEntries: ${previousEntries.current}\nentries: ${entries}\npreviouslySelectedBox:\n${previouslySelectedBox.current}\nselectedBoxID: ${selectedBoxID}`)
     // the second part of this condition KILLED me. I spent 3 hours this morning just for these 15 characters to solve my problem.
     if (isFirstTimeLoadingSection3.current && selectedBoxID != null) {
+    //  console.log('Getting ranked recommendations because this is the first time loading the page.')
       getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
         if (result['error']){
           setError(result['error'])
@@ -59,6 +61,7 @@ const RankedRecommendationDisplay = ({
     //  a) the user has selected a new brawler
     //  b) the DOM has updated
     if (previousEntries.current != entries && previouslySelectedBox.current != selectedBoxID){
+    //  console.log('Getting ranked reccs because a brawler was just selected.')
       getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
         if (result['error']){
           setError(result['error'])
@@ -74,7 +77,7 @@ const RankedRecommendationDisplay = ({
       // console.log('Did not update because either of these are equal')
       // console.log(previousEntries.current)
       // console.log(entries)
-      // console.log(previouslySelectedBox)
+      // console.log(previouslySelectedBox.current)
       // console.log(selectedBoxID)
     }
   }, [])
@@ -150,11 +153,11 @@ const RankedRecommendationDisplay = ({
         {!isLastPick && !pickingStageIsComplete && (
           <>
             {isSecondPick || isFourthPick ? (
-              <div className={"prediction-box-right " + whoseTurnIsIt}>
+              <div className={"prediction-box-header-right " + whoseTurnIsIt}>
                 <p>Best Synergy</p>
               </div>
             ) : (
-              <div className={"prediction-box-right " + whoseTurnIsNext}>
+              <div className={"prediction-box-header-right " + whoseTurnIsNext}>
                 <p>Counter</p>
               </div>
             )}
