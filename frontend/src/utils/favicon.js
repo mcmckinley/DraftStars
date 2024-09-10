@@ -1,4 +1,4 @@
-import symbols from '../symbolLoader';
+import symbols from '../utils/symbolLoader';
 
 export const updateFavicon = (darkMode) => {
     const favicon = document.getElementById('favicon');

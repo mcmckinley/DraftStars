@@ -7,7 +7,7 @@ import AboutPage from './AboutPage'
 import FeedbackPage from './FeedbackPage';
 import updateFavicon from './utils/favicon.js';
 
-import icons from './iconLoader.js'
+import brawlerIcons from './utils/iconLoader.js'
 
 const App = () => {
 
@@ -40,7 +40,7 @@ const App = () => {
   const [pageIndex, setPageIndex] = useState(3)
 
   var pages = [
-    <HomePage icons={icons} pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
+    <HomePage brawlerIcons={brawlerIcons} pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
     <RankedPredictionPage pageIndex={pageIndex} setPageIndex={setPageIndex} />, 
     <AboutPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
     <FeedbackPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>

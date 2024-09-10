@@ -37,7 +37,7 @@ const FeedbackForm = () => {
           ['recaptchaToken']: token
         };
         // Send the form data and token to the backend
-        await fetch("https://draftstars.net/api/submit-feedback", {
+        await fetch("https://brawlmind.com/api/submit-feedback", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -6,11 +6,10 @@ frontend/node_modules
 frontend/package-lock.json
 
 # Icons
-frontend/src/icons
-frontend/src/maps
-frontend/src/symbols
+frontend/src/brawlerIcons/*
+frontend/src/mapIcons/*
+#frontend/src/symbols # these are small so they can be allowed
 
-frontend/App-Save.jsx
 
 # Automation scripts (for now)
 

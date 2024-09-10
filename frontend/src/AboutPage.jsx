@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import symbols from './symbolLoader';
+import symbols from './utils/symbolLoader';
 import Footer from './Footer';
 import Header from './Header';
 

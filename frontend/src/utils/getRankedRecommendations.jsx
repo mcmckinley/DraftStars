@@ -1,7 +1,7 @@
 // getRankedRecommendations.jsx
 
 // import React, { useState } from 'react'
-import { brawlers } from './data'
+import { brawlers } from '../data/brawlers'
 
 // indices 33 and 55 are unused by the Brawl Stars API, and
 // are not understood by the model. 
@@ -27,6 +27,7 @@ function adjustEntriesForModel(entryList){
 
 // send the POST request to get recommendations from the model
 const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) => {
+  console.log('Getting ranked reccs. Bans:', bans)
   try {
     // console.log('getting ranked reccs')
 
@@ -46,11 +47,24 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
 
     payload['blue_picks_first'] = teamWithFirstPick == 'Blue'
 
-    for (var i = 0; i < 6; i++){
-      payload['ban' + String(i + 1)] = adjustedBans[i] ? adjustedBans[i] : null
+    // for (var i = 0; i < 6; i++){
+    //   payload['ban' + String(i + 1)] = adjustedBans[i] !== '' ? adjustedBans[i] : null
+    // }
+
+    var numBans = bans.length;
+
+    for (i in bans) {
+      i = Number(i)
+      payload['ban' + String(i + 1)] = adjustedBans[i]
+    }
+    for (var i = bans.length; i < 6; i++){
+      payload['ban' + String(i + 1)] = null
     }
 
-    const response = await fetch('https://draftstars.net/api/get_ranked_recommendations', {
+    console.log('Sending request:')
+    console.log(payload)
+
+    const response = await fetch('https://brawlmind.com/api/get_ranked_recommendations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,6 +106,8 @@ const getRankedRecommendations = async (entries, bans, map, teamWithFirstPick) =
         result[i]['response'] -= 1
       }
     }
+    console.log('GOT:')
+    console.log(result)
     return result
     
     // display an error if we can't connect to server

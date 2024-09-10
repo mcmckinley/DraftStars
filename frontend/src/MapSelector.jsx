@@ -2,7 +2,7 @@
 // Credit: https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 
 import React, { useState, useEffect, useRef } from 'react'
-import { maps } from './mapData'
+import { maps } from './data/maps'
 import MapSearchResult from './MapSearchResult';
 
 

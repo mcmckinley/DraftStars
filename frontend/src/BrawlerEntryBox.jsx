@@ -1,8 +1,8 @@
 // src/EntryBox.jsx
 
 import React, { useState } from 'react';
-import { brawlers } from './data';  // Import the variable
-import icons from './iconLoader';
+import { brawlers } from './data/brawlers';  // Import the variable
+import brawlerIcons from './utils/iconLoader';
 
 // index: a unique number assigned to the box. this lets the box know whether it is currently selected.
 // (set)selectedBoxId: the index of the box currently selected
@@ -25,7 +25,7 @@ const BrawlerEntryBox = ({ index, selectedBoxID, setSelectedBoxID, entries, isSe
   
   return (
     <div className={`entry-box ${(selectedBoxID === index ? 'selected' : 'unselected')} ${isSelectable ? 'selectable-entry-box' : ''}`} onClick={handleClick}>
-      <img src={brawlerID ? icons[brawlers[brawlerID].imgUrl] : icons['ranked-icon.png']} 
+      <img src={brawlerID ? brawlerIcons[brawlers[brawlerID].imgUrl] : brawlerIcons['ranked-icon.png']} 
         alt={brawlerID ? brawlers[brawlerID].name : '?'}
       ></img>
     </div>

@@ -1,10 +1,10 @@
 // src/RankedRecommendationDisplay.jsx
 
 import React, { useState, useEffect, useRef  } from 'react';
-import { brawlers } from './data';  // Import the variable
-import icons from './iconLoader';
+import { brawlers } from './data/brawlers';  // Import the variable
+import brawlerIcons from './utils/iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
-import getRankedRecommendations from './getRankedRecommendations';
+import getRankedRecommendations from './utils/getRankedRecommendations';
 
 const RankedRecommendationDisplay = ({
     setSelectedBoxID, selectedBoxID, 
@@ -232,7 +232,7 @@ const RankedRecommendationDisplay = ({
     const isLastPick = rankedModeSelectionIndex == 5
 
     const recommendedBrawler = brawlers[recommendation]
-    const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
+    const recommendedBrawlerIcon = brawlerIcons[recommendedBrawler.imgUrl]
 
     // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
     var recommendedBrawlerRarity = 'rarity-' + rarities[recommendedBrawler.rarity]
@@ -269,9 +269,9 @@ const RankedRecommendationDisplay = ({
             {/* If it's recommending a second pick or a fourth pick, the program shows a synergy pick option,
                 rather than the opposing team's potential counter.*/}
             { isFourthPick || isSecondPick ? (
-              <img src={icons[brawlers[synergy_pick].imgUrl]} alt={brawlers[synergy_pick].name} className='right-prediction-image'></img>
+              <img src={brawlerIcons[brawlers[synergy_pick].imgUrl]} alt={brawlers[synergy_pick].name} className='right-prediction-image'></img>
             ) : (
-              <img src={icons[brawlers[counter].imgUrl]} alt={brawlers[counter].name} className='right-prediction-image'></img>
+              <img src={brawlerIcons[brawlers[counter].imgUrl]} alt={brawlers[counter].name} className='right-prediction-image'></img>
             )}
           </div>
         )}
@@ -301,7 +301,7 @@ const RankedRecommendationDisplay = ({
     const reasonForBeingIgnored = prediction['reason']
 
     const recommendedBrawler = brawlers[recommendation]
-    const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
+    const recommendedBrawlerIcon = brawlerIcons[recommendedBrawler.imgUrl]
 
     var recommendedBrawlerRarity = 'rarity-' + rarities[recommendedBrawler.rarity]
     if (isHover) {
@@ -369,7 +369,7 @@ const RankedRecommendationDisplay = ({
         <div className={"prediction-box-left"}
         style={{
         }}>
-          <img src={icons[currentImage]} className='left-prediction-image pulsing-brawler-headshot-fast'></img>
+          <img src={brawlerIcons[currentImage]} className='left-prediction-image pulsing-brawler-headshot-fast'></img>
         </div>
 
         <div className={"confidence-box "}style={{}}>

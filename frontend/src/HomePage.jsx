@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import FadingBrawlerBackground from './FadingBrawlerBackground.jsx'
 
-const HomePage = ({ icons, setPageIndex }) => {
+const HomePage = ({ brawlerIcons, setPageIndex }) => {
 
     const NavigationButton = ({ text, destinationIndex }) => {
         return <div className='navigation-button homepage' 

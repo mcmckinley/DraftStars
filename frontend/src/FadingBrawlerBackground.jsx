@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { brawlers } from './data.js'
-import icons from './iconLoader.js'
+import { brawlers } from './data/brawlers.js'
+import brawlerIcons from './utils/iconLoader.js'
 
 const FadingBrawlerBackground = ({ isVisible }) => {
 
@@ -21,7 +21,7 @@ const FadingBrawlerBackground = ({ isVisible }) => {
         return () => clearInterval(faceSwapInterval)
     }, [])
 
-    return <img id='icon-background' className={'home-screen-background-image pulsing-brawler-headshot'} src={icons[currentImage]} />   
+    return <img id='icon-background' className={'home-screen-background-image pulsing-brawler-headshot'} src={brawlerIcons[currentImage]} />   
 }
 
 export default FadingBrawlerBackground
