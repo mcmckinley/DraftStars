@@ -1,19 +1,17 @@
 // frontend/src/RankedPredictionPage.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import { brawlers } from './data';
-import { maps } from './mapData'
+import { brawlers } from './data/brawlers';
+import { maps } from './data/maps'
 import BrawlerSelector from './BrawlerSelector';
-import icons from './iconLoader';
-import mapImages from './mapLoader';
-import symbols from './symbolLoader';
+import brawlerIcons from './utils/iconLoader';
+import symbols from './utils/symbolLoader';
 import MapSelector from './MapSelector'
-import PredictionDescription from './PredictionDescription';
 import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
 import Footer from './Footer';
 import Header from './Header';
 
-import getRankedRecommendations from './getRankedRecommendations';
+import getRankedRecommendations from './utils/getRankedRecommendations';
 
 // chevrons
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
@@ -64,11 +62,16 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
   const [error, setError] = useState(null)
 
   function reset () {
+    isFirstTimeLoadingSection3.current = true;
     setIDofActiveSection(0)
     setTeamWithFirstPick(null)
     setMap(null)
     setBans([])
-    setEntries([])
+    setEntries(['', '', '', '', '', ''])
+    previousEntries.current = ['', '', '', '', '', '']
+    setSelectedBoxID(null)
+    previouslySelectedBox.current = null
+    setRankedModeSelectionIndex(0)
     setError(null)
   }
 
@@ -106,7 +109,7 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
               setUserDraftNumber(boxID)
               moveToNextSection()
           }}>
-          <img src={icons["ranked-icon.png"]} />
+          <img src={brawlerIcons["ranked-icon.png"]} />
           <p>{draftNumberStrings[boxID]}</p>
       </div>
     )
@@ -117,7 +120,7 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
       <div className="mini-ban-boxes">
         {bans.map((ban, index) => (
           <div key={index} className="mini-ban-box red-tint">
-            <img src={icons[brawlers[ban].imgUrl]} alt={brawlers[ban].name}></img>
+            <img src={brawlerIcons[brawlers[ban].imgUrl]} alt={brawlers[ban].name}></img>
           </div>
         ))}
       </div> 
@@ -233,7 +236,7 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
             <>
               {bans.map((ban, index) => (
                 <div key={index} className="ban-box" onClick={()=>removeBan(index)}>
-                  <img src={icons[brawlers[ban].imgUrl]} alt={brawlers[ban].name} />
+                  <img src={brawlerIcons[brawlers[ban].imgUrl]} alt={brawlers[ban].name} />
                   <FaTimes className='x-button'/>
                 </div>
               ))}

@@ -1,8 +1,8 @@
 // src/BrawlerSelector.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import { brawlers } from './data';  // Import the variable
-import icons from './iconLoader';
+import { brawlers } from './data/brawlers';  // Import the variable
+import brawlerIcons from './utils/iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
 
 const BrawlerSelector = ({
@@ -42,7 +42,6 @@ const BrawlerSelector = ({
   // Update the brawler ID, which updates the entry box
   // index: the ID of the brawler to be selected
   const updateEntries = (selectedBrawlerIndex) => {
-    console.log('Selected ' + selectedBrawlerIndex)
     // Ban mode: push the brawler onto the array
     if (banMode) {
       // If an already banned brawler is selected, remove it
@@ -126,7 +125,7 @@ const BrawlerSelector = ({
 
     return ( 
       <div className={"gallery-item" + (isBanned ? ' red-tint' : '')} onClick={() => {selectBrawler(brawler)}}>
-        <img src={icons[brawler.imgUrl]} alt={brawler.name} className={brawler.name}></img>
+        <img src={brawlerIcons[brawler.imgUrl]} alt={brawler.name} className={brawler.name}></img>
       </div> 
     )
   }

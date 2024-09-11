@@ -80,6 +80,7 @@ def get_exclusion_list(pick_type, map):
 
 def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_first, bans):
     map = fix_map_index(map)
+    print('Bans: ', bans)
 
     # return {
     #   'error': 'This is a test.'
@@ -106,7 +107,6 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
         break
 
     if recommendation_index == -1:
-      print('Getting final prediction')
       return pred_final(battle)
 
     # 2. Continue following the pick order and identify if there are any more
@@ -225,6 +225,8 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
         })
     
     for ban in bans:
+      if ban is None:        
+        continue
       ignored_brawlers.append({
         'name': ban,
         'reason': 'BANNED'
@@ -260,7 +262,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     # Second and fourth picks: rather that showing the best counter to the recommendation,
     # show the best subsequent pick. 
     elif pick_type == 'FOURTH PICK' or pick_type == 'SECOND PICK':
-      print('---------',pick_type)
+      #print('---------',pick_type)
       preds = pred_third_order_b(
           possible_battles,
           is_blue_team_turn,
@@ -277,7 +279,10 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     # 9. Sort and print the predictions by score
     preds = sorted(preds, key=lambda x: x['score'], reverse=is_blue_team_turn)
 
+    # print('preds:', preds)
+    # print('bans:', bans)
     preds = preds + ignored_brawlers
+    # print('preds+bans:', preds)
 
     # Compare this to the frontend's output to show that they match
     #print('\nMap:', maps[map])

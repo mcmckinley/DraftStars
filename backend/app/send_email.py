@@ -12,12 +12,12 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
-def send_email(message: str):
+def send_email(subject: str, message: str):
 
     msg = MIMEMultipart()
     msg['From'] = EMAIL_HOST_USER
     msg['To'] = EMAIL_RECEIVER
-    msg['Subject'] = 'Draft Stars Feedback Form Submission'
+    msg['Subject'] = subject
 
     msg.attach(MIMEText(message, 'plain'))
 

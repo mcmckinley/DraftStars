@@ -1,10 +1,10 @@
 // src/RankedRecommendationDisplay.jsx
 
 import React, { useState, useEffect, useRef  } from 'react';
-import { brawlers } from './data';  // Import the variable
-import icons from './iconLoader';
+import { brawlers } from './data/brawlers';  // Import the variable
+import brawlerIcons from './utils/iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
-import getRankedRecommendations from './getRankedRecommendations';
+import getRankedRecommendations from './utils/getRankedRecommendations';
 
 const RankedRecommendationDisplay = ({
     setSelectedBoxID, selectedBoxID, 
@@ -36,46 +36,35 @@ const RankedRecommendationDisplay = ({
 
   const isBlueTeamTurn = orderOfBoxSelection[rankedModeSelectionIndex] < 3
 
+  function getPredictionsAndUpdate () {
+    getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
+      if (result['error']){
+        setError(result['error'])
+      } else {
+        setPredictions(result)
+        setFilteredPredictions(result)
+      }
+    })
+  }
+
   // Initial useEffect: API request
   useEffect(() => {
-    // the second part of this condition KILLED me. I spent 3 hours this morning just for these 15 characters to solve my problem.
+    // Send a new request if this is the first time loading the page
     if (isFirstTimeLoadingSection3.current && selectedBoxID != null) {
-      getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
-        if (result['error']){
-          setError(result['error'])
-        } else {
-          setPredictions(result)
-          setFilteredPredictions(result)
-        }
-      })
+      getPredictionsAndUpdate();
       isFirstTimeLoadingSection3.current = false
+    }
+    // Send new request if both
+    //  a) the user has selected a new brawler
+    //  b) the DOM has updated
+    else if (previousEntries.current != entries && previouslySelectedBox.current != selectedBoxID){
+      getPredictionsAndUpdate();
+      previousEntries.current = entries
+      previouslySelectedBox.current = selectedBoxID
     }
 
     if (selectedBoxID == null) {
       setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
-    }
-
-    // Send new request if both
-    //  a) the user has selected a new brawler
-    //  b) the DOM has updated
-    if (previousEntries.current != entries && previouslySelectedBox.current != selectedBoxID){
-      getRankedRecommendations(entries, bans, map, teamWithFirstPick).then(result => {
-        if (result['error']){
-          setError(result['error'])
-        } else {
-          setPredictions(result)
-          setFilteredPredictions(result)
-        }
-      })
-
-      previousEntries.current = entries
-      previouslySelectedBox.current = selectedBoxID
-    } else {
-      // console.log('Did not update because either of these are equal')
-      // console.log(previousEntries.current)
-      // console.log(entries)
-      // console.log(previouslySelectedBox)
-      // console.log(selectedBoxID)
     }
   }, [])
 
@@ -150,11 +139,11 @@ const RankedRecommendationDisplay = ({
         {!isLastPick && !pickingStageIsComplete && (
           <>
             {isSecondPick || isFourthPick ? (
-              <div className={"prediction-box-right " + whoseTurnIsIt}>
+              <div className={"prediction-box-header-right " + whoseTurnIsIt}>
                 <p>Best Synergy</p>
               </div>
             ) : (
-              <div className={"prediction-box-right " + whoseTurnIsNext}>
+              <div className={"prediction-box-header-right " + whoseTurnIsNext}>
                 <p>Counter</p>
               </div>
             )}
@@ -229,7 +218,7 @@ const RankedRecommendationDisplay = ({
     const isLastPick = rankedModeSelectionIndex == 5
 
     const recommendedBrawler = brawlers[recommendation]
-    const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
+    const recommendedBrawlerIcon = brawlerIcons[recommendedBrawler.imgUrl]
 
     // const rarityOfRecommendation = rarities[recommendedBrawler.rarity]
     var recommendedBrawlerRarity = 'rarity-' + rarities[recommendedBrawler.rarity]
@@ -266,9 +255,9 @@ const RankedRecommendationDisplay = ({
             {/* If it's recommending a second pick or a fourth pick, the program shows a synergy pick option,
                 rather than the opposing team's potential counter.*/}
             { isFourthPick || isSecondPick ? (
-              <img src={icons[brawlers[synergy_pick].imgUrl]} alt={brawlers[synergy_pick].name} className='right-prediction-image'></img>
+              <img src={brawlerIcons[brawlers[synergy_pick].imgUrl]} alt={brawlers[synergy_pick].name} className='right-prediction-image'></img>
             ) : (
-              <img src={icons[brawlers[counter].imgUrl]} alt={brawlers[counter].name} className='right-prediction-image'></img>
+              <img src={brawlerIcons[brawlers[counter].imgUrl]} alt={brawlers[counter].name} className='right-prediction-image'></img>
             )}
           </div>
         )}
@@ -298,7 +287,7 @@ const RankedRecommendationDisplay = ({
     const reasonForBeingIgnored = prediction['reason']
 
     const recommendedBrawler = brawlers[recommendation]
-    const recommendedBrawlerIcon = icons[recommendedBrawler.imgUrl]
+    const recommendedBrawlerIcon = brawlerIcons[recommendedBrawler.imgUrl]
 
     var recommendedBrawlerRarity = 'rarity-' + rarities[recommendedBrawler.rarity]
     if (isHover) {
@@ -366,7 +355,7 @@ const RankedRecommendationDisplay = ({
         <div className={"prediction-box-left"}
         style={{
         }}>
-          <img src={icons[currentImage]} className='left-prediction-image pulsing-brawler-headshot-fast'></img>
+          <img src={brawlerIcons[currentImage]} className='left-prediction-image pulsing-brawler-headshot-fast'></img>
         </div>
 
         <div className={"confidence-box "}style={{}}>

@@ -1,10 +1,10 @@
-// src/mapLoader.js
+// src/iconLoader.js
 function importAll(r) {
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
     return images;
 }
   
-const mapData = importAll(require.context('./maps', false, /\.(png|webp)$/));
-  
-export default mapData;
+const symbols = importAll(require.context('../symbols', false, /\.(png|svg)$/));
+
+export default symbols;

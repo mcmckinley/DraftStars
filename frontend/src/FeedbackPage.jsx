@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import symbols from './symbolLoader';
+import symbols from './utils/symbolLoader';
 import Footer from './Footer';
 import Header from './Header';
 import FeedbackForm from './FeedbackForm';
@@ -55,8 +55,6 @@ const FeedbackPage = ({ pageIndex, setPageIndex }) => {
             </div>
             
             <h1>Feedback</h1>
-
-            <p>Please report any bugs you find and share any suggestions you may have.</p>
             
             <FeedbackForm />
 

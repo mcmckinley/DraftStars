@@ -5,3 +5,4 @@ torch
 pandas
 python-multipart
 python-dotenv
+requests

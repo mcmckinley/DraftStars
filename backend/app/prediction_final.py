@@ -5,7 +5,7 @@ def pred_final(battle):
   pred = model(torch.tensor(battle).unsqueeze(0)).squeeze()
 
   print('PRED FINAL')
-  print(pred)
+  #print(pred)
 
   return [
     {'score': pred.item()}

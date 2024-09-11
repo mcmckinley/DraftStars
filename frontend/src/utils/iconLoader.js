@@ -5,6 +5,6 @@ function importAll(r) {
     return images;
 }
   
-const icons = importAll(require.context('./icons', false, /\.(png|webp)$/));
+const brawlerIcons = importAll(require.context('../brawlerIcons', false, /\.(png|webp)$/));
   
-export default icons;
+export default brawlerIcons;

@@ -1,19 +1,18 @@
 # Staging environment for testing
-{
-    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-}
+# {
+#     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+# }
 
 # Route traffic to the frontend service
-mckinleydev.com {
+brawlmind.com {	
 	reverse_proxy frontend:3000
 }
 
-
-# Route traffic to the backend service
-mckinleydev.com/api/* {
+# This always produces an error message. Ignore it. It works.
+brawlmind.com/api/* {
 	reverse_proxy backend:8889
 }
 
-plausible.mckinleydev.com {
+plausible.brawlmind.com {
 	reverse_proxy plausible:8000
 }

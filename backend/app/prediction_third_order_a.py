@@ -17,7 +17,6 @@ def pred_third_order(possible_battles, blue, available_brawlers):
     batch_predictions = model(batch)
     predictions.extend(batch_predictions)
   
-  print('INFERENCE COMPLETE')
 
   outputs = []
 
@@ -73,6 +72,5 @@ def pred_third_order(possible_battles, blue, available_brawlers):
         'response': best_response_id_overall, # The best response
     })
 
-  print('LOOPING COMPLETE')
 
   return outputs
