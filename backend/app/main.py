@@ -55,7 +55,7 @@ class Numbers(BaseModel):
     map: int
 
 
-@app.get("/api/")
+@app.get("/")
 def read_root():
     return {"message": "hey"}
 
@@ -76,7 +76,7 @@ class RankedMatch(BaseModel):
     ban5: Optional[int]
     ban6: Optional[int]
 
-@app.post("/api/get_ranked_recommendations")
+@app.post("/get_ranked_recommendations")
 def get_ranked_recommendations(rm: RankedMatch):
     return {
         "result": recommend_brawler(rm.blue1, rm.blue2, rm.blue3, rm.red1, rm.red2, rm.red3, rm.map, rm.blue_picks_first, [rm.ban1, rm.ban2, rm.ban3, rm.ban4, rm.ban5, rm.ban6])
