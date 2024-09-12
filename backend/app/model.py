@@ -46,7 +46,7 @@ num_layers = 4
 dim_feedforward = 128
 
 empty_brawler_embedding = nn.Embedding.from_pretrained(torch.zeros(len(brawlers), traits_per_brawler))
-empty_map_embedding = nn.Embedding.from_pretrained(torch.zeros(len(maps) - 3, traits_per_map))
+empty_map_embedding = nn.Embedding.from_pretrained(torch.zeros(len(maps), traits_per_map))
 
 example_brawler = 0
 
@@ -72,7 +72,7 @@ with torch.no_grad():
     adjusted_brawler_embedding.weight[33] = n
 
     model.brawler_embedding.weight.copy_(adjusted_brawler_embedding.weight)
-    model.map_embedding.weight.copy_(adjusted_map_embedding)
+    model.map_embedding = adjusted_map_embedding
 
     # print('shelly weight:', model.brawler_embedding.weight[0])
     print('Model has been loaded and is ready for inference.')
