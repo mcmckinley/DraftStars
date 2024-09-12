@@ -57,3 +57,17 @@ Frontend
 <!-- GETTING STARTED -->
 ## Getting Started
 
+1. First, you must download the model. You can download it from my Google Drive here:
+
+https://drive.google.com/file/d/1fTVYHmjjnyCC-GnGdKKGTCxSsXZJgsuI/view?usp=drive_link
+
+2. Create a folder in backend/app called `pytorch`. 
+3. Move the model file into `pytorch`.
+
+## Manually modifying the embeddings
+
+You can adjust the embeddings as you see fit.
+
+
+
+## File descriptions
