@@ -111,9 +111,9 @@ const BrawlerSelector = ({
 
   // Automatically select when the search results yield a single brawler
   useEffect(() => {
-    if (filteredBrawlers.length === 1) {
-      selectBrawler(filteredBrawlers[0]);
-    }
+    // if (filteredBrawlers.length === 1) {
+    //   selectBrawler(filteredBrawlers[0]);
+    // }
     if (rankedMode) {
       setSelectedBoxID(orderOfBoxSelection[rankedModeSelectionIndex])
     }

@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 
 
 from typing import Optional
-from pydantic import BaseModel, Field #  Feild for recaptcha
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import time
@@ -16,7 +16,6 @@ from .model import model
 from .config import *
 
 from .send_email import send_email
-from .verify_recaptcha import verify_recaptcha
 
 app = FastAPI()
 
@@ -34,13 +33,9 @@ class Feedback(BaseModel):
     email: str
     subject: str
     message: str
-    recaptchaToken: str
 
 @app.post("/submit-feedback")
 async def submit_feedback(feedback: Feedback):
-    # Validate the reCAPTCHA token
-    verify_recaptcha(feedback.recaptchaToken)
-
     feedback_message = f"'Draft Stars Feedback Form Submission\nEmail: {feedback.email}\nMessage: {feedback.message}"
     send_email(feedback.subject, feedback_message)
 

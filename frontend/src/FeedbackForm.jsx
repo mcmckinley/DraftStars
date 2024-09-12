@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { executeRecaptcha } from "./utils/recaptcha";
 
 const initialFormData = {
     email: "",
     subject: "",
     message: "",
-    recaptchaToken: ""
 };
 
 const FeedbackForm = () => {
@@ -29,26 +27,14 @@ const FeedbackForm = () => {
    const handleSubmit = async (e) => {
       setIsAwaitingServerResponse(true) 
       e.preventDefault();
-      try {
-        const token = await executeRecaptcha("submit_form");
-
-        const dataToSubmit = {
-          ...formData,
-          ['recaptchaToken']: token
-        };
-        // Send the form data and token to the backend
-        await fetch("http://localhost:8000/submit-feedback", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // body: JSON.stringify({ ...formData, recaptchaToken: token }),
-          body: JSON.stringify( dataToSubmit )
-        });
-        setHasSubmitted(true)
-      } catch (error) {
-        console.error("reCAPTCHA Error:", error);
-      }
+      await fetch("http://localhost:8000/submit-feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify( formData )
+      });
+      setHasSubmitted(true)
     };
 
 
