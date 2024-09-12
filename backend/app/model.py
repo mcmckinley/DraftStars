@@ -64,7 +64,7 @@ model.load_state_dict(torch.load(path_to_model, weights_only=True))
 
 with torch.no_grad():
     adjusted_map_embedding = csv_to_embedding(path_to_map_embeddings)
-    adjusted_brawler_embedding = csv_to_embedding(path_to_adjusted_brawler_embeddings)
+    adjusted_brawler_embedding = csv_to_embedding(path_to_brawler_embeddings)
 
     # 'Neutral' brawler; represents the averages of all other brawlers. 
     # Used as a placeholder during higher-order decisons.

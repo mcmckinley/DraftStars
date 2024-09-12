@@ -57,12 +57,20 @@ Frontend
 <!-- GETTING STARTED -->
 ## Getting Started
 
-1. First, you must download the model. You can download it from my Google Drive here:
+# Setting up the backend:
 
-https://drive.google.com/file/d/1fTVYHmjjnyCC-GnGdKKGTCxSsXZJgsuI/view?usp=drive_link
+1. First, you need three things, all of which can be downloaded here:
 
-2. Create a folder in backend/app called `pytorch`. 
-3. Move the model file into `pytorch`.
+* <a href="https://drive.google.com/file/d/1fTVYHmjjnyCC-GnGdKKGTCxSsXZJgsuI/view?usp=drive_link">The Model<a>
+* <a href="https://docs.google.com/spreadsheets/d/17hqBX-6XEA4nGCOcQizNGTZt8ZNelkg0OEtDC4DR1hE/edit?gid=0#gid=0">The Brawler Embeddings</a> (download these as CSV)
+* <a href="https://docs.google.com/spreadsheets/d/17hqBX-6XEA4nGCOcQizNGTZt8ZNelkg0OEtDC4DR1hE/edit?gid=0#gid=0">The Map Embeddings</a> (download these as CSV)
+
+2. Create a folder in `backend/app` called `pytorch`. 
+3. Add the three files you downloaded into `pytorch`.
+
+The backend is now ready to run the model.
+
+4. (optional) If you want to set up SMTP email feedback, rename `backend/.env.example` to `.env`, and configure the environmental variables in there.
 
 ## Manually modifying the embeddings
 
