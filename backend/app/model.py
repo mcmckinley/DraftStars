@@ -66,14 +66,15 @@ with torch.no_grad():
     adjusted_map_embedding = csv_to_embedding(path_to_map_embeddings)
     adjusted_brawler_embedding = csv_to_embedding(path_to_adjusted_brawler_embeddings)
 
+    # 'Neutral' brawler; represents the averages of all other brawlers. 
+    # Used as a placeholder during higher-order decisons.
     n = torch.mean(adjusted_brawler_embedding.weight, dim=0)
     adjusted_brawler_embedding.weight[33] = n
 
     model.brawler_embedding.weight.copy_(adjusted_brawler_embedding.weight)
-    model.map_embedding = adjusted_map_embedding
+    model.map_embedding.weight.copy_(adjusted_map_embedding)
 
-    print('shelly weight:', model.brawler_embedding.weight[0])
+    # print('shelly weight:', model.brawler_embedding.weight[0])
+    print('Model has been loaded and is ready for inference.')
 
 model.eval()
-
-print('model.py:', id(model))
