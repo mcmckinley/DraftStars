@@ -19,6 +19,13 @@
     This version is meant for running the project locally. If you would like to self-host it over the internet, <a href="https://github.com/mcmckinley/DraftStars/tree/web">check out the web branch.</a>
 </div>
 
+<br />
+<br />
+Other repos to check out:
+
+* <a href="https://github.com/mcmckinley/DraftStarsModel">DraftStarsModel</a> - This is where I create, train and export new versions of the model.
+* <a href="https://github.com/mcmckinley/DraftStarsDataCollection">DraftStarsDataCollection</a> - This is where I collect data on which to train the model.
+
 <h2>
   Description
 </h2>
