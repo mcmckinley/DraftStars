@@ -3,10 +3,11 @@
   <img src="frontend/src/symbols/favicon-dark.png" alt="Draft Stars Icon" width="80" height="80" />
 
 
-  <h3 align="center">Draft Stars</h3>
+  <h3 align="center">Draft Stars - Self Hosting on the Web</h3>
 
   <p align="center">
     AI Draft Engine for Brawl Stars
+    <br />
     <br />
     This branch is intended for self-hosting over the web. If you want to run the project locally, use the main branch at https://github.com/mcmckinley/DraftStars
   </p>
@@ -60,7 +61,7 @@ Frontend
 
 Before setting up the project to be accessible over the web, some preparation is necessary first. Follow the directions outlined in https://github.com/mcmckinley/DraftStars/blob/main/README.md before continuing. 
 
-## reCAPTCHA
+## 🤖 reCAPTCHA
 
 I would strongly suggest using a captcha on any email feedback form (optimally on all POST requests in the repo). Without some form of validation, the website would be prone to malicious misuse. 
 
@@ -72,7 +73,7 @@ Add the site key into the frontend wherever YOUR_SITE_KEY occurs: `frontend/publ
 
 Add the secret key into your backend's `.env` file under RECAPTCHA_SECRET_KEY.
 
-## Plausible Analytics
+## 🅿️ Plausible Analytics
 
 If you would like to use an analytical tool to track usage of your website, Plausible is a great option, especially for self-hosting.
 
@@ -80,7 +81,7 @@ Download the repo at https://github.com/plausible/community-edition and follow t
 
 Once this is set up, uncomment the code in index.html that imports Plausible. Make sure to update the link to your domain.
 
-## Accessing your website across to the public internet
+## 🔗 Accessing your website across to the public internet
 
 First, purchase a domain name and point it at your server's IP address.
 
