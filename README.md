@@ -61,7 +61,7 @@ Frontend
 
 1. First, you need three things, all of which can be downloaded here:
 
-* <a href="https://drive.google.com/file/d/1fTVYHmjjnyCC-GnGdKKGTCxSsXZJgsuI/view?usp=drive_link">The Model<a>
+* <a href="https://drive.google.com/file/d/1eg7-MFAc94ubBJn0HoK23hCwguaRe9Um/view?usp=sharing">The Model<a>
 * <a href="https://docs.google.com/spreadsheets/d/17hqBX-6XEA4nGCOcQizNGTZt8ZNelkg0OEtDC4DR1hE/edit?gid=0#gid=0">The Brawler Embeddings</a> (download these as CSV)
 * <a href="https://docs.google.com/spreadsheets/d/17hqBX-6XEA4nGCOcQizNGTZt8ZNelkg0OEtDC4DR1hE/edit?gid=0#gid=0">The Map Embeddings</a> (download these as CSV)
 
