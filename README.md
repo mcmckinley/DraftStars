@@ -55,9 +55,9 @@ Frontend
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+### Getting Started
 
-# Setting up the backend:
+## Setting up the backend:
 
 1. First, you need three things, all of which can be downloaded here:
 
@@ -68,14 +68,54 @@ Frontend
 2. Create a folder in `backend/app` called `pytorch`. 
 3. Add the three files you downloaded into `pytorch`.
 
-The backend is now ready to run the model.
+The backend is now ready to run the model!
+
+4. Create the container 
+```
+docker compose build backend
+```
+5. Run the container
+```
+docker compose up backend
+```
 
 4. (optional) If you want to set up SMTP email feedback, rename `backend/.env.example` to `.env`, and configure the environmental variables in there.
 
-## Manually modifying the embeddings
+## Setting up the frontend:
 
-You can adjust the embeddings as you see fit.
+1. Enter the frontend directory
+```
+$ cd frontend
+```
 
+2. Install dependencies
+```
+$ npm install
+```
+3. Create the container 
+```
+docker compose build frontend
+```
+4. Run the container
+```
+docker compose up frontend
+```
 
+# Downloading the assets
 
-## File descriptions
+Unfortunately there isn't an easy way to download the brawler/map icon assets. The frontend is usable (but ugly) without them. If you want to download the assets, follow these steps.
+
+<h2>Brawler Icons</h2>
+
+1. Create a folder under `frontend/src/` named `brawlerIcons`
+2. Go to https://fankit.supercell.com/d/YvtsWV4pUQVm/game-assets
+3. Under 'Asset type' select 'Brawler Portraits'
+4. Go to each brawler and download the image to `brawlerIcons`
+* These should all be in png format. If not, go to `frontend/src/data/brawlers.js` and modify the imgUrl value of each brawler so the frontend knows what image to look for.
+
+<h2>Map Icons</h2>
+
+1. Create a folder under `frontend/src/` named `mapIcons`
+2. Go to https://brawlify.com/maps/
+3. On each map, right click and download the image to `brawlerIcons`
+* These should all be in png/webp format. If not, go to `frontend/src/data/maps.js` and modify the imgUrl value of each brawler so the frontend knows what image to look for.
