@@ -39,7 +39,7 @@ class Model(nn.Module):
         return self.sigmoid(output)
     
 
-traits_per_brawler = 40
+traits_per_brawler = 44
 traits_per_map = 10
 num_heads = 2
 num_layers = 4
