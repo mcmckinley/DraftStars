@@ -1,13 +1,13 @@
 // frontend/src/PredictOutcomePage.jsx
 // This is currently unused, and most likely outdated.
-// Attempts to recreate this should instead build off the RankedPredictionPage.
+// Attempts to recreate this should instead build off the EnginePage.
 
 import React, { useState, useEffect } from 'react';
-import { maps } from './data/maps'
-import BrawlerEntryBox from './BrawlerEntryBox';
-import BrawlerSelector from './BrawlerSelector';
-import MapSelector from './MapSelector'
-import PredictionDescription from './PredictionDescription';
+import { maps } from '../data/maps'
+import BrawlerEntryBox from '../BrawlerEntryBox';
+import BrawlerSelector from '../BrawlerSelector';
+import MapSelector from '../MapSelector'
+import PredictionDescription from '../PredictionDescription';
 
 // chevrons
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';

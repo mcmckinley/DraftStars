@@ -1,10 +1,10 @@
 // src/RankedRecommendationDisplay.jsx
 
 import React, { useState, useEffect, useRef  } from 'react';
-import { brawlers } from './data/brawlers';  // Import the variable
-import brawlerIcons from './utils/iconLoader';
+import { brawlers } from '../data/brawlers';  // Import the variable
+import brawlerIcons from '../utils/iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
-import getRankedRecommendations from './utils/getRankedRecommendations';
+import getRankedRecommendations from '../utils/getRankedRecommendations';
 
 const RankedRecommendationDisplay = ({
     setSelectedBoxID, selectedBoxID, 

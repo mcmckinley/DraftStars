@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import brawlerIcons from './utils/iconLoader'
+import brawlerIcons from '../utils/iconLoader'
 
 // The thumbs up buttons to select which team has first pick
 const SelectTeamWithFirstPick = ({ teamWithFirstPick, setTeamWithFirstPick, moveToNextSection }) => {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import symbols from './utils/symbolLoader';
-import Footer from './Footer';
-import Header from './Header';
-import FeedbackForm from './FeedbackForm';
+import symbols from '../utils/symbolLoader';
+import Footer from '../Footer';
+import Header from '../Header';
+import FeedbackForm from '../feedbackPage/FeedbackForm';
 
 const FeedbackPage = ({ pageIndex, setPageIndex }) => {
 

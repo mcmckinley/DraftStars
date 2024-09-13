@@ -1,10 +1,9 @@
 // frontend/src/App.jsx
 import React, { useState, useEffect } from 'react';
-import HomePage from './HomePage';
-import PredictOutcomePage from './PredictOutcomePage';
-import RankedPredictionPage from './RankedPredictionPage';
-import AboutPage from './AboutPage'
-import FeedbackPage from './FeedbackPage';
+import HomePage from './homePage/HomePage';
+import EnginePage from './enginePage/EnginePage.jsx';
+import AboutPage from './aboutPage/AboutPage'
+import FeedbackPage from './feedbackPage/FeedbackPage';
 import updateFavicon from './utils/favicon.js';
 
 import brawlerIcons from './utils/iconLoader.js'
@@ -41,7 +40,7 @@ const App = () => {
 
   var pages = [
     <HomePage brawlerIcons={brawlerIcons} pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
-    <RankedPredictionPage pageIndex={pageIndex} setPageIndex={setPageIndex} />, 
+    <EnginePage pageIndex={pageIndex} setPageIndex={setPageIndex} />, 
     <AboutPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
     <FeedbackPage pageIndex={pageIndex} setPageIndex={setPageIndex}/>
   ]

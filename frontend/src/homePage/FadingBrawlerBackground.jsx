@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { brawlers } from './data/brawlers.js'
-import brawlerIcons from './utils/iconLoader.js'
+import { brawlers } from '../data/brawlers.js'
+import brawlerIcons from '../utils/iconLoader.js'
 
 const FadingBrawlerBackground = ({ isVisible }) => {
 

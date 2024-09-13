@@ -1,23 +1,24 @@
-// frontend/src/RankedPredictionPage.jsx
+// frontend/src/EnginePage.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import { brawlers } from './data/brawlers';
-import { maps } from './data/maps'
+import { brawlers } from '../data/brawlers';
+import { maps } from '../data/maps'
+import brawlerIcons from '../utils/iconLoader';
+import symbols from '../utils/symbolLoader';
+
 import BrawlerSelector from './BrawlerSelector';
-import brawlerIcons from './utils/iconLoader';
-import symbols from './utils/symbolLoader';
 import MapSelector from './MapSelector'
 import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
-import Footer from './Footer';
-import Header from './Header';
+import Footer from '../Footer';
+import Header from '../Header';
 
-import getRankedRecommendations from './utils/getRankedRecommendations';
+import getRankedRecommendations from '../utils/getRankedRecommendations';
 
 // chevrons
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
-import RankedRecommendationDisplay from './RankedRecommendationDisplay';
+import RecommendAndSelect from './RecommendAndSelect';
 
-const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
+const EnginePage = ({ pageIndex, setPageIndex }) => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])
   const [entries, setEntries] = useState(['', '', '', '', '', ''])
@@ -42,7 +43,7 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
 
   const [IDofActiveSection, setIDofActiveSection] = useState(0)
 
-  // passed down to RankedRecommendationDisplay; lets it know if it should request recommendations right away.
+  // passed down to RecommendAndSelect; lets it know if it should request recommendations right away.
   const isFirstTimeLoadingSection3 = useRef(true)
 
   const previousEntries = useRef(entries)
@@ -264,7 +265,7 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
 
       <Section id='3' title='Select Brawlers' description={entryGuides[rankedModeSelectionIndex]}>
         <div className="section-lower-part">  
-          <RankedRecommendationDisplay 
+          <RecommendAndSelect 
             teamWithFirstPick={teamWithFirstPick}
             rankedModeSelectionIndex={rankedModeSelectionIndex} 
             setRankedModeSelectionIndex={setRankedModeSelectionIndex}
@@ -293,4 +294,4 @@ const RankedPredictionPage = ({ pageIndex, setPageIndex }) => {
   );
 };
 
-export default RankedPredictionPage;
+export default EnginePage;
