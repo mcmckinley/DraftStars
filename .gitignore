@@ -10,11 +10,5 @@ frontend/src/brawlerIcons/*
 frontend/src/mapIcons/*
 #frontend/src/symbols # these are small so they can be allowed
 
-
-# Automation scripts (for now)
-
-scripts
-
 .DS_Store
 .env
-plausible-conf.env

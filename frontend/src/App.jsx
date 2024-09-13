@@ -37,7 +37,7 @@ const App = () => {
   }, []);
   
 
-  const [pageIndex, setPageIndex] = useState(3)
+  const [pageIndex, setPageIndex] = useState(0)
 
   var pages = [
     <HomePage brawlerIcons={brawlerIcons} pageIndex={pageIndex} setPageIndex={setPageIndex}/>,
