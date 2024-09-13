@@ -46,7 +46,7 @@ const PredictOutcomePage = () => {
       const red2 = parseInt(entries[4], 10);
       const red3 = parseInt(entries[5], 10);
 
-      const response = await fetch('http://localhost:8000/predict_normal', {
+      const response = await fetch('http://localhost:8889/predict_normal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

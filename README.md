@@ -8,6 +8,7 @@
   <p align="center">
     AI Draft Engine for Brawl Stars
     <br />
+    This branch is intended for self-hosting over the web. If you want to run the project locally, use the main branch at https://github.com/mcmckinley/DraftStars
   </p>
 
   <a href="https://www.youtube.com/watch?v=gwCoYQUve7U&list=PL9lgGfhvEDZ16vKBjf5qXfNqH1yy9DhoH&index=1" target="_blank" rel="noopener noreferrer" >
@@ -55,67 +56,44 @@ Frontend
 
 
 <!-- GETTING STARTED -->
-### Getting Started
+### Preparation
 
-## Setting up the backend:
+Before setting up the project to be accessible over the web, some preparation is necessary first. Follow the directions outlined in https://github.com/mcmckinley/DraftStars/blob/main/README.md before continuing. 
 
-1. First, you need three things, all of which can be downloaded here:
+## reCAPTCHA
 
-* <a href="https://drive.google.com/file/d/1eg7-MFAc94ubBJn0HoK23hCwguaRe9Um/view?usp=sharing">The Model<a>
-* <a href="https://drive.google.com/file/d/1MYFUllcSzldQfGiil3yZkBzo4ppHMZt5/view?usp=sharing">The Brawler Embeddings</a> (download these as CSV)
-* <a href="https://drive.google.com/file/d/182Fkae_QScmyzRhevi3L338Pmh1czOIt/view?usp=sharing">The Map Embeddings</a> (download these as CSV)
+I would strongly suggest using a captcha on any email feedback form (optimally on all POST requests in the repo). Without some form of validation, the website would be prone to malicious misuse. 
 
-2. Create a folder in `backend/app` called `pytorch`. 
-3. Add the three files you downloaded into `pytorch`.
+The feedback form and backend API are configured to use reCAPTCHA v3, which does not interrupt the user.
 
-The backend is now ready to run the model!
+To set up reCAPTCHA v3, you need a site key and a secret key. These can be obtained at https://www.google.com/recaptcha/about/.
 
-4. Create the container 
-```
-docker compose build backend
-```
-5. Run the container
-```
-docker compose up backend
-```
+Add the site key into the frontend wherever YOUR_SITE_KEY occurs: `frontend/public/index.js` and `frontend/src/utils/recaptcha.js`
 
-4. (optional) If you want to set up SMTP email feedback, rename `backend/.env.example` to `.env`, and configure the environmental variables in there.
+Add the secret key into your backend's `.env` file under RECAPTCHA_SECRET_KEY.
 
-## Setting up the frontend:
+## Plausible Analytics
 
-1. Enter the frontend directory
-```
-$ cd frontend
-```
+If you would like to use an analytical tool to track usage of your website, Plausible is a great option, especially for self-hosting.
 
-2. Install dependencies
-```
-$ npm install
-```
-3. Create the container 
-```
-docker compose build frontend
-```
-4. Run the container
-```
-docker compose up frontend
-```
+Download the repo at https://github.com/plausible/community-edition and follow the instructions for setup.
 
-# Downloading the assets
+Once this is set up, uncomment the code in index.html that imports Plausible. Make sure to update the link to your domain.
 
-Unfortunately there isn't an easy way to download the brawler/map icon assets. The frontend is usable (but ugly) without them. If you want to download the assets, follow these steps.
+## Accessing your website across to the public internet
 
-<h2>Brawler Icons</h2>
+First, purchase a domain name and point it at your server's IP address.
 
-1. Create a folder under `frontend/src/` named `brawlerIcons`
-2. Go to https://fankit.supercell.com/d/YvtsWV4pUQVm/game-assets
-3. Under 'Asset type' select 'Brawler Portraits'
-4. Go to each brawler and download the image to `brawlerIcons`
-* These should all be in png format. If not, go to `frontend/src/data/brawlers.js` and modify the imgUrl value of each brawler so the frontend knows what image to look for.
+Then you need to set up port forwarding with your internet service provider.
 
-<h2>Map Icons</h2>
+For this repo, the following ports must be open:
 
-1. Create a folder under `frontend/src/` named `mapIcons`
-2. Go to https://brawlify.com/maps/
-3. On each map, right click and download the image to `brawlerIcons`
-* These should all be in png/webp format. If not, go to `frontend/src/data/maps.js` and modify the imgUrl value of each brawler so the frontend knows what image to look for.
+* 80 - HTTP
+* 443 - HTTPS 
+
+And these ones optionally: 
+
+* 587 - SMTP (Email feedback)
+* 8000 (or another port of your choosing - 8000 is what I used) - Plausible Analytics
+
+Then you should be good to go!

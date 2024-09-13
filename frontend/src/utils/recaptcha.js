@@ -5,7 +5,7 @@ export const executeRecaptcha = (action) => {
     }
     window.grecaptcha.ready(() => {
       window.grecaptcha
-        .execute("6LcjTTUqAAAAAFL_KYNHxhh1Jc2NFThVQsY_yZ3y", { action })
+        .execute("YOUR_SITE_KEY", { action })
         .then(resolve)
         .catch(reject);
     });

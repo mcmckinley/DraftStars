@@ -1,18 +1,18 @@
-# Staging environment for testing
+# Staging environment for testing - this avoids requesting too many TLS certificates
 # {
 #     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 # }
 
 # Route traffic to the frontend service
-brawlmind.com {	
+YOUR_DOMAIN_HERE {	
 	reverse_proxy frontend:3000
 }
 
-# This always produces an error message. Ignore it. It works.
-brawlmind.com/api/* {
+# This always produces a warning message. Ignore it. This works.
+YOUR_DOMAIN_HERE/api/* {
 	reverse_proxy backend:8889
 }
 
-plausible.brawlmind.com {
+plausible.YOUR_DOMAIN_HERE {
 	reverse_proxy plausible:8000
 }
