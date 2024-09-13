@@ -62,8 +62,8 @@ Frontend
 1. First, you need three things, all of which can be downloaded here:
 
 * <a href="https://drive.google.com/file/d/1eg7-MFAc94ubBJn0HoK23hCwguaRe9Um/view?usp=sharing">The Model<a>
-* <a href="https://docs.google.com/spreadsheets/d/17hqBX-6XEA4nGCOcQizNGTZt8ZNelkg0OEtDC4DR1hE/edit?gid=0#gid=0">The Brawler Embeddings</a> (download these as CSV)
-* <a href="https://docs.google.com/spreadsheets/d/17hqBX-6XEA4nGCOcQizNGTZt8ZNelkg0OEtDC4DR1hE/edit?gid=0#gid=0">The Map Embeddings</a> (download these as CSV)
+* <a href="https://drive.google.com/file/d/1MYFUllcSzldQfGiil3yZkBzo4ppHMZt5/view?usp=sharing">The Brawler Embeddings</a> (download these as CSV)
+* <a href="https://drive.google.com/file/d/182Fkae_QScmyzRhevi3L338Pmh1czOIt/view?usp=sharing">The Map Embeddings</a> (download these as CSV)
 
 2. Create a folder in `backend/app` called `pytorch`. 
 3. Add the three files you downloaded into `pytorch`.
