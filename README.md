@@ -13,6 +13,10 @@
   <a href="https://www.youtube.com/watch?v=gwCoYQUve7U&list=PL9lgGfhvEDZ16vKBjf5qXfNqH1yy9DhoH&index=1" target="_blank" rel="noopener noreferrer" >
     <img src="misc/youtube_preview.png" alt="YouTube Demonstration" width="500" height="300" />
   </a>
+
+  <br />
+  <br />
+    This version is meant for running the project locally. If you would like to self-host it over the internet, <a href="https://github.com/mcmckinley/DraftStars/tree/web">check out the web branch.</a>
 </div>
 
 <h2>
