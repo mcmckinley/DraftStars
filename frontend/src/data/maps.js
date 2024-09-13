@@ -1,3 +1,13 @@
+// src/data/maps.js
+
+// Defines a list of maps.
+// Each index contains:
+//  - Name
+//  - Game mode which happens on the map
+//  - Path to its image
+//  - ID
+//  - Whether the map occurs in Ranked 
+
 export const maps = [{
   "name": "Undermine",
   "game_mode": "0",

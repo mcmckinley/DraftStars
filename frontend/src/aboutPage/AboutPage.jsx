@@ -1,8 +1,11 @@
+// src/aboutPage/AboutPage.jsx
+
 import React, { useState, useEffect } from 'react'
 import symbols from '../utils/symbolLoader';
 import Footer from '../Footer';
 import Header from '../Header';
 
+// [pageIndex, setPageIndex] - allows the user to navigate between pages. Defined in App.jsx
 const AboutPage = ({ pageIndex, setPageIndex }) => {
 
     // When the window size is changed, update the left padding size

@@ -1,7 +1,12 @@
+// src/homePage/HomePage.jsx
+
 import React, { useState, useEffect } from 'react'
 import FadingBrawlerBackground from './FadingBrawlerBackground.jsx'
 
-const HomePage = ({ brawlerIcons, setPageIndex }) => {
+// See a demonstration here: https://youtu.be/1idY0gQLaIk?si=AbviS1V6sU80ytcZ
+
+// setPageIndex - allows the user to navigate between pages. Defined in App.jsx
+const HomePage = ({ setPageIndex }) => {
 
     const NavigationButton = ({ text, destinationIndex }) => {
         return <div className='navigation-button homepage' 

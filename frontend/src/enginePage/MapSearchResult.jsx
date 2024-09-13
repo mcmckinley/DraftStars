@@ -3,6 +3,7 @@ import mapIcons from '../utils/mapLoader';
 
 const gameModeColors = ['#9430C1', '#95B0E4', '#FFBD33', '#33B8DF', '#BF86C6', '#E22525', '#2be6ff']
 
+// An individual search result in MapSelector.jsx
 
 const MapSearchResult = ({ index, map, setMap, isSelected, moveToNextSection}) => {
     return (

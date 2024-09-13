@@ -6,18 +6,18 @@ import { maps } from '../data/maps'
 import brawlerIcons from '../utils/iconLoader';
 import symbols from '../utils/symbolLoader';
 
-import BrawlerSelector from './BrawlerSelector';
-import MapSelector from './MapSelector'
-import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
+import { FaTimes } from 'react-icons/fa';
 import Footer from '../Footer';
 import Header from '../Header';
 
-import getRankedRecommendations from '../utils/getRankedRecommendations';
-
-// chevrons
-import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
+import BrawlerSelector from './BrawlerSelector';
+import MapSelector from './MapSelector'
+import SelectTeamWithFirstPick from './SelectTeamWithFirstPick';
 import RecommendAndSelect from './RecommendAndSelect';
 
+// Where the user enters their match data and receives brawler recommendations.
+
+// [pageIndex, setPageIndex] - allows the user to navigate between pages. Defined in App.jsx
 const EnginePage = ({ pageIndex, setPageIndex }) => {
   // The values for each entry box
   // const [entries, setEntries] = useState(['1', '11', '35', '77', '75', '73'])

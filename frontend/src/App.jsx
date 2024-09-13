@@ -1,9 +1,11 @@
-// frontend/src/App.jsx
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
+
 import HomePage from './homePage/HomePage';
 import EnginePage from './enginePage/EnginePage.jsx';
 import AboutPage from './aboutPage/AboutPage'
 import FeedbackPage from './feedbackPage/FeedbackPage';
+
 import updateFavicon from './utils/favicon.js';
 
 import brawlerIcons from './utils/iconLoader.js'

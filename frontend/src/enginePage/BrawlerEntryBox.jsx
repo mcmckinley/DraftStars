@@ -1,8 +1,10 @@
-// src/EntryBox.jsx
+// src/enginePage/EntryBox.jsx
 
 import React, { useState } from 'react';
 import { brawlers } from '../data/brawlers';  // Import the variable
 import brawlerIcons from '../utils/iconLoader';
+
+// The individual boxes in which the selected brawlers are shown.
 
 // index: a unique number assigned to the box. this lets the box know whether it is currently selected.
 // (set)selectedBoxId: the index of the box currently selected

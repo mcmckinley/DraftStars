@@ -1,9 +1,13 @@
-// src/BrawlerSelector.jsx
+// src/enginePage/BrawlerSelector.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
 import { brawlers } from '../data/brawlers';  // Import the variable
 import brawlerIcons from '../utils/iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
+
+// Shows a gallery of brawler icons from which the user selects bans / picks.
+// Currently, this is only used for selecting bans, but it is meant to be
+// repurposed for more uses.
 
 const BrawlerSelector = ({
     setSelectedBoxID, selectedBoxID, 

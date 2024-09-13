@@ -1,9 +1,14 @@
+// src/feedbackPage/FeedbackPage.jsx
+
 import React, { useState, useEffect } from 'react'
 import symbols from '../utils/symbolLoader';
 import Footer from '../Footer';
 import Header from '../Header';
 import FeedbackForm from '../feedbackPage/FeedbackForm';
 
+// The page containing the feedback form.
+
+// [pageIndex, setPageIndex] - allows the user to navigate between pages. Defined in App.jsx
 const FeedbackPage = ({ pageIndex, setPageIndex }) => {
 
     // When the window size is changed, update the left padding size

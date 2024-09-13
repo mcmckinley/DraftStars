@@ -1,11 +1,12 @@
 // MapSelector.js
-// Credit: https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
+// Credit (search bar): https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 
 import React, { useState, useEffect, useRef } from 'react'
 import { maps } from '../data/maps'
 import MapSearchResult from './MapSearchResult';
 
-
+// Shows at the top of the engine page. 
+// This is where the user selects the current map.
 const MapSelector = ({ selectedMap, setMap, moveToNextSection=()=>{} }) => {
   var rankedMaps = maps.filter(map => map.isInRanked == 'true');
 

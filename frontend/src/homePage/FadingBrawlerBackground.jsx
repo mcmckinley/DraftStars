@@ -1,7 +1,14 @@
+// src/homePage/FadingBrawlerBackground.jsx
+
 import React, { useState, useEffect } from 'react'
 import { brawlers } from '../data/brawlers.js'
 import brawlerIcons from '../utils/iconLoader.js'
 
+// Background for the Home Screen.
+// See a demonstration here: https://youtu.be/1idY0gQLaIk?si=AbviS1V6sU80ytcZ
+
+// isVisible (bool) - whether or not the page is visible. This is used 
+// to keep the image switching synced with the animation.
 const FadingBrawlerBackground = ({ isVisible }) => {
 
     function getRandomImage() {

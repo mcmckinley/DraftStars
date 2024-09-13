@@ -6,7 +6,8 @@ import brawlerIcons from '../utils/iconLoader';
 import BrawlerEntryBox from './BrawlerEntryBox';
 import getRankedRecommendations from '../utils/getRankedRecommendations';
 
-const RankedRecommendationDisplay = ({
+
+const RecommendAndSelect = ({
     setSelectedBoxID, selectedBoxID, 
     entries, setEntries, 
     bans,
@@ -428,4 +429,4 @@ const RankedRecommendationDisplay = ({
   );
 };
 
-export default RankedRecommendationDisplay;
+export default RecommendAndSelect;

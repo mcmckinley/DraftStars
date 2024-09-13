@@ -1,3 +1,5 @@
+// src/Footer.jsx
+
 import React from 'react'
 
 const Footer = () => {

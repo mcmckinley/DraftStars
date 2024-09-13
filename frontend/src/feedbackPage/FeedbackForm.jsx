@@ -1,3 +1,5 @@
+// src/feedbackPage/FeedbackForm.jsx
+
 import React, { useState } from 'react'
 
 const initialFormData = {
@@ -6,6 +8,10 @@ const initialFormData = {
     message: "",
 };
 
+/*
+A form to submit feedback. This is processed by the backend and sends an message 
+to the host's personal email.
+*/
 const FeedbackForm = () => {
 
     const [hasSubmitted, setHasSubmitted] = useState(false)
