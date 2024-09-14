@@ -172,7 +172,7 @@ def recommend_brawler(blue1, blue2, blue3, red3, red2, red1, map, blue_picks_fir
     if (counterpick_index == -1 or response_index == -1):
       print('Invalid input: no potential counter / response')
       return {
-          'error': 'An error occured while identifying the pick order. Please report this error.'
+          'error': 'An error occurred while identifying the pick order. Please report this error.'
       }
 
     # 5. Create a list of brawlers that are available for selection.
